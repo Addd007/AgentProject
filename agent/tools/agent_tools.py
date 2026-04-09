@@ -1,5 +1,6 @@
 import os
 from contextvars import ContextVar, Token
+from datetime import datetime
 from typing import Optional
 
 import requests
@@ -115,9 +116,9 @@ def get_user_id() -> str:
     return user_id or _DEFAULT_USER_ID
 
 
-@tool(description="获取当前月份，返回纯字符串")
+@tool(description="获取当前年月份，返回纯字符串")
 def get_current_month() -> str:
-    return "2025-01"
+    return datetime.now().strftime("%Y-%m")
 
 
 def generate_external_data():
