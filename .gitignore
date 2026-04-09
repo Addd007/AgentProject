@@ -1,0 +1,51 @@
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+.cursor/
+
+# Python
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Logs / runtime files
+logs/
+*.log
+*.pid
+
+# Build / packaging
+build/
+dist/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+node_modules/
+
+# Data / local persistence
+backups/
+chroma_db/
+md5.text
+benchmark-results.json
+
+# Docker / local override
+docker-compose.override.yml
