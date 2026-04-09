@@ -491,4 +491,3 @@ bash scripts/backup.sh restore ./backups/your_backup.sql.gz
 - DEPLOY_DOCKER.md
 - PRODUCTION_DEPLOYMENT.md
 
-如果 README 面向团队协作使用，建议后续把部署、运维、开发规范中的重复内容逐步收敛到 README + docs 目录，减少信息分散和版本漂移。
