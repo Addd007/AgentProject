@@ -1,0 +1,4 @@
+2026-04-04 14:41:43,201 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-04 14:41:43,201 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-04 14:41:51,347 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-04 14:41:51,348 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |怎么保养

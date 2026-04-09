@@ -1,0 +1,114 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: agent_postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-agent_db}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agent_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: agent_redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - agent_network
+
+  fastapi:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent_fastapi
+    environment:
+      DB_TYPE: postgresql
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-agent_db}
+      AUTH_SECRET: ${AUTH_SECRET:-change-this-auth-secret}
+      AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-true}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER: redis://redis:6379/0
+      CELERY_BACKEND: redis://redis:6379/0
+    ports:
+      - "8000:8000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - agent_network
+
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent_celery
+    environment:
+      DB_TYPE: postgresql
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-agent_db}
+      AUTH_SECRET: ${AUTH_SECRET:-change-this-auth-secret}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER: redis://redis:6379/0
+      CELERY_BACKEND: redis://redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./:/app
+    command: celery -A tasks.celery_tasks worker -l info
+    networks:
+      - agent_network
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent_celery_beat
+    environment:
+      DB_TYPE: postgresql
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-agent_db}
+      AUTH_SECRET: ${AUTH_SECRET:-change-this-auth-secret}
+      REDIS_URL: redis://redis:6379/0
+      CELERY_BROKER: redis://redis:6379/0
+      CELERY_BACKEND: redis://redis:6379/0
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./:/app
+    command: celery -A tasks.celery_tasks beat -l info
+    networks:
+      - agent_network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+
+networks:
+  agent_network:
+    driver: bridge

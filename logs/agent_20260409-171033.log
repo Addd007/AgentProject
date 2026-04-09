@@ -1,0 +1,133 @@
+2026-04-09 17:10:34,218 - agent.utils.session_storage - INFO - session_storage.py:90 - Initialized session storage with postgresql://postgres:password@localhost:5432/agent_db
+2026-04-09 17:10:34,223 - agent.main - INFO - main.py:142 - Loaded 7 sessions from database
+2026-04-09 17:10:34,223 - agent.main - INFO - main.py:152 - Celery app not attached; skipping beat schedule registration
+2026-04-09 17:11:55,291 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:12:29,707 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:12:34,492 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:12:41,747 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 17:12:41,747 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 17:12:45,568 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 17:12:45,568 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '宠物家庭选购扫地机器人关键参数'}
+2026-04-09 17:12:47,584 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 宠物家庭选购扫地机器人关键参数
+2026-04-09 17:12:47,584 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：宠物家庭选购扫地机器人关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'subject': '', 'author': '喵喵', 'page_label': '4', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'keywords': '', 'total_pages': 8, 'moddate': '2025-08-06T15:41:17+08:00', 'comments': '', 'title': '', 'trapped': '/False', 'company': '', 'producer': '', 'page': 3, 'creator': 'WPS 文字', 'creationdate': '2025-08-06T15:41:17+08:00', 'sourcemodified': "D:20250806154117+08'00'"}
+参考资料3:参考资料：11. 机身高度：床底/沙发底高度≤8cm，需选机身高度≤7.5cm机型，避免无法进入清扫死角。
+
+12. 越障能力：门槛高度≤2cm选越障≥2cm机型，地毯场景需强化驱动轮动力，避免卡困。
+
+13. 过滤系统：HEPA滤网等级≥H13可过滤细小灰尘和过敏原，过敏体质家庭必备，注意滤网是否可水洗。
+
+14. 主刷设计：防缠绕主刷（带硅胶条）适合长发/宠物家庭，无主刷款适合短毛地毯和硬质地面。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 17:12:54,110 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 17:12:54,114 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 17:12:54,114 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |宠物家庭选购扫地机器人应重点关注以下参数：吸力≥3000Pa，地毯环境建议≥4000Pa；优先选择带防缠绕主刷（如硅胶条设计）的机型；导航推荐激光导航，定位精准且抗干扰强；过滤系统需配备HEPA滤网（等级≥H13）以过滤宠物毛发和过敏原；同时注意机身高度≤7.5cm以便进入低矮区域，越障能力≥2cm以应对门槛和地毯。
+2026-04-09 17:13:03,519 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:13:26,632 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:13:28,589 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 17:13:28,589 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 17:14:01,486 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:14:04,503 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:14:33,248 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:14:41,467 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:15:11,818 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:15:21,944 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:15:58,668 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:16:00,747 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:16:07,599 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 17:16:07,599 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 17:16:29,040 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:16:40,755 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:16:42,825 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 17:16:42,825 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 17:17:16,277 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:17:20,844 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:17:50,771 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:17:59,830 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 17:18:31,623 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+

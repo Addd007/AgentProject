@@ -1,0 +1,18 @@
+2026-04-03 18:12:30,135 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-03 18:12:30,136 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-03 18:12:48,345 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-03 18:12:48,345 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的
+2026-04-03 18:12:53,351 - agent - INFO - middlewares.py:41 - [Before model]:带有5条消息
+2026-04-03 18:12:53,352 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的id
+2026-04-03 18:12:56,807 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_user_id
+2026-04-03 18:12:56,807 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-03 18:12:56,808 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_user_id 工具调用成功
+2026-04-03 18:12:56,809 - agent - INFO - middlewares.py:41 - [Before model]:带有7条消息
+2026-04-03 18:12:56,809 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |1004
+2026-04-03 18:13:46,521 - agent - INFO - middlewares.py:41 - [Before model]:带有7条消息
+2026-04-03 18:13:46,522 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |重新调用工具
+2026-04-03 18:13:48,272 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_user_id
+2026-04-03 18:13:48,272 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-03 18:13:48,273 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_user_id 工具调用成功
+2026-04-03 18:13:48,274 - agent - INFO - middlewares.py:41 - [Before model]:带有9条消息
+2026-04-03 18:13:48,274 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |1004

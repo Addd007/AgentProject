@@ -1,0 +1,2507 @@
+2026-04-09 18:00:33,232 - agent.utils.session_storage - INFO - session_storage.py:90 - Initialized session storage with postgresql://postgres:password@localhost:5432/agent_db
+2026-04-09 18:00:33,238 - agent.main - INFO - main.py:142 - Loaded 186 sessions from database
+2026-04-09 18:00:33,238 - agent.main - INFO - main.py:152 - Celery app not attached; skipping beat schedule registration
+2026-04-09 18:01:18,881 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:01:53,059 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:01:55,878 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:02:03,799 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:02:03,799 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:02:08,021 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:02:08,021 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:02:10,136 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:02:10,137 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'keywords': '', 'comments': '', 'trapped': '/False', 'creationdate': '2025-08-06T15:41:17+08:00', 'company': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'moddate': '2025-08-06T15:41:17+08:00', 'title': '', 'page_label': '4', 'subject': '', 'page': 3, 'creator': 'WPS 文字', 'author': '喵喵', 'producer': '', 'total_pages': 8, 'sourcemodified': "D:20250806154117+08'00'"}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:02:14,323 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:02:14,324 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:02:14,324 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以提升复杂环境适应性；同时考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:02:25,079 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:02:49,583 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:02:51,339 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:02:51,339 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:02:55,101 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:02:55,101 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:02:57,613 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:02:57,613 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'total_pages': 8, 'subject': '', 'producer': '', 'trapped': '/False', 'author': '喵喵', 'page_label': '4', 'title': '', 'keywords': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'company': '', 'creator': 'WPS 文字', 'page': 3, 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'moddate': '2025-08-06T15:41:17+08:00', 'sourcemodified': "D:20250806154117+08'00'", 'comments': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:03:01,755 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:03:01,756 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:03:01,757 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:03:31,537 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:03:35,140 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:04:04,837 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:04:11,957 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:04:44,051 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:04:51,938 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:05:28,832 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:05:30,773 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:05:37,600 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:05:37,600 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:05:41,706 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:05:41,706 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:05:45,220 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:05:45,221 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'title': '', 'producer': '', 'page_label': '4', 'company': '', 'creator': 'WPS 文字', 'sourcemodified': "D:20250806154117+08'00'", 'trapped': '/False', 'page': 3, 'comments': '', 'moddate': '2025-08-06T15:41:17+08:00', 'author': '喵喵', 'total_pages': 8, 'creationdate': '2025-08-06T15:41:17+08:00', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'keywords': '', 'subject': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:05:49,986 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:05:49,987 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:05:49,987 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持宠物模式以强化毛发清扫，同时建议选择激光导航（定位精准、抗干扰强）、大尘盒及高效过滤系统以减少二次扬尘。
+2026-04-09 18:06:00,451 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:06:26,899 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:06:28,925 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:06:28,926 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:06:33,654 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:06:33,655 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:06:35,601 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:06:35,602 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'keywords': '', 'producer': '', 'subject': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'sourcemodified': "D:20250806154117+08'00'", 'company': '', 'title': '', 'moddate': '2025-08-06T15:41:17+08:00', 'trapped': '/False', 'creator': 'WPS 文字', 'total_pages': 8, 'page_label': '4', 'comments': '', 'author': '喵喵', 'page': 3, 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:06:40,727 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:06:40,729 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:06:40,729 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕、除味功能及宠物模式的机型；导航建议采用激光导航以提升复杂环境下的定位精度；同时需考虑尘盒密封性与高效过滤，避免毛发和粉尘二次扬尘。
+2026-04-09 18:07:11,061 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:07:15,074 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:07:43,998 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:07:51,438 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:08:21,328 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:08:31,397 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:09:05,174 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:09:08,321 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:09:15,582 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:09:15,582 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:09:19,682 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:09:19,682 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:09:22,659 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:09:22,659 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'page': 3, 'trapped': '/False', 'subject': '', 'keywords': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'total_pages': 8, 'comments': '', 'moddate': '2025-08-06T15:41:17+08:00', 'producer': '', 'page_label': '4', 'title': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'creator': 'WPS 文字', 'company': '', 'author': '喵喵', 'sourcemodified': "D:20250806154117+08'00'"}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:09:27,444 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:09:27,445 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:09:27,445 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕、除味功能及宠物模式的机型；导航建议采用激光导航以提升复杂环境下的精准性；同时需关注尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:09:36,739 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:09:57,758 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:09:59,705 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:09:59,705 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:10:03,900 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:10:03,900 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:10:06,038 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:10:06,039 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'author': '喵喵', 'creationdate': '2025-08-06T15:41:17+08:00', 'comments': '', 'subject': '', 'page_label': '4', 'total_pages': 8, 'page': 3, 'title': '', 'moddate': '2025-08-06T15:41:17+08:00', 'sourcemodified': "D:20250806154117+08'00'", 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'company': '', 'producer': '', 'keywords': '', 'creator': 'WPS 文字', 'trapped': '/False'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:10:10,451 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:10:10,452 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:10:10,452 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕功能和宠物模式的机型；导航建议采用激光导航以提升复杂环境下的定位精准度；同时可考虑带除味功能、密封尘盒及高效过滤系统，避免毛发和粉尘二次扬尘。
+2026-04-09 18:10:40,687 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:10:44,241 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:11:13,055 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:11:22,385 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:11:52,869 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:12:02,121 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:12:32,990 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:12:36,619 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:12:42,520 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:12:42,520 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:12:45,382 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:12:45,382 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:12:46,705 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:12:46,706 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'keywords': '', 'moddate': '2025-08-06T15:41:17+08:00', 'creator': 'WPS 文字', 'creationdate': '2025-08-06T15:41:17+08:00', 'author': '喵喵', 'subject': '', 'page_label': '4', 'trapped': '/False', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'company': '', 'total_pages': 8, 'title': '', 'producer': '', 'sourcemodified': "D:20250806154117+08'00'", 'comments': '', 'page': 3}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:12:50,089 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:12:50,090 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:12:50,091 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航优先选激光导航以适应复杂环境；同时考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:13:03,184 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:13:18,931 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:13:20,759 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:13:20,760 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:13:23,897 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:13:23,897 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:13:25,143 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:13:25,144 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'producer': '', 'sourcemodified': "D:20250806154117+08'00'", 'page': 3, 'author': '喵喵', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'title': '', 'comments': '', 'keywords': '', 'total_pages': 8, 'subject': '', 'trapped': '/False', 'moddate': '2025-08-06T15:41:17+08:00', 'page_label': '4', 'company': '', 'creator': 'WPS 文字', 'creationdate': '2025-08-06T15:41:17+08:00'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:13:28,607 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:13:28,609 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:13:28,609 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以提升复杂环境适应性；同时关注尘盒密封性与过滤效果，避免二次扬尘。
+2026-04-09 18:13:57,204 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:14:00,609 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:14:27,565 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:14:34,490 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:15:04,373 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:15:12,218 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:15:43,073 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:15:46,492 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:15:52,799 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:15:52,799 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:15:56,424 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:15:56,425 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:15:57,790 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:15:57,791 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'page': 3, 'page_label': '4', 'sourcemodified': "D:20250806154117+08'00'", 'trapped': '/False', 'subject': '', 'keywords': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'title': '', 'company': '', 'moddate': '2025-08-06T15:41:17+08:00', 'author': '喵喵', 'total_pages': 8, 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'producer': '', 'creator': 'WPS 文字', 'comments': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:16:01,895 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:16:01,896 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:16:01,896 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕、除味功能及宠物模式的机型；导航建议采用激光导航以提升复杂环境适应性；同时需考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:16:12,798 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:16:31,637 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:16:32,933 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:16:32,933 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:16:35,811 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:16:35,811 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:16:37,095 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:16:37,096 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'page': 3, 'producer': '', 'company': '', 'total_pages': 8, 'moddate': '2025-08-06T15:41:17+08:00', 'author': '喵喵', 'creationdate': '2025-08-06T15:41:17+08:00', 'title': '', 'sourcemodified': "D:20250806154117+08'00'", 'comments': '', 'subject': '', 'creator': 'WPS 文字', 'keywords': '', 'trapped': '/False', 'page_label': '4'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:16:40,513 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:16:40,514 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:16:40,514 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:17:09,327 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:17:13,102 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:17:39,538 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:17:46,214 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:18:17,924 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:18:24,626 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:18:57,878 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:18:57,931 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:19:04,265 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:19:04,266 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:19:07,647 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:19:07,648 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '宠物家庭选购扫地机器人关键参数'}
+2026-04-09 18:19:08,968 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 宠物家庭选购扫地机器人关键参数
+2026-04-09 18:19:08,969 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：宠物家庭选购扫地机器人关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'sourcemodified': "D:20250806154117+08'00'", 'subject': '', 'keywords': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'trapped': '/False', 'moddate': '2025-08-06T15:41:17+08:00', 'creator': 'WPS 文字', 'company': '', 'page': 3, 'comments': '', 'title': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'producer': '', 'author': '喵喵', 'total_pages': 8, 'page_label': '4'}
+参考资料3:参考资料：11. 机身高度：床底/沙发底高度≤8cm，需选机身高度≤7.5cm机型，避免无法进入清扫死角。
+
+12. 越障能力：门槛高度≤2cm选越障≥2cm机型，地毯场景需强化驱动轮动力，避免卡困。
+
+13. 过滤系统：HEPA滤网等级≥H13可过滤细小灰尘和过敏原，过敏体质家庭必备，注意滤网是否可水洗。
+
+14. 主刷设计：防缠绕主刷（带硅胶条）适合长发/宠物家庭，无主刷款适合短毛地毯和硬质地面。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:19:14,041 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:19:14,042 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:19:14,042 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |宠物家庭选购扫地机器人应重点关注以下参数：吸力≥3000Pa，地毯环境建议≥4000Pa；优先选择带防缠绕主刷（如硅胶条设计）或无主刷款式；导航推荐激光导航，定位精准且适应复杂户型；配备HEPA滤网（等级≥H13）以过滤宠物毛发和过敏原；机身高度≤7.5cm便于清洁低矮区域；越障能力≥2cm确保通过门槛和地毯。
+2026-04-09 18:19:28,438 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:19:44,261 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:19:45,863 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:19:45,863 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:19:49,656 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:19:49,656 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:19:55,294 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:19:55,295 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'creationdate': '2025-08-06T15:41:17+08:00', 'title': '', 'page': 3, 'moddate': '2025-08-06T15:41:17+08:00', 'producer': '', 'sourcemodified': "D:20250806154117+08'00'", 'company': '', 'author': '喵喵', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'comments': '', 'creator': 'WPS 文字', 'subject': '', 'keywords': '', 'total_pages': 8, 'trapped': '/False', 'page_label': '4'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:19:58,775 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:19:58,776 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:19:58,776 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时需考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:20:27,007 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:20:29,512 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:20:55,929 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:21:01,862 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:21:31,714 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:21:41,299 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:22:13,734 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:22:17,288 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:22:22,967 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:22:22,967 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:22:26,560 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:22:26,561 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:22:27,815 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:22:27,816 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'page_label': '4', 'moddate': '2025-08-06T15:41:17+08:00', 'keywords': '', 'trapped': '/False', 'company': '', 'author': '喵喵', 'total_pages': 8, 'producer': '', 'subject': '', 'comments': '', 'creator': 'WPS 文字', 'title': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'page': 3, 'sourcemodified': "D:20250806154117+08'00'", 'creationdate': '2025-08-06T15:41:17+08:00'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:22:32,706 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:22:32,707 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:22:32,707 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持宠物模式以强化毛发清扫，同时建议选择带除味功能的机型；导航方面优先激光导航以适应复杂环境，尘盒需密封并配高效过滤以防二次扬尘。
+2026-04-09 18:22:43,662 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:22:47,767 - agent.react_agent - WARNING - react_agent.py:261 - Failed to save qa_summary: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /api/v1/services/embeddings/text-embedding/text-embedding (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-04-09 18:22:52,775 - agent.react_agent - WARNING - react_agent.py:308 - Failed to save preference: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /api/v1/services/embeddings/text-embedding/text-embedding (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-04-09 18:22:57,782 - agent.react_agent - WARNING - react_agent.py:322 - Failed to save fact: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /api/v1/services/embeddings/text-embedding/text-embedding (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-04-09 18:22:57,793 - agent.react_agent - WARNING - react_agent.py:261 - Failed to save qa_summary: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /api/v1/services/embeddings/text-embedding/text-embedding (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-04-09 18:23:02,799 - agent.react_agent - WARNING - react_agent.py:322 - Failed to save fact: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /api/v1/services/embeddings/text-embedding/text-embedding (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-04-09 18:23:07,823 - agent.react_agent - WARNING - react_agent.py:261 - Failed to save qa_summary: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /api/v1/services/embeddings/text-embedding/text-embedding (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-04-09 18:23:12,829 - agent.react_agent - WARNING - react_agent.py:322 - Failed to save fact: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /api/v1/services/embeddings/text-embedding/text-embedding (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-04-09 18:23:16,969 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:23:17,847 - agent.react_agent - WARNING - react_agent.py:261 - Failed to save qa_summary: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /api/v1/services/embeddings/text-embedding/text-embedding (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))
+2026-04-09 18:23:21,952 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:23:26,383 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:23:26,383 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:23:30,227 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:23:30,227 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:23:32,015 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:23:32,243 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:23:32,244 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'author': '喵喵', 'sourcemodified': "D:20250806154117+08'00'", 'creationdate': '2025-08-06T15:41:17+08:00', 'page': 3, 'title': '', 'total_pages': 8, 'creator': 'WPS 文字', 'keywords': '', 'page_label': '4', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'company': '', 'comments': '', 'moddate': '2025-08-06T15:41:17+08:00', 'subject': '', 'producer': '', 'trapped': '/False'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:23:36,978 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:23:36,980 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:23:36,980 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、带宠物模式以强化毛发清扫，同时考虑除味功能；导航建议选激光导航以提升复杂环境适应性；此外还需关注尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:23:42,099 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:23:48,476 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:24:10,298 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:24:12,383 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:24:12,383 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:24:16,268 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:24:16,268 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:24:18,809 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:24:18,809 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'moddate': '2025-08-06T15:41:17+08:00', 'keywords': '', 'page': 3, 'subject': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'company': '', 'title': '', 'trapped': '/False', 'producer': '', 'author': '喵喵', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'total_pages': 8, 'page_label': '4', 'creator': 'WPS 文字', 'sourcemodified': "D:20250806154117+08'00'", 'comments': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:24:23,643 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:24:23,645 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:24:23,645 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、带宠物模式以强化毛发清扫，同时建议选择激光导航（定位精准、抗干扰强）、密封尘盒与高效过滤（避免二次扬尘），并可考虑除味功能。
+2026-04-09 18:24:56,907 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:25:01,682 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:25:30,294 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:25:38,161 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:26:09,765 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:26:21,873 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:26:55,845 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:26:59,718 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:27:06,741 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:27:06,742 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:27:11,873 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:27:11,874 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:27:14,004 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:27:14,005 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'sourcemodified': "D:20250806154117+08'00'", 'moddate': '2025-08-06T15:41:17+08:00', 'keywords': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'comments': '', 'page_label': '4', 'subject': '', 'page': 3, 'company': '', 'trapped': '/False', 'total_pages': 8, 'creationdate': '2025-08-06T15:41:17+08:00', 'title': '', 'producer': '', 'creator': 'WPS 文字', 'author': '喵喵'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:27:18,812 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:27:18,813 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:27:18,813 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:27:28,401 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:27:52,098 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:27:59,199 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:27:59,199 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:28:03,051 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:28:03,051 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:28:05,920 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:28:05,921 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'author': '喵喵', 'moddate': '2025-08-06T15:41:17+08:00', 'title': '', 'page_label': '4', 'company': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'producer': '', 'subject': '', 'comments': '', 'page': 3, 'trapped': '/False', 'sourcemodified': "D:20250806154117+08'00'", 'creationdate': '2025-08-06T15:41:17+08:00', 'total_pages': 8, 'keywords': '', 'creator': 'WPS 文字'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:28:10,563 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:28:10,564 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:28:10,564 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:28:42,476 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:28:45,268 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:29:15,281 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:29:22,988 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:29:53,237 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:30:01,782 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:30:34,949 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:30:38,017 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:30:46,366 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:30:46,366 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:30:51,066 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:30:51,066 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:30:52,940 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:30:52,941 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'producer': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'keywords': '', 'author': '喵喵', 'title': '', 'page_label': '4', 'subject': '', 'comments': '', 'company': '', 'sourcemodified': "D:20250806154117+08'00'", 'trapped': '/False', 'creator': 'WPS 文字', 'total_pages': 8, 'page': 3, 'moddate': '2025-08-06T15:41:17+08:00'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:30:57,541 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:30:57,543 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:30:57,543 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、带宠物模式以强化毛发清扫，同时建议选择激光导航（定位精准、抗干扰强）、密封尘盒及高效过滤以避免二次扬尘。
+2026-04-09 18:31:06,945 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:31:28,050 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:31:29,908 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:31:29,908 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:31:34,509 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:31:34,509 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:31:36,828 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:31:36,829 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'total_pages': 8, 'page_label': '4', 'keywords': '', 'creator': 'WPS 文字', 'moddate': '2025-08-06T15:41:17+08:00', 'subject': '', 'sourcemodified': "D:20250806154117+08'00'", 'trapped': '/False', 'author': '喵喵', 'comments': '', 'page': 3, 'company': '', 'title': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'producer': '', 'creationdate': '2025-08-06T15:41:17+08:00'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:31:41,779 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:31:41,780 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:31:41,780 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕、除味功能及宠物模式的机型；导航建议采用激光导航以提升复杂环境下的定位精度；同时需关注尘盒密封性与高效过滤，避免毛发和粉尘二次扬尘。
+2026-04-09 18:32:12,597 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:32:15,741 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:32:44,630 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:32:53,425 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:33:24,105 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:33:36,756 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:34:09,973 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:34:13,602 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:34:21,112 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:34:21,112 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:34:24,770 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:34:24,771 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:34:27,907 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:34:27,908 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'company': '', 'keywords': '', 'trapped': '/False', 'moddate': '2025-08-06T15:41:17+08:00', 'page': 3, 'creator': 'WPS 文字', 'creationdate': '2025-08-06T15:41:17+08:00', 'page_label': '4', 'title': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'author': '喵喵', 'producer': '', 'total_pages': 8, 'sourcemodified': "D:20250806154117+08'00'", 'subject': '', 'comments': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:34:32,382 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:34:32,384 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:34:32,384 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以提升复杂环境适应性；同时考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:34:43,157 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:35:02,824 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:35:04,795 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:35:04,795 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:35:08,404 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:35:08,405 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:35:10,438 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:35:10,438 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'page': 3, 'sourcemodified': "D:20250806154117+08'00'", 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'creator': 'WPS 文字', 'page_label': '4', 'keywords': '', 'total_pages': 8, 'subject': '', 'producer': '', 'moddate': '2025-08-06T15:41:17+08:00', 'company': '', 'title': '', 'comments': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'trapped': '/False', 'author': '喵喵'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:35:14,568 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:35:14,569 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:35:14,569 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时关注尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:35:46,201 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:35:50,800 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:36:20,935 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:36:26,052 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:36:57,564 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:37:06,857 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:37:40,647 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:37:43,893 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:37:51,769 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:37:51,769 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:37:55,574 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:37:55,574 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:37:57,301 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:37:57,302 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'company': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'comments': '', 'moddate': '2025-08-06T15:41:17+08:00', 'page': 3, 'trapped': '/False', 'author': '喵喵', 'title': '', 'creator': 'WPS 文字', 'keywords': '', 'page_label': '4', 'total_pages': 8, 'subject': '', 'producer': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'sourcemodified': "D:20250806154117+08'00'"}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:38:01,731 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:38:01,732 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:38:01,732 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕功能和宠物模式的机型；导航建议采用激光导航以适应复杂环境；同时可考虑除味功能和密封尘盒设计，避免二次扬尘。
+2026-04-09 18:38:12,929 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:38:33,222 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:38:35,335 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:38:35,336 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:38:39,638 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:38:39,638 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:38:41,576 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:38:41,577 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'author': '喵喵', 'comments': '', 'total_pages': 8, 'creator': 'WPS 文字', 'subject': '', 'sourcemodified': "D:20250806154117+08'00'", 'keywords': '', 'producer': '', 'moddate': '2025-08-06T15:41:17+08:00', 'creationdate': '2025-08-06T15:41:17+08:00', 'page': 3, 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'title': '', 'page_label': '4', 'company': '', 'trapped': '/False'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:38:45,651 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:38:45,652 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:38:45,652 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时关注尘盒密封性与过滤效果，避免二次扬尘。
+2026-04-09 18:39:17,912 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:39:20,115 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:39:48,634 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:39:56,148 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:40:27,090 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:40:38,093 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:41:11,014 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:41:13,645 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:41:20,270 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:41:20,270 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:41:24,514 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:41:24,514 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:41:26,702 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:41:26,703 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'moddate': '2025-08-06T15:41:17+08:00', 'producer': '', 'title': '', 'trapped': '/False', 'creator': 'WPS 文字', 'keywords': '', 'page_label': '4', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'creationdate': '2025-08-06T15:41:17+08:00', 'subject': '', 'author': '喵喵', 'comments': '', 'page': 3, 'sourcemodified': "D:20250806154117+08'00'", 'total_pages': 8, 'company': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:41:30,783 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:41:30,784 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:41:30,784 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、带宠物模式以强化毛发清扫，同时考虑除味功能；导航建议选激光导航以适应复杂环境；此外还需关注尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:41:42,616 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:42:02,979 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:42:06,339 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:42:06,339 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:42:10,094 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:42:10,094 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:42:12,016 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:42:12,017 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'moddate': '2025-08-06T15:41:17+08:00', 'creator': 'WPS 文字', 'creationdate': '2025-08-06T15:41:17+08:00', 'author': '喵喵', 'subject': '', 'sourcemodified': "D:20250806154117+08'00'", 'page': 3, 'trapped': '/False', 'total_pages': 8, 'keywords': '', 'company': '', 'comments': '', 'title': '', 'page_label': '4', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'producer': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:42:16,291 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:42:16,293 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:42:16,293 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持宠物模式；导航建议选激光导航以提升复杂环境适应性；同时可考虑除味功能和密封尘盒设计，减少二次污染。
+2026-04-09 18:42:46,720 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:42:50,069 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:43:22,431 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:43:26,966 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:43:59,678 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:44:10,783 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:44:47,904 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:44:50,792 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:44:57,971 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:44:57,971 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:45:01,864 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:45:01,865 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:45:04,029 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:45:04,030 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'moddate': '2025-08-06T15:41:17+08:00', 'sourcemodified': "D:20250806154117+08'00'", 'comments': '', 'total_pages': 8, 'producer': '', 'keywords': '', 'subject': '', 'title': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'page_label': '4', 'page': 3, 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'company': '', 'author': '喵喵', 'trapped': '/False', 'creator': 'WPS 文字'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:45:08,580 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:45:08,581 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:45:08,582 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、带宠物模式以强化毛发清扫，同时建议选择激光导航（定位精准、抗干扰强）、密封尘盒及高效过滤以防二次扬尘。
+2026-04-09 18:45:20,420 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:45:42,935 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:45:45,199 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:45:45,199 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:45:49,773 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:45:49,773 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:45:52,759 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:45:52,760 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'creator': 'WPS 文字', 'page': 3, 'company': '', 'producer': '', 'trapped': '/False', 'sourcemodified': "D:20250806154117+08'00'", 'total_pages': 8, 'title': '', 'author': '喵喵', 'keywords': '', 'moddate': '2025-08-06T15:41:17+08:00', 'comments': '', 'subject': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'page_label': '4'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:45:57,349 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:45:57,350 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:45:57,350 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时需考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:46:27,504 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:46:33,661 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:47:03,061 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:47:10,347 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:47:42,874 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:47:54,976 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:48:28,528 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:48:30,631 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:48:38,191 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:48:38,191 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:48:42,142 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:48:42,142 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:48:44,502 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:48:44,502 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'author': '喵喵', 'subject': '', 'title': '', 'creator': 'WPS 文字', 'total_pages': 8, 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'trapped': '/False', 'comments': '', 'producer': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'page_label': '4', 'keywords': '', 'sourcemodified': "D:20250806154117+08'00'", 'company': '', 'moddate': '2025-08-06T15:41:17+08:00', 'page': 3}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:48:49,107 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:48:49,109 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:48:49,109 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以提升复杂环境适应性；同时考虑尘盒密封性与高效过滤，避免毛发和粉尘二次扬尘。
+2026-04-09 18:48:59,372 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:49:22,868 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:49:25,258 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:49:25,258 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:49:29,044 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:49:29,044 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:49:32,900 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:49:32,900 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'subject': '', 'page': 3, 'company': '', 'keywords': '', 'producer': '', 'total_pages': 8, 'trapped': '/False', 'title': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'creator': 'WPS 文字', 'author': '喵喵', 'moddate': '2025-08-06T15:41:17+08:00', 'comments': '', 'page_label': '4', 'creationdate': '2025-08-06T15:41:17+08:00', 'sourcemodified': "D:20250806154117+08'00'"}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:49:38,261 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:49:38,262 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:49:38,262 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时需考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:50:11,699 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:50:13,408 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:50:42,671 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:50:55,440 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:51:27,602 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:51:39,083 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:52:15,725 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:52:18,628 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:52:25,816 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:52:25,816 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:52:29,742 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:52:29,742 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:52:31,927 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:52:31,928 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'title': '', 'comments': '', 'subject': '', 'total_pages': 8, 'producer': '', 'trapped': '/False', 'keywords': '', 'creator': 'WPS 文字', 'company': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'moddate': '2025-08-06T15:41:17+08:00', 'page': 3, 'author': '喵喵', 'page_label': '4', 'creationdate': '2025-08-06T15:41:17+08:00', 'sourcemodified': "D:20250806154117+08'00'"}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:52:36,433 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:52:36,435 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:52:36,435 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时关注尘盒密封性及操作便捷性。
+2026-04-09 18:52:48,306 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:53:10,323 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:53:12,407 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:53:12,407 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:53:16,284 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:53:16,285 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:53:18,007 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:53:18,008 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'creator': 'WPS 文字', 'author': '喵喵', 'page': 3, 'comments': '', 'moddate': '2025-08-06T15:41:17+08:00', 'keywords': '', 'subject': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'company': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'title': '', 'producer': '', 'total_pages': 8, 'trapped': '/False', 'page_label': '4', 'sourcemodified': "D:20250806154117+08'00'"}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:53:22,927 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:53:22,928 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:53:22,928 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕、除味功能及宠物模式的机型；导航建议采用激光导航以适应复杂环境；同时需考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 18:53:53,415 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:53:57,729 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:54:27,336 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:54:35,412 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:55:06,851 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:55:15,363 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:55:50,961 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:55:55,892 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:56:05,766 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:56:05,766 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:56:09,330 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:56:09,331 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 18:56:11,594 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 18:56:11,594 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'keywords': '', 'moddate': '2025-08-06T15:41:17+08:00', 'title': '', 'page': 3, 'trapped': '/False', 'author': '喵喵', 'comments': '', 'sourcemodified': "D:20250806154117+08'00'", 'subject': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'creator': 'WPS 文字', 'company': '', 'page_label': '4', 'producer': '', 'total_pages': 8}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:56:16,142 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:56:16,144 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:56:16,144 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕功能和宠物模式的机型；导航建议采用激光导航以提升复杂环境下的精准性；同时可考虑带除味功能、密封尘盒及高效过滤系统，避免毛发和粉尘二次扬尘。
+2026-04-09 18:56:26,691 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:56:48,209 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:56:50,176 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 18:56:50,177 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 18:56:54,073 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 18:56:54,073 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '宠物家庭选购扫地机器人关键参数'}
+2026-04-09 18:56:56,607 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 宠物家庭选购扫地机器人关键参数
+2026-04-09 18:56:56,608 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：宠物家庭选购扫地机器人关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'page': 3, 'comments': '', 'trapped': '/False', 'moddate': '2025-08-06T15:41:17+08:00', 'page_label': '4', 'subject': '', 'keywords': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'company': '', 'creator': 'WPS 文字', 'author': '喵喵', 'producer': '', 'title': '', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'total_pages': 8, 'sourcemodified': "D:20250806154117+08'00'"}
+参考资料3:参考资料：11. 机身高度：床底/沙发底高度≤8cm，需选机身高度≤7.5cm机型，避免无法进入清扫死角。
+
+12. 越障能力：门槛高度≤2cm选越障≥2cm机型，地毯场景需强化驱动轮动力，避免卡困。
+
+13. 过滤系统：HEPA滤网等级≥H13可过滤细小灰尘和过敏原，过敏体质家庭必备，注意滤网是否可水洗。
+
+14. 主刷设计：防缠绕主刷（带硅胶条）适合长发/宠物家庭，无主刷款适合短毛地毯和硬质地面。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 18:57:04,378 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 18:57:04,380 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 18:57:04,380 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |宠物家庭选购扫地机器人应重点关注以下参数：吸力≥3000Pa以有效清理宠物毛发，优选可调节吸力机型；采用防缠绕主刷（如带硅胶条）减少毛发缠绕；配备HEPA滤网（等级≥H13）过滤过敏原；导航系统建议选择激光导航，定位精准且适应复杂环境；同时需考虑机身高度≤7.5cm以便进入低矮区域，以及足够的越障能力应对门槛和地毯。
+2026-04-09 18:57:42,679 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:57:46,390 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:58:15,077 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:58:25,721 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:58:59,577 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:59:10,331 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:59:44,440 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 18:59:53,524 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:00:00,267 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 19:00:00,267 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 19:00:04,242 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 19:00:04,242 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 19:00:06,308 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 19:00:06,309 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'page_label': '4', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'keywords': '', 'total_pages': 8, 'sourcemodified': "D:20250806154117+08'00'", 'creator': 'WPS 文字', 'page': 3, 'moddate': '2025-08-06T15:41:17+08:00', 'title': '', 'company': '', 'trapped': '/False', 'author': '喵喵', 'creationdate': '2025-08-06T15:41:17+08:00', 'comments': '', 'subject': '', 'producer': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 19:00:10,741 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 19:00:10,742 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 19:00:10,742 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa，优先选择具备防毛发缠绕功能和宠物模式的机型；导航建议采用激光导航以适应复杂环境；同时可考虑带除味功能、密封尘盒及高效过滤系统，避免毛发和粉尘二次扬尘。
+2026-04-09 19:00:21,875 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:00:42,949 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:00:44,905 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 19:00:44,905 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 19:00:49,009 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 19:00:49,009 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 19:00:50,992 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 19:00:50,993 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'author': '喵喵', 'comments': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'page_label': '4', 'company': '', 'title': '', 'sourcemodified': "D:20250806154117+08'00'", 'total_pages': 8, 'keywords': '', 'moddate': '2025-08-06T15:41:17+08:00', 'producer': '', 'subject': '', 'creator': 'WPS 文字', 'trapped': '/False', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'page': 3}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 19:00:55,110 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 19:00:55,111 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 19:00:55,111 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时考虑尘盒密封性与过滤效果，避免二次扬尘。
+2026-04-09 19:01:27,997 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:01:32,812 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:02:02,810 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:02:09,703 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:02:40,788 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:02:50,988 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:03:29,141 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:03:29,190 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:03:36,524 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 19:03:36,524 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 19:03:40,107 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 19:03:40,107 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '宠物家庭选购扫地机器人关键参数'}
+2026-04-09 19:03:42,058 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 宠物家庭选购扫地机器人关键参数
+2026-04-09 19:03:42,059 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：宠物家庭选购扫地机器人关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'total_pages': 8, 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'page_label': '4', 'keywords': '', 'page': 3, 'moddate': '2025-08-06T15:41:17+08:00', 'subject': '', 'sourcemodified': "D:20250806154117+08'00'", 'trapped': '/False', 'title': '', 'comments': '', 'creator': 'WPS 文字', 'creationdate': '2025-08-06T15:41:17+08:00', 'author': '喵喵', 'company': '', 'producer': ''}
+参考资料3:参考资料：11. 机身高度：床底/沙发底高度≤8cm，需选机身高度≤7.5cm机型，避免无法进入清扫死角。
+
+12. 越障能力：门槛高度≤2cm选越障≥2cm机型，地毯场景需强化驱动轮动力，避免卡困。
+
+13. 过滤系统：HEPA滤网等级≥H13可过滤细小灰尘和过敏原，过敏体质家庭必备，注意滤网是否可水洗。
+
+14. 主刷设计：防缠绕主刷（带硅胶条）适合长发/宠物家庭，无主刷款适合短毛地毯和硬质地面。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 19:03:48,623 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 19:03:48,624 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 19:03:48,624 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |宠物家庭选购扫地机器人应重点关注以下参数：吸力≥3000Pa，地毯环境建议≥4000Pa；优先选择带防缠绕主刷（如硅胶条设计）的机型；导航方面推荐激光导航，定位精准且适合复杂户型；过滤系统需配备H13及以上等级HEPA滤网，有效过滤宠物毛发和过敏原；同时注意机身高度≤7.5cm以进入低矮空间，越障能力≥2cm以应对门槛和地毯。
+2026-04-09 19:03:57,860 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:04:19,158 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:04:21,081 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 19:04:21,081 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 19:04:24,820 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 19:04:24,821 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 19:04:27,325 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 19:04:27,326 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'comments': '', 'total_pages': 8, 'subject': '', 'moddate': '2025-08-06T15:41:17+08:00', 'page': 3, 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'keywords': '', 'author': '喵喵', 'producer': '', 'page_label': '4', 'creationdate': '2025-08-06T15:41:17+08:00', 'company': '', 'sourcemodified': "D:20250806154117+08'00'", 'creator': 'WPS 文字', 'title': '', 'trapped': '/False'}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 19:04:32,534 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 19:04:32,535 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 19:04:32,535 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa以有效清理毛发，优先选择具备防毛发缠绕功能和宠物模式的机型；导航方面推荐激光导航，定位精准且适合复杂户型；同时可考虑带除味功能、密封尘盒及高效过滤系统，避免二次扬尘。
+2026-04-09 19:05:03,626 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:05:06,410 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:05:36,108 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:05:43,515 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:06:14,861 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:06:25,040 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:07:01,783 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:07:05,905 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:07:13,209 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 19:07:13,209 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 19:07:17,913 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 19:07:17,913 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 19:07:20,413 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 19:07:20,414 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'sourcemodified': "D:20250806154117+08'00'", 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'author': '喵喵', 'comments': '', 'page': 3, 'keywords': '', 'trapped': '/False', 'creationdate': '2025-08-06T15:41:17+08:00', 'total_pages': 8, 'subject': '', 'creator': 'WPS 文字', 'moddate': '2025-08-06T15:41:17+08:00', 'producer': '', 'company': '', 'page_label': '4', 'title': ''}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 19:07:24,420 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 19:07:24,421 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 19:07:24,421 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时关注尘盒密封性与过滤效果，避免二次扬尘。
+2026-04-09 19:07:34,459 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:07:54,390 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:07:56,454 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有2条消息
+2026-04-09 19:07:56,454 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:HumanMessage |家里有宠物毛发，选购时更适合看哪些参数？
+2026-04-09 19:08:00,469 - agent.tools.middlewares - INFO - middlewares.py:24 - [Monitoring tool]:rag_summarize
+2026-04-09 19:08:00,469 - agent.tools.middlewares - INFO - middlewares.py:25 - [Monitoring tool]: 传入参数：{'query': '家里有宠物毛发 选购扫地机器人 关键参数'}
+2026-04-09 19:08:02,461 - agent.rag.rag_service - DEBUG - rag_service.py:37 - RAG retrieved 3 docs for query: 家里有宠物毛发 选购扫地机器人 关键参数
+2026-04-09 19:08:02,462 - agent.rag.rag_service - DEBUG - rag_service.py:16 - RAG prompt:
+你是专注于"基于参考资料总结"的AI助手，需结合用户提问和向量检索到的参考资料，生成简洁准确的概括回答。
+
+### 输入信息
+1. 用户提问：家里有宠物毛发 选购扫地机器人 关键参数
+2. 参考资料(在下一个###之前内容均为参考资料)：参考资料1:参考资料：扫地/扫拖一体机器人选购指南200条
+
+1. 选购核心：优先明确使用场景，独居小户型侧重轻便灵活，多口之家带宠物需强化吸力和防缠绕功能。
+
+2. 吸力参数：家用建议选择≥3000Pa吸力机型，地毯场景需≥4000Pa，吸力可调节更适配不同地面。
+
+3. 导航技术：激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高，避免强光环境使用。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+参考资料2:参考资料：## 五、选购指南类
+### 选购要素
+39. **选购时最应该关注哪些参数？**
+- 导航类型、吸力大小、电池容量、尘盒/水箱容量。
+40. **小户型适合哪种扫地机器人？**
+- 基础激光导航机型即可，如米家 1C、石头 T4。
+41. **大户型应该注意什么？**
+- 选择大电池(>5200mAh)、自动集尘或自动洗拖布机型。
+42. **有宠物的家庭怎么选？**｜参考元数据：{'sourcemodified': "D:20250806154117+08'00'", 'moddate': '2025-08-06T15:41:17+08:00', 'comments': '', 'total_pages': 8, 'company': '', 'creationdate': '2025-08-06T15:41:17+08:00', 'subject': '', 'trapped': '/False', 'title': '', 'page_label': '4', 'keywords': '', 'producer': '', 'creator': 'WPS 文字', 'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf', 'author': '喵喵', 'page': 3}
+参考资料3:参考资料：31. 地面适配：木地板需选拖布可抬升、出水量可调款，瓷砖地面优先强吸力+旋转拖布组合。
+
+32. 宠物专属：带宠物家庭额外关注防毛发缠绕、除味功能，可选带宠物模式的机型，强化毛发清扫。
+
+33. 粉尘处理：细粉尘多的场景（如装修后）选密封尘盒+高效过滤，避免二次扬尘。
+
+34. 操作难度：长辈使用优先选按键简洁、APP界面直观的机型，避免复杂设置。｜参考元数据：{'source': '/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt'}
+
+
+### 严格遵守以下约束（违反将导致回答无效）
+1. 内容合规：禁止包含违法、侵权、攻击性信息；
+2. 事实准确：回答必须完全基于参考资料中的信息，不编造、不添加未提及的内容，不做主观推断；
+3. 语言要求：仅用中文回答，语气客观、简洁，不冗余；
+4. 聚焦提问：严格围绕用户原始提问总结，不扩充问题范围、不额外追问、不构造新query；
+5. 格式要求：仅输出概括内容本身，以纯文本字符串形式呈现，不封装为字典、列表、JSON等任何结构，不附带额外说明。
+2026-04-09 19:08:06,500 - agent.tools.middlewares - INFO - middlewares.py:28 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-09 19:08:06,502 - agent.tools.middlewares - INFO - middlewares.py:44 - [Before model]:带有4条消息
+2026-04-09 19:08:06,502 - agent.tools.middlewares - DEBUG - middlewares.py:45 - [Before model]:ToolMessage |有宠物家庭选购扫地机器人应重点关注：吸力≥3000Pa、具备防毛发缠绕功能、支持除味或宠物模式；导航建议选激光导航以适应复杂环境；同时考虑尘盒密封性与高效过滤，避免二次扬尘。
+2026-04-09 19:08:37,100 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:08:40,776 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:09:09,735 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:09:16,270 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+
+2026-04-09 19:09:47,991 - agent.main - WARNING - main.py:324 - Failed to queue session save: 
+Retry limit exceeded while trying to reconnect to the Celery result store
+backend. The Celery application must be restarted.
+

@@ -1,0 +1,2 @@
+2026-04-03 18:08:19,588 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-03 18:08:19,588 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好

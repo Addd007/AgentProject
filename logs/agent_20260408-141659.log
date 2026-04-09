@@ -1,0 +1,4 @@
+2026-04-08 14:17:21,047 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-04-08 14:17:21,047 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |hello
+2026-04-08 14:18:29,122 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-04-08 14:18:29,122 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |test

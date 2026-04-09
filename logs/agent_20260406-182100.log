@@ -1,0 +1,48 @@
+2026-04-06 18:21:10,023 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-06 18:21:10,023 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-06 18:21:33,337 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-06 18:21:33,337 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我是谁
+2026-04-06 18:21:35,039 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_user_id
+2026-04-06 18:21:35,039 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-06 18:21:35,040 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_user_id 工具调用成功
+2026-04-06 18:21:35,041 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
+2026-04-06 18:21:35,041 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |1001
+2026-04-06 18:21:53,292 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
+2026-04-06 18:21:53,293 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我名字是什么
+2026-04-06 18:22:18,946 - agent - INFO - middlewares.py:41 - [Before model]:带有8条消息
+2026-04-06 18:22:18,946 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的户型是什么
+2026-04-06 18:22:43,960 - agent - INFO - middlewares.py:41 - [Before model]:带有10条消息
+2026-04-06 18:22:43,960 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你可以去我的记录中查询
+2026-04-06 18:22:45,799 - agent - INFO - middlewares.py:21 - [Monitoring tool]:fill_context_for_report
+2026-04-06 18:22:45,799 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-06 18:22:45,799 - agent - INFO - middlewares.py:25 - [Monitoring tool]:fill_context_for_report 工具调用成功
+2026-04-06 18:22:45,800 - agent - INFO - middlewares.py:41 - [Before model]:带有12条消息
+2026-04-06 18:22:45,800 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |fill_context_for_report ·已调用
+2026-04-06 18:22:47,149 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_user_id
+2026-04-06 18:22:47,149 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-06 18:22:47,150 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_user_id 工具调用成功
+2026-04-06 18:22:47,150 - agent - INFO - middlewares.py:41 - [Before model]:带有14条消息
+2026-04-06 18:22:47,150 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |1001
+2026-04-06 18:22:48,302 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_current_month
+2026-04-06 18:22:48,303 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-06 18:22:48,303 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_current_month 工具调用成功
+2026-04-06 18:22:48,303 - agent - INFO - middlewares.py:41 - [Before model]:带有16条消息
+2026-04-06 18:22:48,304 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |2025-01
+2026-04-06 18:22:50,317 - agent - INFO - middlewares.py:21 - [Monitoring tool]:fetch_external_data
+2026-04-06 18:22:50,318 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'user_id': '1001', 'month': '2025-01'}
+2026-04-06 18:22:50,320 - agent - INFO - middlewares.py:25 - [Monitoring tool]:fetch_external_data 工具调用成功
+2026-04-06 18:22:50,320 - agent - INFO - middlewares.py:41 - [Before model]:带有18条消息
+2026-04-06 18:22:50,320 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |{"特征": "65㎡公寓 | 单身 | 木地板", "清洁效率": "覆盖率:85%\\n日均清扫:45㎡\\n漏扫区域:沙发底部（高度不足）", "耗材": "主刷寿命:剩余60天\\nHEPA滤网:剩余40%", "对比": "优于65%同面积用户（清洁频率更高）"}
+2026-04-06 18:22:52,323 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-04-06 18:22:52,323 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '木地板清洁保养建议'}
+2026-04-06 18:22:55,632 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-06 18:22:55,633 - agent - INFO - middlewares.py:41 - [Before model]:带有20条消息
+2026-04-06 18:22:55,634 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |木地板清洁保养建议：拖地时调至低档出水量或使用干拖模式，避免地面积水；每周对机器人轮组进行除尘，防止泥沙磨损地板；可关闭门窗减少灰尘进入，并适当降低清扫频次。
+2026-04-06 18:23:47,024 - agent - INFO - middlewares.py:41 - [Before model]:带有12条消息
+2026-04-06 18:23:47,024 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的户型是什么
+2026-04-06 18:35:14,149 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-06 18:35:14,149 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的户型是什么
+2026-04-06 18:35:29,864 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-06 18:35:29,864 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-06 19:04:11,652 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-06 19:04:11,653 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |推荐机器人

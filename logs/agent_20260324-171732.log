@@ -1,0 +1,44 @@
+2026-03-24 17:18:38,524 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-24 17:18:38,524 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我现在的位置
+2026-03-24 17:18:47,830 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-24 17:18:47,830 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-24 17:18:48,069 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-24 17:18:48,229 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-24 17:18:48,230 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |用户所在城市: [][]
+2026-03-24 17:23:42,601 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-24 17:23:42,602 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的位置
+2026-03-24 17:23:47,665 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-24 17:23:47,665 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-24 17:23:47,898 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-24 17:23:48,080 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-24 17:23:48,080 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |用户所在城市: 云南省昆明市
+2026-03-24 17:29:03,625 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-24 17:29:03,625 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的位置
+2026-03-24 17:29:09,383 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-24 17:29:09,384 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-24 17:29:09,602 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-24 17:29:09,762 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-24 17:29:09,763 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |用户所在城市: [][]
+2026-03-24 17:29:30,349 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-24 17:29:30,349 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的位置
+2026-03-24 17:29:35,554 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-24 17:29:35,555 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-24 17:29:35,791 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-24 17:29:35,954 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-24 17:29:35,954 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |用户所在城市: [][]
+2026-03-24 17:32:42,986 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-24 17:32:42,986 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的位置
+2026-03-24 17:32:50,187 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-24 17:32:50,187 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-24 17:32:50,509 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-24 17:32:50,667 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-24 17:32:50,667 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |用户所在城市: [][]
+2026-03-24 17:33:06,563 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-24 17:33:06,563 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的位置在昆明
+2026-03-24 17:33:38,207 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-24 17:33:38,207 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |昆明现在天气
+2026-03-24 17:33:45,340 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_weather
+2026-03-24 17:33:45,340 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'city': '昆明'}
+2026-03-24 17:33:45,668 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_weather 工具调用成功
+2026-03-24 17:33:46,484 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-24 17:33:46,485 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |云南昆明市 当前天气：晴，温度 23°C，风向 西南，风力 4级，湿度 29% (数据时间：2026-03-24 17:03:51)

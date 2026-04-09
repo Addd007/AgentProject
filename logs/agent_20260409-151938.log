@@ -1,0 +1,7 @@
+2026-04-09 15:21:07,061 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-09 15:21:07,061 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我是谁
+2026-04-09 15:21:12,496 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_user_id
+2026-04-09 15:21:12,497 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-09 15:21:12,497 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_user_id 工具调用成功
+2026-04-09 15:21:12,498 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
+2026-04-09 15:21:12,498 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |1002

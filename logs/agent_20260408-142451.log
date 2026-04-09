@@ -1,0 +1,11 @@
+2026-04-08 14:25:19,300 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-08 14:25:19,301 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-08 14:29:07,210 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-08 14:29:07,211 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-08 14:29:35,064 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
+2026-04-08 14:29:35,064 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |帮我推荐机器人
+2026-04-08 14:29:38,023 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-04-08 14:29:38,023 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '2025高性价比扫拖一体机器人推荐'}
+2026-04-08 14:29:47,766 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-08 14:29:47,770 - agent - INFO - middlewares.py:41 - [Before model]:带有8条消息
+2026-04-08 14:29:47,770 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |2025年高性价比扫拖一体机器人推荐需结合使用场景选择：独居小户型宜选轻便灵活机型，多口之家或有宠物则需强化吸力（建议≥3000Pa，地毯环境≥4000Pa）和防缠绕功能。导航方面，激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高但应避免强光环境。预算3000元内可选基础款（含激光导航+旋转拖布），5000元以上可考虑自动集尘与热风烘干功能。选购时应参考真实用户评价，重点关注续航、避障及售后表现，并优先考虑吸力可调、建图稳定、故障率低的机型。

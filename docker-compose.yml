@@ -1,0 +1,68 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: agent_postgres
+    environment:
+      POSTGRES_USER: ${DB_USER:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-password}
+      POSTGRES_DB: ${DB_NAME:-agent_db}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U ${DB_USER:-postgres}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: agent_backend
+    environment:
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY}
+      PYTHONUNBUFFERED: 1
+      DB_TYPE: postgresql
+      DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-agent_db}
+      AUTH_SECRET: ${AUTH_SECRET:-change-this-auth-secret}
+      AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-false}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    volumes:
+      - ./agent:/app/agent
+      - ./rag:/app/rag
+      - ./utils:/app/utils
+      - ./model:/app/model
+      - ./app.py:/app/app.py
+      - ./main.py:/app/main.py
+      - ./config:/app/config
+      - ./data:/app/data
+      - ./prompts:/app/prompts
+      - ./chroma_db:/app/chroma_db
+      - ./logs:/app/logs
+      - ./md5.text:/app/md5.text
+    expose:
+      - "8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ""
+    container_name: agent_frontend
+    depends_on:
+      - backend
+    ports:
+      - "80:80"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

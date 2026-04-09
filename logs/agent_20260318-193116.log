@@ -1,0 +1,37 @@
+2026-03-18 19:31:16,805 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-18 19:31:16,805 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |生成我的使用报告
+2026-03-18 19:31:22,178 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_user_id
+2026-03-18 19:31:22,179 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-18 19:31:22,179 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_user_id 工具调用成功
+2026-03-18 19:31:22,180 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-18 19:31:22,180 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |1004
+2026-03-18 19:31:25,091 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_current_month
+2026-03-18 19:31:25,091 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-18 19:31:25,092 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_current_month 工具调用成功
+2026-03-18 19:31:25,092 - agent - INFO - middlewares.py:41 - [Before model]:带有5条消息
+2026-03-18 19:31:25,092 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |2025-01
+2026-03-18 19:31:34,583 - agent - INFO - middlewares.py:21 - [Monitoring tool]:fill_context_for_report
+2026-03-18 19:31:34,583 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-18 19:31:34,584 - agent - INFO - middlewares.py:25 - [Monitoring tool]:fill_context_for_report 工具调用成功
+2026-03-18 19:31:34,584 - agent - INFO - middlewares.py:41 - [Before model]:带有7条消息
+2026-03-18 19:31:34,585 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |fill_context_for_report ·已调用
+2026-03-18 19:31:37,606 - agent - INFO - middlewares.py:21 - [Monitoring tool]:fetch_external_data
+2026-03-18 19:31:37,606 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'user_id': '1004', 'month': '2025-01'}
+2026-03-18 19:31:37,611 - agent - INFO - middlewares.py:25 - [Monitoring tool]:fetch_external_data 工具调用成功
+2026-03-18 19:31:37,611 - agent - INFO - middlewares.py:41 - [Before model]:带有9条消息
+2026-03-18 19:31:37,611 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |{"特征": "85㎡ | 2猫 | 混合地面", "清洁效率": "猫砂泼洒处理:8次/月\\n自动回充成功率:89%", "耗材": "主刷缠绕:严重\\n滤网更换:急需", "对比": "建议升级吸力至2500Pa"}
+2026-03-18 19:31:42,411 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-18 19:31:42,411 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫地机器人主刷缠绕严重处理方法'}
+2026-03-18 19:31:45,045 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-18 19:31:45,046 - agent - INFO - middlewares.py:41 - [Before model]:带有11条消息
+2026-03-18 19:31:45,046 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |关闭电源后，拆卸主刷，用剪刀或专用工具清除缠绕的毛发和杂物，清理干净后再装回。定期维护可减少缠绕。
+2026-03-18 19:31:47,642 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-18 19:31:47,642 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫地机器人滤网更换周期和方法'}
+2026-03-18 19:31:54,037 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-18 19:31:54,038 - agent - INFO - middlewares.py:41 - [Before model]:带有13条消息
+2026-03-18 19:31:54,038 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |扫地机器人滤网建议每1-3个月更换一次，具体周期视使用频率和环境灰尘量而定。更换方法为：打开尘盒，取出旧滤网，将新滤网按原位置安装到位，确保贴合紧密。
+2026-03-18 19:31:56,598 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-18 19:31:56,598 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '多宠物家庭扫地机器人吸力设置建议'}
+2026-03-18 19:31:59,293 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-18 19:31:59,294 - agent - INFO - middlewares.py:41 - [Before model]:带有15条消息
+2026-03-18 19:31:59,295 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |多宠物家庭建议将扫地机器人吸力设置为高或强力模式，以有效清除宠物毛发和皮屑。部分机型支持智能识别地毯并自动增强吸力，可优先选择此类产品。

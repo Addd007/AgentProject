@@ -1,0 +1,8 @@
+2026-04-04 04:47:16,478 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-04 04:47:16,478 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-04 04:47:24,068 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-04 04:47:24,069 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我是谁
+2026-04-04 04:49:43,918 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
+2026-04-04 04:49:43,919 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你能做什么
+2026-04-04 05:00:37,074 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-04 05:00:37,075 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我是谁

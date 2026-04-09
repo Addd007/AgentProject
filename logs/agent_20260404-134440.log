@@ -1,0 +1,15 @@
+2026-04-04 13:45:30,063 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-04 13:45:30,064 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-04 13:45:56,534 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-04 13:45:56,534 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
+2026-04-04 13:46:10,226 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-04 13:46:10,227 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |666
+2026-04-04 13:56:59,044 - agent - INFO - middlewares.py:41 - [Before model]:带有7条消息
+2026-04-04 13:56:59,045 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我是谁
+2026-04-04 13:57:29,341 - agent - INFO - middlewares.py:41 - [Before model]:带有9条消息
+2026-04-04 13:57:29,341 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |怎么保养机器人
+2026-04-04 13:57:31,424 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-04-04 13:57:31,424 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫地机器人保养维护指南'}
+2026-04-04 13:57:38,478 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-04 13:57:38,480 - agent - INFO - middlewares.py:41 - [Before model]:带有11条消息
+2026-04-04 13:57:38,480 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |每日使用后用干软布擦拭机身外壳，清理防撞条缝隙的毛发和线头；每次清扫后清理主刷、尘盒及拖布（宠物家庭需全面清理并每周除味消毒）；每日检查边刷旋转是否卡顿，及时停机清理；每周检查充电座电源适配器有无发热或异响；每月检查扫拖一体机型的拖地模组接口是否清洁、连接顺畅；若沾到宠物粪便，立即用湿巾清理并用中性洗涤剂擦拭；不同地面环境需针对性维护，如地毯环境检查主刷复位，水泥地/老旧地砖环境及时清理轮组泥沙；日常使用后将清扫模式调至“待机”以减少电量消耗。

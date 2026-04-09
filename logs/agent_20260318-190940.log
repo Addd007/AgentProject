@@ -1,0 +1,7 @@
+2026-03-18 19:09:40,336 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-18 19:09:40,336 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |扫地机器人在我所在地区的气温下如何保养
+2026-03-18 19:09:44,118 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-18 19:09:44,118 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-18 19:09:44,119 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-18 19:09:44,120 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-18 19:09:44,120 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |null

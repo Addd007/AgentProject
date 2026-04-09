@@ -1,0 +1,523 @@
+"""
+FastAPI 入口：智能客服 Agent API。
+
+uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+Streamlit 界面（可选）：streamlit run app.py
+"""
+
+from __future__ import annotations
+
+import asyncio
+import json
+import importlib
+import os
+import time
+from pathlib import Path
+from typing import Optional
+from uuid import uuid4
+
+from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel, Field
+
+from agent.react_agent import ReactAgent
+from utils.auth_service import (
+    AUTH_COOKIE_NAME,
+    AUTH_COOKIE_SECURE,
+    AUTH_TOKEN_TTL_SECONDS,
+    AuthService,
+    AuthUser,
+)
+from utils.logger_handler import get_logger
+from utils.session_storage import get_storage_backend
+
+logger = get_logger(__name__)
+
+app = FastAPI(title="机器人智能客服", version="1.0.0")
+
+_default_origins = [
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+]
+_allowed_origins = [
+    origin.strip()
+    for origin in os.getenv("FRONTEND_ORIGINS", ",".join(_default_origins)).split(",")
+    if origin.strip()
+] or _default_origins
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=_allowed_origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+_agent: ReactAgent | None = None
+_sessions: dict[str, list[dict]] = {}
+_session_owners: dict[str, str] = {}
+_storage_backend = None
+_auth_service = AuthService()
+
+_DEBUG_LOG_PATH = Path("/Users/zhuangbohan/资料/AIPython/AgentProject/.cursor/debug-7a89fb.log")
+
+
+def _debug_log(hypothesis_id: str, location: str, message: str, data: dict) -> None:
+    try:
+        payload = {
+            "sessionId": "7a89fb",
+            "runId": "pre-fix",
+            "hypothesisId": hypothesis_id,
+            "location": location,
+            "message": message,
+            "data": data,
+            "timestamp": int(time.time() * 1000),
+        }
+        _DEBUG_LOG_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with _DEBUG_LOG_PATH.open("a", encoding="utf-8") as file_obj:
+            file_obj.write(json.dumps(payload, ensure_ascii=False) + "\n")
+    except Exception:
+        pass
+
+
+def get_agent() -> ReactAgent:
+    global _agent
+    if _agent is None:
+        _agent = ReactAgent()
+    return _agent
+
+
+class ChatRequest(BaseModel):
+    message: str = Field(..., min_length=1, description="用户输入")
+    session_id: Optional[str] = Field(None, description="会话 ID，不传则新建会话")
+
+
+class ChatResponse(BaseModel):
+    reply: str
+    session_id: str
+
+
+class SessionResponse(BaseModel):
+    session_id: str
+    history: list[dict]
+
+
+class SessionSummary(BaseModel):
+    session_id: str
+    title: str
+    preview: str
+    message_count: int
+
+
+class SessionListResponse(BaseModel):
+    sessions: list[SessionSummary]
+
+
+class AuthRequest(BaseModel):
+    username: str
+    password: str
+
+
+class AuthUserResponse(BaseModel):
+    user_id: str
+    username: str
+
+
+class AuthResponse(BaseModel):
+    user: AuthUserResponse | None
+
+
+@app.on_event("startup")
+def on_startup() -> None:
+    global _storage_backend, _sessions, _session_owners
+    _debug_log("H1", "main.py:on_startup", "backend startup", {"ok": True})
+
+    try:
+        _storage_backend = get_storage_backend(use_db=True)
+        loaded = _storage_backend.load_all_active_with_users(max_days=7)
+        _sessions = {session_id: item["messages"] for session_id, item in loaded.items()}
+        _session_owners = {session_id: item["user_id"] for session_id, item in loaded.items()}
+        logger.info("Loaded %s sessions from database", len(loaded))
+    except Exception as exc:
+        logger.error("Failed to initialize storage backend: %s", exc)
+        _storage_backend = get_storage_backend(use_db=False)
+        _sessions = {}
+        _session_owners = {}
+
+    try:
+        celery_app = getattr(app, "celery_app", None)
+        if celery_app is None:
+            logger.info("Celery app not attached; skipping beat schedule registration")
+            return
+
+        crontab = importlib.import_module("celery.schedules").crontab
+
+        celery_app.conf.beat_schedule = {
+            "archive-expired-sessions": {
+                "task": "tasks.celery_tasks.archive_expired_sessions_task",
+                "schedule": crontab(hour=2, minute=0),
+            },
+            "cleanup-archived-sessions": {
+                "task": "tasks.celery_tasks.cleanup_archived_sessions_task",
+                "schedule": crontab(hour=3, minute=0),
+            },
+            "backup-sessions": {
+                "task": "tasks.celery_tasks.backup_sessions_task",
+                "schedule": crontab(hour=4, minute=0),
+            },
+        }
+        logger.info("Celery Beat tasks scheduled")
+    except Exception as exc:
+        logger.warning("Failed to schedule Celery tasks: %s", exc)
+
+
+def _serialize_session_history(session_id: str) -> list[dict]:
+    history = _sessions.get(session_id, [])
+    result: list[dict] = []
+    for item in history:
+        role = item.get("role")
+        content = item.get("content", "")
+        if role in {"user", "assistant"} and isinstance(content, str):
+            result.append({"role": role, "content": content})
+    return result
+
+
+def _build_session_summary(session_id: str, history: list[dict]) -> SessionSummary:
+    title = "New Chat"
+    preview = ""
+    message_count = len(history)
+
+    for item in history:
+        if item.get("role") == "user":
+            content = item.get("content", "")
+            title = content[:50] if content else "New Chat"
+            break
+
+    for item in reversed(history):
+        if item.get("role") == "user":
+            content = item.get("content", "")
+            preview = content[:100] if content else ""
+            break
+
+    return SessionSummary(
+        session_id=session_id,
+        title=title,
+        preview=preview,
+        message_count=message_count,
+    )
+
+
+def _sanitize_assistant_reply(user_message: str, reply: str) -> str:
+    text = (reply or "").strip()
+    if not text:
+        return text
+
+    normalized_user = " ".join((user_message or "").split())
+    normalized_text = " ".join(text.split())
+    if normalized_user and normalized_text.startswith(normalized_user):
+        text = text[len(user_message):].lstrip("：:，,。.!！?？- ")
+
+    prefixes = [
+        user_message.strip(),
+        f"用户问题：{user_message.strip()}",
+        f"你问的是：{user_message.strip()}",
+        f"根据你的问题，{user_message.strip()}",
+    ]
+    for prefix in prefixes:
+        if prefix and text.startswith(prefix):
+            text = text[len(prefix):].lstrip("：:，,。.!！?？- ")
+
+    sensitive_markers = [
+        "用户id",
+        "用户ID",
+        "user_id",
+        "session_id",
+        "token",
+        "内部标识",
+    ]
+    normalized_lower = text.lower()
+    if any(marker.lower() in normalized_lower for marker in sensitive_markers):
+        return "这类内部标识仅用于系统内部处理，不能对外提供。"
+
+    return text.strip()
+
+
+def _to_auth_response(user: AuthUser) -> AuthResponse:
+    return AuthResponse(user=AuthUserResponse(user_id=user.user_id, username=user.username))
+
+
+def _set_auth_cookie(response: Response, token: str) -> None:
+    response.set_cookie(
+        key=AUTH_COOKIE_NAME,
+        value=token,
+        httponly=True,
+        secure=AUTH_COOKIE_SECURE,
+        samesite="lax",
+        max_age=AUTH_TOKEN_TTL_SECONDS,
+        path="/",
+    )
+
+
+def _clear_auth_cookie(response: Response) -> None:
+    response.delete_cookie(key=AUTH_COOKIE_NAME, path="/", samesite="lax")
+
+
+def get_current_user(request: Request) -> AuthUser:
+    token = request.cookies.get(AUTH_COOKIE_NAME)
+    if not token:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="请先登录")
+
+    user = _auth_service.verify_token(token)
+    if not user:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="登录状态已失效，请重新登录")
+    return user
+
+
+def get_optional_current_user(request: Request) -> AuthUser | None:
+    token = request.cookies.get(AUTH_COOKIE_NAME)
+    if not token:
+        return None
+
+    return _auth_service.verify_token(token)
+
+
+def _require_session_access(session_id: str, user_id: str) -> None:
+    owner = _session_owners.get(session_id)
+    if owner != user_id:
+        raise HTTPException(status_code=404, detail="session not found")
+
+
+def _persist_session(session_id: str, user_id: str) -> None:
+    if _storage_backend:
+        _storage_backend.save_session(session_id, _sessions[session_id], user_id)
+
+
+def _run_chat_side_effects(
+    *,
+    agent: ReactAgent,
+    user_id: str,
+    user_query: str,
+    assistant_answer: str,
+    session_id: str,
+) -> None:
+    try:
+        agent.save_long_term_memory(
+            user_id=user_id,
+            user_query=user_query,
+            assistant_answer=assistant_answer,
+        )
+    except Exception as exc:
+        _debug_log(
+            "H5",
+            "main.py:_run_chat_side_effects",
+            "save_long_term_memory failed",
+            {"error_type": type(exc).__name__, "error": str(exc)[:100]},
+        )
+
+    try:
+        from tasks.celery_tasks import save_session_async
+
+        save_session_async.delay(session_id, _sessions[session_id], user_id)
+    except Exception as exc:
+        logger.warning("Failed to queue session save: %s", exc)
+        _persist_session(session_id, user_id)
+
+
+def _chat_non_stream(req: ChatRequest, current_user: AuthUser) -> ChatResponse:
+    agent = get_agent()
+    sid = req.session_id or str(uuid4())
+    if req.session_id:
+        _require_session_access(req.session_id, current_user.user_id)
+    if sid not in _sessions:
+        _sessions[sid] = []
+        _session_owners[sid] = current_user.user_id
+
+    _sessions[sid].append({"role": "user", "content": req.message})
+    history = list(_sessions[sid])
+
+    parts: list[str] = []
+    for chunk in agent.execute_stream(req.message, history, user_id=current_user.user_id):
+        parts.append(chunk)
+    full_answer = _sanitize_assistant_reply(req.message, "".join(parts).strip())
+
+    _sessions[sid].append({"role": "assistant", "content": full_answer})
+
+    _run_chat_side_effects(
+        agent=agent,
+        user_id=current_user.user_id,
+        user_query=req.message,
+        assistant_answer=full_answer,
+        session_id=sid,
+    )
+
+    return ChatResponse(reply=full_answer, session_id=sid)
+
+
+@app.get("/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
+@app.post("/api/auth/register", response_model=AuthResponse)
+def register(payload: AuthRequest, response: Response) -> AuthResponse:
+    try:
+        user = _auth_service.register_user(payload.username, payload.password)
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc)) from exc
+
+    token = _auth_service.create_token(user)
+    _set_auth_cookie(response, token)
+    return _to_auth_response(user)
+
+
+@app.post("/api/auth/login", response_model=AuthResponse)
+def login(payload: AuthRequest, response: Response) -> AuthResponse:
+    user = _auth_service.authenticate_user(payload.username, payload.password)
+    if not user:
+        raise HTTPException(status_code=401, detail="用户名或密码错误")
+
+    token = _auth_service.create_token(user)
+    _set_auth_cookie(response, token)
+    return _to_auth_response(user)
+
+
+@app.post("/api/auth/logout")
+def logout(response: Response) -> dict[str, bool]:
+    _clear_auth_cookie(response)
+    return {"ok": True}
+
+
+@app.get("/api/auth/me", response_model=AuthResponse)
+def me(current_user: AuthUser | None = Depends(get_optional_current_user)) -> AuthResponse:
+    if current_user is None:
+        return AuthResponse(user=None)
+    return _to_auth_response(current_user)
+
+
+@app.post("/api/chat", response_model=ChatResponse)
+def chat(req: ChatRequest, current_user: AuthUser = Depends(get_current_user)) -> ChatResponse:
+    return _chat_non_stream(req, current_user)
+
+
+@app.get("/api/chat/stream")
+async def chat_stream(
+    request: Request,
+    message: str,
+    session_id: Optional[str] = None,
+    current_user: AuthUser = Depends(get_current_user),
+):
+    _debug_log(
+        "H2",
+        "main.py:chat_stream",
+        "stream request entry",
+        {"message_len": len(message or ""), "has_session_id": bool(session_id)},
+    )
+
+    agent = get_agent()
+    sid = session_id or str(uuid4())
+    if session_id:
+        _require_session_access(session_id, current_user.user_id)
+    if sid not in _sessions:
+        _sessions[sid] = []
+        _session_owners[sid] = current_user.user_id
+
+    _sessions[sid].append({"role": "user", "content": message})
+    history = list(_sessions[sid])
+
+    async def gen():
+        buf: list[str] = []
+        error_occurred = False
+        client_disconnected = False
+        emitted_text = ""
+        try:
+            for chunk in agent.execute_stream(message, history, user_id=current_user.user_id):
+                if await request.is_disconnected():
+                    client_disconnected = True
+                    break
+                buf.append(chunk)
+
+                partial_answer = _sanitize_assistant_reply(message, "".join(buf).strip())
+                if not partial_answer or partial_answer == emitted_text:
+                    continue
+
+                if partial_answer.startswith(emitted_text):
+                    delta = partial_answer[len(emitted_text):]
+                else:
+                    delta = partial_answer
+
+                emitted_text = partial_answer
+                if delta:
+                    yield f"data: {json.dumps({'chunk': delta}, ensure_ascii=False)}\n\n"
+        except Exception as exc:
+            _debug_log(
+                "H3",
+                "main.py:chat_stream.gen",
+                "stream generator exception",
+                {"error_type": type(exc).__name__, "error": str(exc)},
+            )
+            error_occurred = True
+
+        full_answer = emitted_text or _sanitize_assistant_reply(message, "".join(buf).strip())
+        if not full_answer and error_occurred:
+            full_answer = "生成回复时出错：请稍后重试。"
+        elif client_disconnected and not full_answer:
+            full_answer = "已停止生成"
+
+        if full_answer and full_answer != emitted_text:
+            if full_answer.startswith(emitted_text):
+                delta = full_answer[len(emitted_text):]
+            else:
+                delta = full_answer
+            if delta:
+                yield f"data: {json.dumps({'chunk': delta}, ensure_ascii=False)}\n\n"
+
+        _sessions[sid].append({"role": "assistant", "content": full_answer})
+
+        asyncio.create_task(
+            asyncio.to_thread(
+                _run_chat_side_effects,
+                agent=agent,
+                user_id=current_user.user_id,
+                user_query=message,
+                assistant_answer=full_answer,
+                session_id=sid,
+            )
+        )
+
+        _debug_log("H4", "main.py:chat_stream.gen", "stream done", {"answer_len": len(full_answer), "client_disconnected": client_disconnected})
+        if not client_disconnected:
+            yield f"data: {json.dumps({'session_id': sid, 'done': True}, ensure_ascii=False)}\n\n"
+
+    return StreamingResponse(gen(), media_type="text/event-stream")
+
+
+@app.delete("/api/session/{session_id}")
+def clear_session(session_id: str, current_user: AuthUser = Depends(get_current_user)):
+    _require_session_access(session_id, current_user.user_id)
+    if session_id in _sessions:
+        del _sessions[session_id]
+        _session_owners.pop(session_id, None)
+        if _storage_backend:
+            _storage_backend.delete_session(session_id)
+        return {"ok": True, "session_id": session_id}
+    raise HTTPException(status_code=404, detail="session not found")
+
+
+@app.get("/api/session/{session_id}", response_model=SessionResponse)
+def get_session(session_id: str, current_user: AuthUser = Depends(get_current_user)) -> SessionResponse:
+    _require_session_access(session_id, current_user.user_id)
+    if session_id not in _sessions:
+        raise HTTPException(status_code=404, detail="session not found")
+    return SessionResponse(session_id=session_id, history=_serialize_session_history(session_id))
+
+
+@app.get("/api/sessions", response_model=SessionListResponse)
+def list_sessions(current_user: AuthUser = Depends(get_current_user)) -> SessionListResponse:
+    sessions = [
+        _build_session_summary(session_id, history)
+        for session_id, history in reversed(list(_sessions.items()))
+        if _session_owners.get(session_id) == current_user.user_id
+    ]
+    return SessionListResponse(sessions=sessions)

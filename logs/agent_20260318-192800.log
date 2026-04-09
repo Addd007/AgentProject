@@ -1,0 +1,7 @@
+2026-03-18 19:28:00,797 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-18 19:28:00,797 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我有一个扫地机器人，今天我如何保养
+2026-03-18 19:28:04,731 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-18 19:28:04,731 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫地机器人日常保养方法'}
+2026-03-18 19:28:07,952 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-18 19:28:07,954 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-18 19:28:07,954 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |定期清理滚刷和边刷上的缠绕物，清空尘盒，擦拭传感器和充电触点，检查并清理滤网，避免在潮湿或有大量液体的地面上使用。

@@ -1,0 +1,17 @@
+2026-03-18 19:21:14,884 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-18 19:21:14,884 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |扫地机器人在我所在地区的天气下如何保养
+2026-03-18 19:21:19,379 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-18 19:21:19,379 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-18 19:21:19,380 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-18 19:21:19,380 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-18 19:21:19,381 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |昆明
+2026-03-18 19:21:22,226 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_weather
+2026-03-18 19:21:22,226 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'city': '昆明'}
+2026-03-18 19:21:22,227 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_weather 工具调用成功
+2026-03-18 19:21:22,227 - agent - INFO - middlewares.py:41 - [Before model]:带有5条消息
+2026-03-18 19:21:22,227 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |12-15度，多云，湿度30%
+2026-03-18 19:21:25,898 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-18 19:21:25,898 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫地机器人在干燥低湿度环境下的保养方法'}
+2026-03-18 19:21:28,145 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-18 19:21:28,146 - agent - INFO - middlewares.py:41 - [Before model]:带有7条消息
+2026-03-18 19:21:28,146 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |在干燥低湿度环境下，应定期清理扫地机器人的尘盒、滤网和滚刷，防止灰尘积聚；检查并清洁传感器，避免静电吸附灰尘影响性能；存放时置于阴凉处，避免长时间暴晒导致塑料部件老化。

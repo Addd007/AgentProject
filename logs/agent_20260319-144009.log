@@ -1,0 +1,73 @@
+2026-03-19 14:40:12,957 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-19 14:40:12,957 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |sdf
+2026-03-19 14:42:03,149 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-19 14:42:03,151 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |在我城市当前天气下扫地机器人如何保养
+2026-03-19 14:42:09,751 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-19 14:42:09,752 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-19 14:42:09,753 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-19 14:42:09,754 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-19 14:42:09,755 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |昆明
+2026-03-19 14:42:13,545 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_weather
+2026-03-19 14:42:13,546 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'city': '昆明'}
+2026-03-19 14:42:13,548 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_weather 工具调用成功
+2026-03-19 14:42:13,549 - agent - INFO - middlewares.py:41 - [Before model]:带有5条消息
+2026-03-19 14:42:13,549 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |12-15度，多云，湿度30%
+2026-03-19 14:42:17,107 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-19 14:42:17,108 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '低湿度环境下扫地机器人保养建议'}
+2026-03-19 14:42:20,098 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-19 14:42:20,101 - agent - INFO - middlewares.py:41 - [Before model]:带有7条消息
+2026-03-19 14:42:20,101 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |在低湿度（如北方干燥/多灰）环境下，建议增大扫地机器人吸力档位，每日清理尘盒，每月对风道和滤网进行深度清洁；若使用拖地功能，应调至中档出水量。
+2026-03-19 14:43:49,945 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-19 14:43:49,945 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |在我城市当前天气下扫地机器人如何保养
+2026-03-19 14:43:55,118 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-03-19 14:43:55,119 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-19 14:43:55,120 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-03-19 14:43:55,158 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-19 14:43:55,158 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |昆明
+2026-03-19 14:44:00,191 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_weather
+2026-03-19 14:44:00,191 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'city': '昆明'}
+2026-03-19 14:44:00,192 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_weather 工具调用成功
+2026-03-19 14:44:00,387 - agent - INFO - middlewares.py:41 - [Before model]:带有5条消息
+2026-03-19 14:44:00,388 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |12-15度，多云，湿度30%
+2026-03-19 14:44:07,650 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-19 14:44:07,650 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫地机器人在干燥低温环境下如何保养'}
+2026-03-19 14:44:09,541 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-19 14:44:10,162 - agent - INFO - middlewares.py:41 - [Before model]:带有7条消息
+2026-03-19 14:44:10,162 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |在干燥低温环境下，应每日清理尘盒，每月对风道和滤网进行深度清洁，并可适当增大吸力档位以应对多灰环境。
+2026-03-19 14:44:44,548 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-03-19 14:44:44,549 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |生成使用报告
+2026-03-19 14:44:47,054 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_user_id
+2026-03-19 14:44:47,054 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-19 14:44:47,055 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_user_id 工具调用成功
+2026-03-19 14:44:47,117 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-03-19 14:44:47,117 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |1004
+2026-03-19 14:44:48,424 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_current_month
+2026-03-19 14:44:48,424 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-19 14:44:48,425 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_current_month 工具调用成功
+2026-03-19 14:44:48,522 - agent - INFO - middlewares.py:41 - [Before model]:带有5条消息
+2026-03-19 14:44:48,522 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |2025-01
+2026-03-19 14:44:50,060 - agent - INFO - middlewares.py:21 - [Monitoring tool]:fill_context_for_report
+2026-03-19 14:44:50,060 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-03-19 14:44:50,062 - agent - INFO - middlewares.py:25 - [Monitoring tool]:fill_context_for_report 工具调用成功
+2026-03-19 14:44:50,412 - agent - INFO - middlewares.py:41 - [Before model]:带有7条消息
+2026-03-19 14:44:50,412 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |fill_context_for_report ·已调用
+2026-03-19 14:44:53,768 - agent - INFO - middlewares.py:21 - [Monitoring tool]:fetch_external_data
+2026-03-19 14:44:53,769 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'user_id': '1004', 'month': '2025-01'}
+2026-03-19 14:44:53,775 - agent - INFO - middlewares.py:25 - [Monitoring tool]:fetch_external_data 工具调用成功
+2026-03-19 14:44:55,148 - agent - INFO - middlewares.py:41 - [Before model]:带有9条消息
+2026-03-19 14:44:55,149 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |{"特征": "85㎡ | 2猫 | 混合地面", "清洁效率": "猫砂泼洒处理:8次/月\\n自动回充成功率:89%", "耗材": "主刷缠绕:严重\\n滤网更换:急需", "对比": "建议升级吸力至2500Pa"}
+2026-03-19 14:45:05,223 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-19 14:45:05,224 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '主刷缠绕严重处理方法'}
+2026-03-19 14:45:09,306 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-19 14:45:10,081 - agent - INFO - middlewares.py:41 - [Before model]:带有11条消息
+2026-03-19 14:45:10,081 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |拆卸主刷两端卡扣，取下主刷，用剪刀剪断缠绕的毛发，并用毛刷清理滚刷仓内杂物；若主刷旋转速度变慢，还需检查是否缠绕杂物，并清理。
+2026-03-19 14:45:15,915 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-19 14:45:15,916 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '滤网更换周期和方法'}
+2026-03-19 14:45:20,837 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-19 14:45:21,882 - agent - INFO - middlewares.py:41 - [Before model]:带有13条消息
+2026-03-19 14:45:21,883 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |HEPA滤网每3-6个月更换一次，可每周用软毛刷清理表面灰尘，每1-2个月用清水冲洗后阴干；尘盒初效滤网每月冲洗晾干，每6个月更换一次。更换时应确保滤网完全干燥后再安装。
+2026-03-19 14:45:26,331 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-03-19 14:45:26,332 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '多宠物家庭扫地机器人吸力设置建议'}
+2026-03-19 14:45:28,492 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-03-19 14:45:29,438 - agent - INFO - middlewares.py:41 - [Before model]:带有15条消息
+2026-03-19 14:45:29,438 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |多宠物家庭建议选择吸力≥3000Pa且支持吸力调节的扫地机器人，开启“宠物模式”以增大吸力和清扫频次，并搭配防缠绕主刷与高密度滤网，每日清理尘盒和滚刷。

@@ -1,0 +1,7 @@
+2026-04-06 17:57:42,396 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-04-06 17:57:42,397 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |推荐一款适合小户型的扫地机器人
+2026-04-06 17:57:44,570 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-04-06 17:57:44,571 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '适合小户型的扫地机器人推荐'}
+2026-04-06 17:57:47,899 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-06 17:57:47,902 - agent - INFO - middlewares.py:41 - [Before model]:带有3条消息
+2026-04-06 17:57:47,902 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |小户型适合选择基础激光导航机型，如米家 1C、石头 T4；建议吸力≥3000Pa，优先考虑轻便灵活的设计。

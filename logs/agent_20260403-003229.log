@@ -1,0 +1,62 @@
+2026-04-03 00:32:36,020 - agent - INFO - middlewares.py:41 - [Before model]:带有1条消息
+2026-04-03 00:32:36,021 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |hello
+2026-04-03 00:32:49,402 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-03 00:32:49,402 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我是mark
+2026-04-03 00:32:57,154 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
+2026-04-03 00:32:57,154 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我叫什么
+2026-04-03 00:33:15,273 - agent - INFO - middlewares.py:41 - [Before model]:带有8条消息
+2026-04-03 00:33:15,273 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我在昆明
+2026-04-03 00:33:30,276 - agent - INFO - middlewares.py:41 - [Before model]:带有10条消息
+2026-04-03 00:33:30,276 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |忘记密码怎么办
+2026-04-03 00:34:34,415 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
+2026-04-03 00:34:34,416 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我叫什么
+2026-04-03 00:34:41,053 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
+2026-04-03 00:34:41,054 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我在哪
+2026-04-03 00:34:43,367 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_location
+2026-04-03 00:34:43,367 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-03 00:34:43,729 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_location 工具调用成功
+2026-04-03 00:34:43,887 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
+2026-04-03 00:34:43,888 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |用户所在城市: [][]
+2026-04-03 00:35:11,112 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
+2026-04-03 00:35:11,113 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |天气
+2026-04-03 00:35:13,131 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_weather
+2026-04-03 00:35:13,131 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'city': '昆明'}
+2026-04-03 00:35:13,484 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_weather 工具调用成功
+2026-04-03 00:35:14,296 - agent - INFO - middlewares.py:41 - [Before model]:带有8条消息
+2026-04-03 00:35:14,296 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |云南昆明市 当前天气：晴，温度 17°C，风向 西南，风力 ≤3级，湿度 51% (数据时间：2026-04-03 00:33:32)
+2026-04-03 00:35:31,289 - agent - INFO - middlewares.py:41 - [Before model]:带有8条消息
+2026-04-03 00:35:31,289 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |北京天气
+2026-04-03 00:35:35,012 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_weather
+2026-04-03 00:35:35,012 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'city': '北京'}
+2026-04-03 00:35:35,648 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_weather 工具调用成功
+2026-04-03 00:35:36,463 - agent - INFO - middlewares.py:41 - [Before model]:带有10条消息
+2026-04-03 00:35:36,463 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |北京北京市 当前天气：霾，温度 13°C，风向 东，风力 ≤3级，湿度 56% (数据时间：2026-04-03 00:33:10)
+2026-04-03 00:36:13,346 - agent - INFO - middlewares.py:41 - [Before model]:带有10条消息
+2026-04-03 00:36:13,347 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |我的id
+2026-04-03 00:36:16,698 - agent - INFO - middlewares.py:21 - [Monitoring tool]:get_user_id
+2026-04-03 00:36:16,699 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-03 00:36:16,700 - agent - INFO - middlewares.py:25 - [Monitoring tool]:get_user_id 工具调用成功
+2026-04-03 00:36:16,762 - agent - INFO - middlewares.py:41 - [Before model]:带有12条消息
+2026-04-03 00:36:16,762 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |1004
+2026-04-03 00:36:26,692 - agent - INFO - middlewares.py:41 - [Before model]:带有12条消息
+2026-04-03 00:36:26,692 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |报告
+2026-04-03 00:36:37,662 - agent - INFO - middlewares.py:21 - [Monitoring tool]:fill_context_for_report
+2026-04-03 00:36:37,663 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{}
+2026-04-03 00:36:37,664 - agent - INFO - middlewares.py:25 - [Monitoring tool]:fill_context_for_report 工具调用成功
+2026-04-03 00:36:38,020 - agent - INFO - middlewares.py:41 - [Before model]:带有14条消息
+2026-04-03 00:36:38,021 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |fill_context_for_report ·已调用
+2026-04-03 00:37:03,407 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-04-03 00:37:03,408 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫地机器人滤网保养和更换周期'}
+2026-04-03 00:37:09,555 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-03 00:37:10,803 - agent - INFO - middlewares.py:41 - [Before model]:带有16条消息
+2026-04-03 00:37:10,803 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |HEPA滤网每周用软毛刷轻刷表面灰尘，每1-2个月用清水冲洗并阴凉处晾干，3-6个月更换一次；若为扫拖一体机型的水泵滤网，需每周清理，每6个月更换一次，堵塞导致不出水时应提前更换。所有滤网均建议使用原装配件。
+2026-04-03 00:37:13,858 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-04-03 00:37:13,859 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫拖一体机器人拖布清洁频率和方法'}
+2026-04-03 00:37:21,965 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-03 00:37:22,814 - agent - INFO - middlewares.py:41 - [Before model]:带有18条消息
+2026-04-03 00:37:22,814 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |扫拖一体机器人拖布应在每次拖地后立即清理，厨房重油污环境下需用中性洗涤剂清洗；日常使用后及时清洁拖布和水箱，避免油污堵塞，每周对水箱除垢。
+2026-04-03 00:37:26,759 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
+2026-04-03 00:37:26,760 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '春季花粉柳絮环境下扫地机器人使用建议'}
+2026-04-03 00:37:30,687 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
+2026-04-03 00:37:31,034 - agent - INFO - middlewares.py:41 - [Before model]:带有20条消息
+2026-04-03 00:37:31,035 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |参考资料中未提及春季花粉柳絮环境下的扫地机器人使用建议。

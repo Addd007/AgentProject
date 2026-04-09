@@ -1,0 +1,20 @@
+# Python
+.git
+.gitignore
+.idea
+.cursor
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+.DS_Store
+venv/
+.venv/
+logs/
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+node_modules/
+frontend/.vite/
