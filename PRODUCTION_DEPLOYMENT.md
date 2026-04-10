@@ -112,8 +112,8 @@ docker compose -f docker-compose.production.yml up -d postgres redis
 # 凌晨 2:00 - 归档过期会话
 0 2 * * * archive-expired-sessions
 
-# 凌晨 3:00 - 清理已归档会话
-0 3 * * * cleanup-archived-sessions
+# 凌晨 3:00 - 清理已删除的会话
+0 3 * * * cleanup-deleted-sessions
 
 # 凌晨 4:00 - 备份数据库
 0 4 * * * backup-sessions

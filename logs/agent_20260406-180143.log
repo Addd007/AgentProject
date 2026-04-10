@@ -1,2 +1,0 @@
-2026-04-06 18:04:16,595 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
-2026-04-06 18:04:16,595 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |测试

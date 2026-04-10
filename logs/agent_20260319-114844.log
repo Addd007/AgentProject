@@ -1,6 +1,0 @@
-2026-03-19 11:48:52,770 - agent - INFO - vector_store.py:81 - 加载知识库，/Users/zhuangbohan/资料/AIPython/AgentProject/data/维修保养.txt内容加载成功
-2026-03-19 11:48:57,184 - agent - INFO - vector_store.py:81 - 加载知识库，/Users/zhuangbohan/资料/AIPython/AgentProject/data/选购指南.txt内容加载成功
-2026-03-19 11:49:01,266 - agent - INFO - vector_store.py:81 - 加载知识库，/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问（2）.txt内容加载成功
-2026-03-19 11:49:09,373 - agent - INFO - vector_store.py:81 - 加载知识库，/Users/zhuangbohan/资料/AIPython/AgentProject/data/故障排除.txt内容加载成功
-2026-03-19 11:49:17,720 - agent - INFO - vector_store.py:81 - 加载知识库，/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫拖一体机器人100问.txt内容加载成功
-2026-03-19 11:49:21,732 - agent - INFO - vector_store.py:81 - 加载知识库，/Users/zhuangbohan/资料/AIPython/AgentProject/data/扫地机器人100问.pdf内容加载成功

@@ -30,6 +30,9 @@ env/
 logs/
 *.log
 *.pid
+celerybeat-schedule
+celerybeat-schedule-shm
+celerybeat-schedule-wal
 
 # Build / packaging
 build/

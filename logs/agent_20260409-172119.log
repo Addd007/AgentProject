@@ -1,3 +1,0 @@
-2026-04-09 17:21:19,929 - agent.utils.session_storage - INFO - session_storage.py:90 - Initialized session storage with postgresql://postgres:password@localhost:5432/agent_db
-2026-04-09 17:21:19,934 - agent.main - INFO - main.py:142 - Loaded 27 sessions from database
-2026-04-09 17:21:19,934 - agent.main - INFO - main.py:152 - Celery app not attached; skipping beat schedule registration

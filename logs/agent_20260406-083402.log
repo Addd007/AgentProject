@@ -1,9 +1,0 @@
-2026-04-06 08:34:40,937 - agent - INFO - middlewares.py:41 - [Before model]:带有2条消息
-2026-04-06 08:34:40,938 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |你好
-2026-04-06 08:35:58,212 - agent - INFO - middlewares.py:41 - [Before model]:带有4条消息
-2026-04-06 08:35:58,215 - agent - DEBUG - middlewares.py:42 - [Before model]:HumanMessage |帮我推荐机器人
-2026-04-06 08:35:59,826 - agent - INFO - middlewares.py:21 - [Monitoring tool]:rag_summarize
-2026-04-06 08:35:59,826 - agent - INFO - middlewares.py:22 - [Monitoring tool]: 传入参数：{'query': '扫地机器人选购指南'}
-2026-04-06 08:36:07,684 - agent - INFO - middlewares.py:25 - [Monitoring tool]:rag_summarize 工具调用成功
-2026-04-06 08:36:07,686 - agent - INFO - middlewares.py:41 - [Before model]:带有6条消息
-2026-04-06 08:36:07,686 - agent - DEBUG - middlewares.py:42 - [Before model]:ToolMessage |选购扫地机器人应优先明确使用场景：独居小户型适合基础激光导航机型（如米家1C、石头T4），多口之家或有宠物家庭需选择吸力≥2500Pa（家用建议≥3000Pa，地毯场景≥4000Pa）、胶刷设计、大尘盒容量及防缠绕功能的机型；大户型应关注电池容量（>5200mAh）及自动集尘或自动洗拖布功能。导航方面，激光导航定位精准、抗干扰强，适合复杂户型；视觉导航性价比高但需避免强光环境。其他关键参数包括吸力大小、电池容量、尘盒/水箱容量。国产机型功能丰富、性价比高，iRobot算法成熟但功能较单一。

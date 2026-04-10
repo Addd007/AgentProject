@@ -26,16 +26,16 @@ celery_app.conf.update(
     task_soft_time_limit=25 * 60,
     broker_connection_retry_on_startup=True,
     result_expires=3600,
-    beat_schedule={
-        "archive-expired-sessions": {
+    beat_schedule={  # 定时任务配置
+        "archive-expired-sessions": { #归档过期会话
             "task": "tasks.celery_tasks.archive_expired_sessions_task",
             "schedule": crontab(hour=2, minute=0),
         },
-        "cleanup-archived-sessions": {
-            "task": "tasks.celery_tasks.cleanup_archived_sessions_task",
+        "cleanup-deleted-sessions": { #清理已删除的会话
+            "task": "tasks.celery_tasks.cleanup_deleted_sessions_task",
             "schedule": crontab(hour=3, minute=0),
         },
-        "backup-sessions": {
+        "backup-sessions": { #备份会话数据库
             "task": "tasks.celery_tasks.backup_sessions_task",
             "schedule": crontab(hour=4, minute=0),
         },
@@ -84,18 +84,18 @@ def archive_expired_sessions_task():
 
 
 @celery_app.task
-def cleanup_archived_sessions_task():
-    """定时任务：清理已归档的会话"""
+def cleanup_deleted_sessions_task():
+    """定时任务：清理已删除的会话"""
     try:
         from config.database import SESSION_ARCHIVE_DAYS
         from utils.session_storage import get_storage_backend
         
         backend = get_storage_backend(use_db=True)
-        count = backend.cleanup_archived(SESSION_ARCHIVE_DAYS)
-        logger.info(f"Deleted {count} archived sessions")
+        count = backend.cleanup_deleted_sessions(SESSION_ARCHIVE_DAYS)
+        logger.info(f"Deleted {count} deleted sessions")
         return {"deleted_count": count}
     except Exception as exc:
-        logger.error(f"Failed to cleanup archived sessions: {exc}")
+        logger.error(f"Failed to cleanup deleted sessions: {exc}")
         return {"error": str(exc)}
 
 

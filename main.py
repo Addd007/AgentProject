@@ -12,6 +12,7 @@ import asyncio
 import json
 import os
 import time
+from contextlib import asynccontextmanager
 from pathlib import Path
 from typing import Optional
 from uuid import uuid4
@@ -35,7 +36,13 @@ from utils.session_storage import get_storage_backend
 
 logger = get_logger(__name__)
 
-app = FastAPI(title="机器人智能客服", version="1.0.0")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    on_startup()
+    yield
+
+
+app = FastAPI(title="机器人智能客服", version="1.0.0", lifespan=lifespan)
 app.celery_app = task_celery_app
 
 _default_origins = [
@@ -130,7 +137,6 @@ class AuthResponse(BaseModel):
     user: AuthUserResponse | None
 
 
-@app.on_event("startup")
 def on_startup() -> None:
     global _storage_backend, _sessions, _session_owners
     _debug_log("H1", "main.py:on_startup", "backend startup", {"ok": True})

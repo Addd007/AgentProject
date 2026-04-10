@@ -104,8 +104,8 @@ class SessionStorageBackend(ABC):
         pass
 
     @abstractmethod
-    def cleanup_archived(self, days: int = 90) -> int:
-        """清理已归档的会话，返回删除数量"""
+    def cleanup_deleted_sessions(self, days: int = 90) -> int:
+        """清理已删除的会话，返回删除数量"""
         pass
 
 
@@ -243,8 +243,8 @@ class SqlAlchemyBackend(SessionStorageBackend):
             logger.error(f"Failed to archive sessions: {e}")
             return 0
 
-    def cleanup_archived(self, days: int = 90) -> int:
-        """清理已归档的会话"""
+    def cleanup_deleted_sessions(self, days: int = 90) -> int:
+        """清理已删除的会话"""
         try:
             db = self.SessionLocal()
             cutoff = utc_now() - timedelta(days=days)
@@ -255,10 +255,10 @@ class SqlAlchemyBackend(SessionStorageBackend):
 
             db.commit()
             db.close()
-            logger.info(f"Deleted {count} archived sessions")
+            logger.info(f"Deleted {count} deleted sessions")
             return count
         except Exception as e:
-            logger.error(f"Failed to cleanup archived sessions: {e}")
+            logger.error(f"Failed to cleanup deleted sessions: {e}")
             return 0
 
 
@@ -282,7 +282,7 @@ class MemoryBackend(SessionStorageBackend):
             if v.get("status") == "active"
         }
 
-    def save_session(self, session_id: str, mess。。ages: list, user_id: str = "default") -> bool:
+    def save_session(self, session_id: str, messages: list,       user_id: str = "default") -> bool:
         self.data[session_id] = {
             "messages": messages,
             "user_id": user_id,
@@ -305,7 +305,7 @@ class MemoryBackend(SessionStorageBackend):
                 count += 1
         return count
 
-    def cleanup_archived(self, days: int = 90) -> int:
+    def cleanup_deleted_sessions(self, days: int = 90) -> int:
         cutoff = utc_now() - timedelta(days=days)
         to_delete = [
             sid for sid, v in self.data.items()
