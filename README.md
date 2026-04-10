@@ -291,6 +291,97 @@ python -m celery -A tasks.celery_tasks beat -l info
 - Celery Beat 调度表定义在 `tasks/celery_tasks.py`，由 Beat 进程自身加载。
 - `session_id` 现支持最长 128 个字符；已有数据库会在应用启动或执行 `python scripts/init_db.py` 时自动扩容列定义。
 
+### 8.7 开发环境数据库测试数据
+
+以下内容仅建议用于本地开发或测试环境，不要直接用于生产环境。
+
+#### 测试账号
+
+因为data/external/records.csv中记录的用户id为1001-1010，建议直接插入 `users` 表。下面这组数据对应：
+
+- 用户名：`test1`，密码：`123456789`，user_id：`1001`
+- 用户名：`test2`，密码：`123456789`，user_id：`1002`
+- 用户名：`test3`，密码：`123456789`，user_id：`1003`
+
+插入命令示例：
+
+```sql
+INSERT INTO users (user_id, username, password_hash, created_at)
+VALUES
+(
+	'1001',
+	'test1',
+	'pbkdf2_sha256$310000$jX4b-6xJIievmtiuIRilcg$pL84PdCddT2AVlr1TeBH911FRGDvSdXxJOJYn0IDb4w',
+	NOW()
+),
+(
+	'1002',
+	'test2',
+	'pbkdf2_sha256$310000$QqDARTDMhgXTKYWOmhddbA$BPpCkiZIVoxJAlYdotjJtLCC5gJoAFy8f3W9HWa2hlY',
+	NOW()
+),
+(
+	'1003',
+	'test3',
+	'pbkdf2_sha256$310000$eLN8CfxDd8HU3lXLJfgAMg$NAaYTk68N9I3XzqVzK86oOa7tmUsRctloDFM-1LgGAw',
+	NOW()
+);
+```
+
+说明：
+
+- 以上 `password_hash` 已对应明文密码 `123456789`，插入后可直接登录。
+- 用户名使用小写，和当前后端的用户名规范一致。
+- 如果这些 user_id 或用户名已存在，请先删除旧数据或改成 `INSERT ... ON CONFLICT` 形式。
+
+#### 测试会话数据
+
+创建完测试用户后，可以直接往 PostgreSQL 插入示例会话，方便验证历史会话、会话隔离、归档和删除流程。
+
+```sql
+INSERT INTO sessions (session_id, user_id, messages, created_at, updated_at, status)
+VALUES
+(
+	'demo-session-001',
+	(SELECT user_id FROM users WHERE username = 'test1'),
+	'[
+		{"role": "user", "content": "家里有宠物毛发，适合看哪些参数？"},
+		{"role": "assistant", "content": "建议重点关注吸力、防缠绕滚刷和尘盒容量。"}
+	]'::json,
+	NOW(),
+	NOW(),
+	'active'
+),
+(
+	'demo-session-002',
+	(SELECT user_id FROM users WHERE username = 'test2'),
+	'[
+		{"role": "user", "content": "拖地时水量怎么选？"},
+		{"role": "assistant", "content": "木地板建议低水量，厨房和阳台可以适当提高。"}
+	]'::json,
+	NOW(),
+	NOW(),
+	'active'
+),
+(
+	'demo-session-deleted-001',
+	(SELECT user_id FROM users WHERE username = 'test3'),
+	'[
+		{"role": "user", "content": "这是一条用于清理测试的会话。"},
+		{"role": "assistant", "content": "可用于验证已删除会话清理任务。"}
+	]'::json,
+	NOW() - INTERVAL '120 days',
+	NOW() - INTERVAL '120 days',
+	'deleted'
+);
+```
+
+插入后可验证以下场景：
+
+- `test1` 与 `test2` 登录后只能看到自己的会话。
+- `demo-session-deleted-001` 可用于验证“清理已删除的会话”任务。
+- 如果需要验证归档任务，可把 `status` 设为 `active`，并把 `updated_at` 改为 30 天以前。
+
 ## 9. Docker 启动
 
 ### 9.1 开发型一体化编排
