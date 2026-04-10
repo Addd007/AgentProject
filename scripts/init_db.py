@@ -11,7 +11,7 @@ logger = get_logger(__name__)
 def init_db():
     """初始化数据库"""
     try:
-        from utils.session_storage import SessionRecord, get_storage_backend, Base, SQLALCHEMY_AVAILABLE
+        from utils.session_storage import Base, SQLALCHEMY_AVAILABLE, ensure_session_table_schema
         from utils.auth_service import Base as AuthBase
         from config.database import SQLALCHEMY_DATABASE_URL
         
@@ -26,6 +26,7 @@ def init_db():
         
         Base.metadata.create_all(engine)
         AuthBase.metadata.create_all(engine)
+        ensure_session_table_schema(engine)
         logger.info("Database initialized successfully")
         
         # 测试连接

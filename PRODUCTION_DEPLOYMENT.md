@@ -37,21 +37,26 @@ nano .env
 
 ```bash
 # 使用生产级 Docker Compose
-docker-compose -f docker-compose.production.yml up -d
+docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat
 
 # 验证所有服务启动成功
-docker-compose -f docker-compose.production.yml ps
+docker compose -f docker-compose.production.yml ps
 ```
 
 ### 3. 初始化数据库
 
 ```bash
 # 进入 FastAPI 容器
-docker-compose -f docker-compose.production.yml exec fastapi bash
+docker compose -f docker-compose.production.yml exec fastapi bash
 
 # 运行初始化脚本
 python scripts/init_db.py
 ```
+
+说明：
+
+- `python scripts/init_db.py` 除创建表外，还会把已有 `sessions.session_id` 列自动扩容到 128 字符。
+- 如果只想在本机验证 Redis/Celery 链路，可先用 Docker 起 `postgres` 和 `redis`，再在 `.venv` 内运行 FastAPI、Worker、Beat。
 
 ## 手动部署（物理服务器）
 
@@ -72,10 +77,16 @@ python scripts/init_db.py
 uvicorn main:app --host 0.0.0.0 --port 8000
 
 # 终端 2: Celery Worker
-celery -A tasks.celery_tasks worker -l info
+python -m celery -A tasks.celery_tasks worker -l info
 
 # 终端 3: Celery Beat（定时任务）
-celery -A tasks.celery_tasks beat -l info
+python -m celery -A tasks.celery_tasks beat -l info
+```
+
+如果本机没有 Redis 服务：
+
+```bash
+docker compose -f docker-compose.production.yml up -d postgres redis
 ```
 
 ## 关键功能
@@ -149,12 +160,12 @@ bash scripts/backup.sh restore ./backups/postgresql_backup_20260408_120000.sql.g
 
 1. **查看 Celery 日志**
    ```bash
-   docker-compose -f docker-compose.production.yml logs celery
+   docker compose -f docker-compose.production.yml logs celery
    ```
 
 2. **重启 Worker**
    ```bash
-   docker-compose -f docker-compose.production.yml restart celery
+   docker compose -f docker-compose.production.yml restart celery
    ```
 
 3. **手动重新保存会话**

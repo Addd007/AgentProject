@@ -45,8 +45,8 @@ numpy==2.4.3
 # 前端请在 frontend/ 目录执行 npm install && npm run dev
 
 # ---------- 生产级数据库与任务队列 ----------
-sqlalchemy==2.1.4
-psycopg2-binary==2.9.13
+sqlalchemy==2.0.49
+psycopg2-binary==2.9.11
 celery==5.4.0
 redis==5.2.1
 APScheduler==3.11.1

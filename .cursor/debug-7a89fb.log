@@ -974,3 +974,4 @@
 {"sessionId": "7a89fb", "runId": "pre-fix", "hypothesisId": "H4", "location": "main.py:chat_stream.gen", "message": "stream done", "data": {"answer_len": 151, "client_disconnected": false}, "timestamp": 1775732926128}
 {"sessionId": "7a89fb", "runId": "pre-fix", "hypothesisId": "H2", "location": "main.py:chat_stream", "message": "stream request entry", "data": {"message_len": 16, "has_session_id": false}, "timestamp": 1775732956281}
 {"sessionId": "7a89fb", "runId": "pre-fix", "hypothesisId": "H4", "location": "main.py:chat_stream.gen", "message": "stream done", "data": {"answer_len": 261, "client_disconnected": false}, "timestamp": 1775732963526}
+{"sessionId": "7a89fb", "runId": "pre-fix", "hypothesisId": "H1", "location": "main.py:on_startup", "message": "backend startup", "data": {"ok": true}, "timestamp": 1775801604166}

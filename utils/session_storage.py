@@ -1,14 +1,14 @@
 """会话存储层：基于 PostgreSQL，提供统一接口。"""
 
 import json
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Optional, Dict, List, Any
 from abc import ABC, abstractmethod
 
 from utils.logger_handler import get_logger
 
 try:
-    from sqlalchemy import create_engine, Column, String, JSON, DateTime, Index
+    from sqlalchemy import create_engine, Column, String, JSON, DateTime, Index, text
     from sqlalchemy.orm import Session, declarative_base, sessionmaker
     SQLALCHEMY_AVAILABLE = True
 except ImportError:
@@ -16,7 +16,14 @@ except ImportError:
 
 logger = get_logger(__name__)
 
+SESSION_ID_MAX_LENGTH = 128
+
 Base = declarative_base() if SQLALCHEMY_AVAILABLE else None
+
+
+def utc_now() -> datetime:
+    """Return the current UTC time as a naive datetime for existing DB columns."""
+    return datetime.now(timezone.utc).replace(tzinfo=None)
 
 
 class SessionRecord(Base if SQLALCHEMY_AVAILABLE else object):
@@ -24,11 +31,11 @@ class SessionRecord(Base if SQLALCHEMY_AVAILABLE else object):
     if SQLALCHEMY_AVAILABLE:
         __tablename__ = "sessions"
 
-        session_id = Column(String(36), primary_key=True, index=True)
+        session_id = Column(String(SESSION_ID_MAX_LENGTH), primary_key=True, index=True)
         user_id = Column(String(50), index=True)
         messages = Column(JSON)
-        created_at = Column(DateTime, default=datetime.utcnow, index=True)
-        updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+        created_at = Column(DateTime, default=utc_now, index=True)
+        updated_at = Column(DateTime, default=utc_now, onupdate=utc_now)
         status = Column(String(20), default="active")
         expires_at = Column(DateTime, nullable=True)
 
@@ -36,6 +43,36 @@ class SessionRecord(Base if SQLALCHEMY_AVAILABLE else object):
             Index("idx_user_id_updated_at", "user_id", "updated_at"),
             Index("idx_status_expires", "status", "expires_at"),
         )
+
+
+def ensure_session_table_schema(engine) -> None:
+    if not SQLALCHEMY_AVAILABLE:
+        return
+
+    with engine.begin() as conn:
+        current_length = conn.execute(
+            text(
+                """
+                SELECT character_maximum_length
+                FROM information_schema.columns
+                WHERE table_schema = current_schema()
+                  AND table_name = 'sessions'
+                  AND column_name = 'session_id'
+                """
+            )
+        ).scalar()
+
+        if current_length is not None and current_length < SESSION_ID_MAX_LENGTH:
+            conn.execute(
+                text(
+                    f"ALTER TABLE sessions ALTER COLUMN session_id TYPE VARCHAR({SESSION_ID_MAX_LENGTH})"
+                )
+            )
+            logger.info(
+                "Expanded sessions.session_id from %s to %s characters",
+                current_length,
+                SESSION_ID_MAX_LENGTH,
+            )
 
 
 class SessionStorageBackend(ABC):
@@ -87,13 +124,14 @@ class SqlAlchemyBackend(SessionStorageBackend):
         )
         self.SessionLocal = sessionmaker(bind=self.engine)
         Base.metadata.create_all(self.engine)
+        ensure_session_table_schema(self.engine)
         logger.info(f"Initialized session storage with {db_url}")
 
     def load_all_active(self, max_days: int = 7) -> Dict[str, list]:
         """从数据库加载近期活跃会话"""
         try:
             db = self.SessionLocal()
-            cutoff = datetime.utcnow() - timedelta(days=max_days)
+            cutoff = utc_now() - timedelta(days=max_days)
             records = db.query(SessionRecord).filter(
                 SessionRecord.status == "active",
                 SessionRecord.updated_at >= cutoff,
@@ -118,7 +156,7 @@ class SqlAlchemyBackend(SessionStorageBackend):
     def load_all_active_with_users(self, max_days: int = 7) -> Dict[str, Dict[str, Any]]:
         try:
             db = self.SessionLocal()
-            cutoff = datetime.utcnow() - timedelta(days=max_days)
+            cutoff = utc_now() - timedelta(days=max_days)
             records = db.query(SessionRecord).filter(
                 SessionRecord.status == "active",
                 SessionRecord.updated_at >= cutoff,
@@ -146,7 +184,7 @@ class SqlAlchemyBackend(SessionStorageBackend):
                 SessionRecord.session_id == session_id
             ).first()
 
-            now = datetime.utcnow()
+            now = utc_now()
             if record:
                 record.messages = messages
                 record.updated_at = now
@@ -179,7 +217,7 @@ class SqlAlchemyBackend(SessionStorageBackend):
 
             if record:
                 record.status = "deleted"
-                record.updated_at = datetime.utcnow()
+                record.updated_at = utc_now()
                 db.commit()
             db.close()
             return True
@@ -191,7 +229,7 @@ class SqlAlchemyBackend(SessionStorageBackend):
         """归档过期会话"""
         try:
             db = self.SessionLocal()
-            cutoff = datetime.utcnow() - timedelta(days=days)
+            cutoff = utc_now() - timedelta(days=days)
             count = db.query(SessionRecord).filter(
                 SessionRecord.status == "active",
                 SessionRecord.updated_at < cutoff,
@@ -209,7 +247,7 @@ class SqlAlchemyBackend(SessionStorageBackend):
         """清理已归档的会话"""
         try:
             db = self.SessionLocal()
-            cutoff = datetime.utcnow() - timedelta(days=days)
+            cutoff = utc_now() - timedelta(days=days)
             count = db.query(SessionRecord).filter(
                 SessionRecord.status == "deleted",
                 SessionRecord.updated_at < cutoff,
@@ -244,11 +282,11 @@ class MemoryBackend(SessionStorageBackend):
             if v.get("status") == "active"
         }
 
-    def save_session(self, session_id: str, messages: list, user_id: str = "default") -> bool:
+    def save_session(self, session_id: str, mess。。ages: list, user_id: str = "default") -> bool:
         self.data[session_id] = {
             "messages": messages,
             "user_id": user_id,
-            "updated_at": datetime.utcnow(),
+            "updated_at": utc_now(),
             "status": "active",
         }
         return True
@@ -259,19 +297,19 @@ class MemoryBackend(SessionStorageBackend):
         return True
 
     def archive_expired_sessions(self, days: int = 30) -> int:
-        cutoff = datetime.utcnow() - timedelta(days=days)
+        cutoff = utc_now() - timedelta(days=days)
         count = 0
         for v in self.data.values():
-            if v.get("status") == "active" and v.get("updated_at", datetime.utcnow()) < cutoff:
+            if v.get("status") == "active" and v.get("updated_at", utc_now()) < cutoff:
                 v["status"] = "archived"
                 count += 1
         return count
 
     def cleanup_archived(self, days: int = 90) -> int:
-        cutoff = datetime.utcnow() - timedelta(days=days)
+        cutoff = utc_now() - timedelta(days=days)
         to_delete = [
             sid for sid, v in self.data.items()
-            if v.get("status") == "deleted" and v.get("updated_at", datetime.utcnow()) < cutoff
+            if v.get("status") == "deleted" and v.get("updated_at", utc_now()) < cutoff
         ]
         for sid in to_delete:
             del self.data[sid]

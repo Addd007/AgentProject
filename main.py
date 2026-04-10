@@ -10,7 +10,6 @@ from __future__ import annotations
 
 import asyncio
 import json
-import importlib
 import os
 import time
 from pathlib import Path
@@ -23,6 +22,7 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
 
 from agent.react_agent import ReactAgent
+from tasks.celery_tasks import celery_app as task_celery_app
 from utils.auth_service import (
     AUTH_COOKIE_NAME,
     AUTH_COOKIE_SECURE,
@@ -36,6 +36,7 @@ from utils.session_storage import get_storage_backend
 logger = get_logger(__name__)
 
 app = FastAPI(title="机器人智能客服", version="1.0.0")
+app.celery_app = task_celery_app
 
 _default_origins = [
     "http://127.0.0.1:5173",
@@ -146,31 +147,11 @@ def on_startup() -> None:
         _sessions = {}
         _session_owners = {}
 
-    try:
-        celery_app = getattr(app, "celery_app", None)
-        if celery_app is None:
-            logger.info("Celery app not attached; skipping beat schedule registration")
-            return
-
-        crontab = importlib.import_module("celery.schedules").crontab
-
-        celery_app.conf.beat_schedule = {
-            "archive-expired-sessions": {
-                "task": "tasks.celery_tasks.archive_expired_sessions_task",
-                "schedule": crontab(hour=2, minute=0),
-            },
-            "cleanup-archived-sessions": {
-                "task": "tasks.celery_tasks.cleanup_archived_sessions_task",
-                "schedule": crontab(hour=3, minute=0),
-            },
-            "backup-sessions": {
-                "task": "tasks.celery_tasks.backup_sessions_task",
-                "schedule": crontab(hour=4, minute=0),
-            },
-        }
-        logger.info("Celery Beat tasks scheduled")
-    except Exception as exc:
-        logger.warning("Failed to schedule Celery tasks: %s", exc)
+    celery_app = getattr(app, "celery_app", None)
+    if celery_app is None:
+        logger.warning("Celery app not attached; async task queue may be unavailable")
+    else:
+        logger.info("Celery app attached to FastAPI application")
 
 
 def _serialize_session_history(session_id: str) -> list[dict]:

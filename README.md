@@ -15,7 +15,7 @@
 
 ## 1. 项目价值
 
-这个项目不是单纯的聊天 Demo，而是一个具备企业交付基础能力的智能客服工程骨架，重点覆盖以下能力：
+这个项目是一个具备企业交付基础能力的智能客服工程骨架，重点覆盖以下能力：
 
 - 业务问答：支持通用客服问答与业务引导。
 - RAG 检索：从本地知识库中召回文档并总结回答。
@@ -272,10 +272,24 @@ npm run dev
 
 如果你希望本地完整验证会话异步保存、归档、备份链路，还需要启动 Redis、Celery Worker 和 Celery Beat。
 
+如果本机没有安装 Redis，可直接用 Docker 先启动基础设施：
+
 ```bash
-celery -A tasks.celery_tasks worker -l info
-celery -A tasks.celery_tasks beat -l info
+docker compose -f docker-compose.production.yml up -d postgres redis
 ```
+
+如果已经激活 `.venv` 但 shell 里找不到 `celery` 命令，优先使用 `python -m celery`。
+
+```bash
+python -m celery -A tasks.celery_tasks worker -l info
+python -m celery -A tasks.celery_tasks beat -l info
+```
+
+说明：
+
+- FastAPI 启动时会挂载 Celery app，用于共享异步任务配置。
+- Celery Beat 调度表定义在 `tasks/celery_tasks.py`，由 Beat 进程自身加载。
+- `session_id` 现支持最长 128 个字符；已有数据库会在应用启动或执行 `python scripts/init_db.py` 时自动扩容列定义。
 
 ## 9. Docker 启动
 
@@ -324,13 +338,19 @@ docker compose up -d --build
 启动命令：
 
 ```bash
-docker compose -f docker-compose.production.yml up -d --build
+docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat
 ```
 
 查看状态：
 
 ```bash
 docker compose -f docker-compose.production.yml ps
+```
+
+如只需本地验证 Redis/PostgreSQL 基础设施，可先执行：
+
+```bash
+docker compose -f docker-compose.production.yml up -d postgres redis
 ```
 
 ## 10. API 概览

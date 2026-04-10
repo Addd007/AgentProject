@@ -3,6 +3,7 @@ Celery 配置和异步任务定义
 """
 
 from celery import Celery
+from celery.schedules import crontab
 from config.database import CELERY_BROKER, CELERY_BACKEND
 from utils.logger_handler import get_logger
 
@@ -25,6 +26,20 @@ celery_app.conf.update(
     task_soft_time_limit=25 * 60,
     broker_connection_retry_on_startup=True,
     result_expires=3600,
+    beat_schedule={
+        "archive-expired-sessions": {
+            "task": "tasks.celery_tasks.archive_expired_sessions_task",
+            "schedule": crontab(hour=2, minute=0),
+        },
+        "cleanup-archived-sessions": {
+            "task": "tasks.celery_tasks.cleanup_archived_sessions_task",
+            "schedule": crontab(hour=3, minute=0),
+        },
+        "backup-sessions": {
+            "task": "tasks.celery_tasks.backup_sessions_task",
+            "schedule": crontab(hour=4, minute=0),
+        },
+    },
 )
 
 
@@ -90,7 +105,7 @@ def backup_sessions_task():
     try:
         import os
         import subprocess
-        from datetime import datetime
+        from datetime import datetime, timezone
         from config.database import BACKUP_DIR
 
         db_host = os.getenv("DB_HOST", "localhost")
@@ -101,7 +116,7 @@ def backup_sessions_task():
         if not os.path.exists(BACKUP_DIR):
             os.makedirs(BACKUP_DIR)
         
-        timestamp = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M%S")
         backup_file = os.path.join(BACKUP_DIR, f"postgresql_backup_{timestamp}.sql")
         env = os.environ.copy()
         env["PGPASSWORD"] = db_password
