@@ -17,7 +17,7 @@ from config.database import SQLALCHEMY_DATABASE_URL
 Base = declarative_base()
 
 AUTH_COOKIE_NAME = "agentproject_auth"
-AUTH_TOKEN_TTL_SECONDS = int(os.getenv("AUTH_TOKEN_TTL_SECONDS", str(60 * 60 * 24 * 7)))
+AUTH_TOKEN_TTL_SECONDS = int(os.getenv("AUTH_TOKEN_TTL_SECONDS", str(60 * 60 * 2)))# 默认 2 小时 
 AUTH_SECRET = os.getenv("AUTH_SECRET", "agentproject-dev-secret-change-me")
 AUTH_COOKIE_SECURE = os.getenv("AUTH_COOKIE_SECURE", "false").lower() == "true"
 

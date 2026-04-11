@@ -29,7 +29,7 @@ let __VLS_directives;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.section, __VLS_intrinsicElements.section)({
     ...{ class: "workspace-grid" },
 });
-/** @type {[typeof SessionSidebar, ]} */;
+/** @type {[typeof SessionSidebar, ]} */ ;
 // @ts-ignore
 const __VLS_0 = __VLS_asFunctionalComponent(SessionSidebar, new SessionSidebar({
     ...{ 'onCreate': {} },
@@ -63,7 +63,7 @@ var __VLS_2;
 __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.div)({
     ...{ class: "chat-stack" },
 });
-/** @type {[typeof ChatWindow, ]} */;
+/** @type {[typeof ChatWindow, ]} */ ;
 // @ts-ignore
 const __VLS_9 = __VLS_asFunctionalComponent(ChatWindow, new ChatWindow({
     messages: (__VLS_ctx.store.activeMessages),
@@ -73,7 +73,7 @@ const __VLS_10 = __VLS_9({
     messages: (__VLS_ctx.store.activeMessages),
     loading: (__VLS_ctx.store.isSending),
 }, ...__VLS_functionalComponentArgsRest(__VLS_9));
-/** @type {[typeof MessageComposer, ]} */;
+/** @type {[typeof MessageComposer, ]} */ ;
 // @ts-ignore
 const __VLS_12 = __VLS_asFunctionalComponent(MessageComposer, new MessageComposer({
     ...{ 'onSubmit': {} },
@@ -95,8 +95,8 @@ const __VLS_19 = {
     onStop: (__VLS_ctx.store.stopGenerating)
 };
 var __VLS_14;
-/** @type {__VLS_StyleScopedClasses['workspace-grid']} */;
-/** @type {__VLS_StyleScopedClasses['chat-stack']} */;
+/** @type {__VLS_StyleScopedClasses['workspace-grid']} */ ;
+/** @type {__VLS_StyleScopedClasses['chat-stack']} */ ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {

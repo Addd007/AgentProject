@@ -89,6 +89,37 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
+    async function validateSession() {
+        try {
+            const response = await fetch(API_ENDPOINTS.authMe, {
+                credentials: 'include',
+            });
+            if (!response.ok) {
+                persistUser(null);
+                clearSessionCache();
+                isHydrated.value = true;
+                return null;
+            }
+
+            const data = (await response.json()) as AuthResponse;
+            if (!data.user) {
+                persistUser(null);
+                clearSessionCache();
+                isHydrated.value = true;
+                return null;
+            }
+
+            persistUser(data.user);
+            isHydrated.value = true;
+            return data.user;
+        } catch {
+            persistUser(null);
+            clearSessionCache();
+            isHydrated.value = true;
+            return null;
+        }
+    }
+
     async function submitAuth(endpoint: string, username: string, password: string) {
         isSubmitting.value = true;
         try {
@@ -140,6 +171,7 @@ export const useAuthStore = defineStore('auth', () => {
         isHydrated,
         isSubmitting,
         restoreSession,
+        validateSession,
         login,
         register,
         logout,

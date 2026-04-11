@@ -49,30 +49,27 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)(
     ...{ class: "tiny-tip" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElements.button)({
-    ...{
-        onClick: (...[$event]) => {
-            if (!(__VLS_ctx.loading))
-                return;
-            __VLS_ctx.emit('stop');
-        }
-    },
+    ...{ onClick: (...[$event]) => {
+            __VLS_ctx.loading ? __VLS_ctx.emit('stop') : undefined;
+        } },
     ...{ class: "send-button send-button--composer" },
     type: (__VLS_ctx.loading ? 'button' : 'submit'),
     disabled: (!__VLS_ctx.loading && !__VLS_ctx.draft.trim()),
 });
 (__VLS_ctx.loading ? '停止' : '发送');
-/** @type {__VLS_StyleScopedClasses['composer']} */;
-/** @type {__VLS_StyleScopedClasses['composer-label']} */;
-/** @type {__VLS_StyleScopedClasses['composer-input']} */;
-/** @type {__VLS_StyleScopedClasses['composer-actions']} */;
-/** @type {__VLS_StyleScopedClasses['tiny-tip']} */;
-/** @type {__VLS_StyleScopedClasses['send-button']} */;
-/** @type {__VLS_StyleScopedClasses['send-button--composer']} */;
+/** @type {__VLS_StyleScopedClasses['composer']} */ ;
+/** @type {__VLS_StyleScopedClasses['composer-label']} */ ;
+/** @type {__VLS_StyleScopedClasses['composer-input']} */ ;
+/** @type {__VLS_StyleScopedClasses['composer-actions']} */ ;
+/** @type {__VLS_StyleScopedClasses['tiny-tip']} */ ;
+/** @type {__VLS_StyleScopedClasses['send-button']} */ ;
+/** @type {__VLS_StyleScopedClasses['send-button--composer']} */ ;
 var __VLS_dollars;
 const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
             draft: draft,
+            emit: emit,
             handleSubmit: handleSubmit,
             handleKeydown: handleKeydown,
         };
