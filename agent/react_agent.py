@@ -8,7 +8,7 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain.agents.middleware import *
 from agent.tools.agent_tools import *
 from agent.tools.middlewares import *
-from model.factory import chat_model
+from model.factory import get_chat_model
 from utils.logger_handler import get_logger
 from utils.prompt_loader import load_system_prompts
 
@@ -26,6 +26,7 @@ class ReactAgent:
         # 滑动窗口短期记忆：保留最近 N 轮（1轮=用户+助手，最多2条消息）
         self.max_messages = max_turns * 2
         self.system_prompt = load_system_prompts()
+        chat_model = get_chat_model()
         self.agent = create_agent(
             model=chat_model,
             system_prompt=self.system_prompt,
@@ -178,7 +179,7 @@ class ReactAgent:
                 direct_messages.append(AIMessage(content=content))
 
         emitted_text = ""
-        for chunk in chat_model.stream(direct_messages):
+        for chunk in get_chat_model().stream(direct_messages):
             content = self._content_to_text(getattr(chunk, "content", ""))
             if not content or content == emitted_text:
                 continue

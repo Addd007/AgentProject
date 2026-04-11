@@ -6,7 +6,7 @@ from typing import Optional
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
-from model.factory import embedding_model
+from model.factory import get_embedding_model
 from utils.path_tool import get_abs_path
 
 
@@ -30,7 +30,7 @@ class UserMemoryService:
     ) -> None:
         self.vector_store = Chroma(
             collection_name=collection_name,
-            embedding_function=embedding_model,
+            embedding_function=get_embedding_model(),
             persist_directory=get_abs_path(persist_directory),
         )
 

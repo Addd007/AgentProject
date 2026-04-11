@@ -10,7 +10,7 @@ from utils.logger_handler import get_logger
 from utils.config_handler import chroma_conf
 from utils.file_handler import txt_loader, pdf_loader, listdir_with_allowed_type, get_file_md5_hex
 from utils.path_tool import get_abs_path
-from model.factory import embedding_model
+from model.factory import get_embedding_model
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 
@@ -20,7 +20,7 @@ class VectorStoreService:
     def __init__(self):
         self.vector_store = Chroma(
             collection_name=chroma_conf["collection_name"],
-            embedding_function=embedding_model,
+            embedding_function=get_embedding_model(),
             persist_directory=get_abs_path(chroma_conf["persist_directory"]),
         )
         self.spliter=RecursiveCharacterTextSplitter(

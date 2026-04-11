@@ -12,10 +12,17 @@ from utils.logger_handler import get_logger
 from utils.path_tool import get_abs_path
 
 logger = get_logger(__name__)
-rag = RagSummarizeService()
+_rag: Optional[RagSummarizeService] = None
 external_data = {}
 _CURRENT_USER_ID: ContextVar[Optional[str]] = ContextVar("current_user_id", default=None)
 _DEFAULT_USER_ID = os.getenv("AGENT_DEFAULT_USER_ID", "1001")
+
+
+def _get_rag_service() -> RagSummarizeService:
+    global _rag
+    if _rag is None:
+        _rag = RagSummarizeService()
+    return _rag
 
 
 def set_current_user_id(user_id: Optional[str]) -> Token:
@@ -32,7 +39,7 @@ def peek_current_user_id() -> Optional[str]:
 
 @tool(description="从向量存储中查找参考资料，返回消息形式字符串")
 def rag_summarize(query: str) -> str:
-    res = rag.rag_summarize(query)
+    res = _get_rag_service().rag_summarize(query)
     return res
 
 @tool(description="获取用户所在城市名称，返回纯字符串")
