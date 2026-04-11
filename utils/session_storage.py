@@ -1,11 +1,13 @@
 """会话存储层：基于 PostgreSQL，提供统一接口。"""
 
 import json
+import time
 from datetime import datetime, timedelta, timezone
 from typing import Optional, Dict, List, Any
 from abc import ABC, abstractmethod
 
 from utils.logger_handler import get_logger
+from utils.metrics import db_connection_errors, db_query_duration, session_archived, session_storage_errors, set_active_sessions_count
 
 try:
     from sqlalchemy import create_engine, Column, String, JSON, DateTime, Index, text
@@ -116,19 +118,27 @@ class SqlAlchemyBackend(SessionStorageBackend):
         if not SQLALCHEMY_AVAILABLE:
             raise RuntimeError("SQLAlchemy is required for database backend")
 
-        self.engine = create_engine(
-            db_url,
-            echo=False,
-            pool_pre_ping=True,
-            pool_recycle=3600,
-        )
-        self.SessionLocal = sessionmaker(bind=self.engine)
-        Base.metadata.create_all(self.engine)
-        ensure_session_table_schema(self.engine)
-        logger.info(f"Initialized session storage with {db_url}")
+        try:
+            self.engine = create_engine(
+                db_url,
+                echo=False,
+                pool_pre_ping=True,
+                pool_recycle=3600,
+            )
+            self.SessionLocal = sessionmaker(bind=self.engine)
+            Base.metadata.create_all(self.engine)
+            ensure_session_table_schema(self.engine)
+            logger.info(f"Initialized session storage with {db_url}")
+        except Exception:
+            db_connection_errors.inc()
+            raise
+
+    def _count_active_sessions(self, db: Session) -> int:
+        return db.query(SessionRecord).filter(SessionRecord.status == "active").count()
 
     def load_all_active(self, max_days: int = 7) -> Dict[str, list]:
         """从数据库加载近期活跃会话"""
+        started_at = time.perf_counter()
         try:
             db = self.SessionLocal()
             cutoff = utc_now() - timedelta(days=max_days)
@@ -148,12 +158,17 @@ class SqlAlchemyBackend(SessionStorageBackend):
 
             db.close()
             logger.info(f"Loaded {len(result)} active sessions")
+            set_active_sessions_count(len(result))
+            db_query_duration.labels(query_type="load_all_active").observe(time.perf_counter() - started_at)
             return result
         except Exception as e:
+            session_storage_errors.labels(error_type="load_all_active").inc()
             logger.error(f"Failed to load sessions: {e}")
+            db_query_duration.labels(query_type="load_all_active").observe(time.perf_counter() - started_at)
             return {}
 
     def load_all_active_with_users(self, max_days: int = 7) -> Dict[str, Dict[str, Any]]:
+        started_at = time.perf_counter()
         try:
             db = self.SessionLocal()
             cutoff = utc_now() - timedelta(days=max_days)
@@ -171,13 +186,18 @@ class SqlAlchemyBackend(SessionStorageBackend):
                 }
 
             db.close()
+            set_active_sessions_count(len(result))
+            db_query_duration.labels(query_type="load_all_active_with_users").observe(time.perf_counter() - started_at)
             return result
         except Exception as e:
+            session_storage_errors.labels(error_type="load_all_active_with_users").inc()
             logger.error(f"Failed to load session metadata: {e}")
+            db_query_duration.labels(query_type="load_all_active_with_users").observe(time.perf_counter() - started_at)
             return {}
 
     def save_session(self, session_id: str, messages: list, user_id: str = "default") -> bool:
         """保存会话到数据库"""
+        started_at = time.perf_counter()
         try:
             db = self.SessionLocal()
             record = db.query(SessionRecord).filter(
@@ -201,14 +221,19 @@ class SqlAlchemyBackend(SessionStorageBackend):
                 db.add(record)
 
             db.commit()
+            set_active_sessions_count(self._count_active_sessions(db))
             db.close()
+            db_query_duration.labels(query_type="save_session").observe(time.perf_counter() - started_at)
             return True
         except Exception as e:
+            session_storage_errors.labels(error_type="save_session").inc()
             logger.error(f"Failed to save session {session_id}: {e}")
+            db_query_duration.labels(query_type="save_session").observe(time.perf_counter() - started_at)
             return False
 
     def delete_session(self, session_id: str) -> bool:
         """软删除会话"""
+        started_at = time.perf_counter()
         try:
             db = self.SessionLocal()
             record = db.query(SessionRecord).filter(
@@ -219,14 +244,19 @@ class SqlAlchemyBackend(SessionStorageBackend):
                 record.status = "deleted"
                 record.updated_at = utc_now()
                 db.commit()
+                set_active_sessions_count(self._count_active_sessions(db))
             db.close()
+            db_query_duration.labels(query_type="delete_session").observe(time.perf_counter() - started_at)
             return True
         except Exception as e:
+            session_storage_errors.labels(error_type="delete_session").inc()
             logger.error(f"Failed to delete session {session_id}: {e}")
+            db_query_duration.labels(query_type="delete_session").observe(time.perf_counter() - started_at)
             return False
 
     def archive_expired_sessions(self, days: int = 30) -> int:
         """归档过期会话"""
+        started_at = time.perf_counter()
         try:
             db = self.SessionLocal()
             cutoff = utc_now() - timedelta(days=days)
@@ -236,15 +266,22 @@ class SqlAlchemyBackend(SessionStorageBackend):
             ).update({"status": "archived"})
 
             db.commit()
+            set_active_sessions_count(self._count_active_sessions(db))
             db.close()
+            if count > 0:
+                session_archived.inc(count)
             logger.info(f"Archived {count} expired sessions")
+            db_query_duration.labels(query_type="archive_expired_sessions").observe(time.perf_counter() - started_at)
             return count
         except Exception as e:
+            session_storage_errors.labels(error_type="archive_expired_sessions").inc()
             logger.error(f"Failed to archive sessions: {e}")
+            db_query_duration.labels(query_type="archive_expired_sessions").observe(time.perf_counter() - started_at)
             return 0
 
     def cleanup_deleted_sessions(self, days: int = 90) -> int:
         """清理已删除的会话"""
+        started_at = time.perf_counter()
         try:
             db = self.SessionLocal()
             cutoff = utc_now() - timedelta(days=days)
@@ -254,11 +291,15 @@ class SqlAlchemyBackend(SessionStorageBackend):
             ).delete()
 
             db.commit()
+            set_active_sessions_count(self._count_active_sessions(db))
             db.close()
             logger.info(f"Deleted {count} deleted sessions")
+            db_query_duration.labels(query_type="cleanup_deleted_sessions").observe(time.perf_counter() - started_at)
             return count
         except Exception as e:
+            session_storage_errors.labels(error_type="cleanup_deleted_sessions").inc()
             logger.error(f"Failed to cleanup deleted sessions: {e}")
+            db_query_duration.labels(query_type="cleanup_deleted_sessions").observe(time.perf_counter() - started_at)
             return 0
 
 
@@ -268,19 +309,26 @@ class MemoryBackend(SessionStorageBackend):
     def __init__(self):
         self.data: Dict[str, Dict[str, Any]] = {}
 
+    def _active_count(self) -> int:
+        return sum(1 for value in self.data.values() if value.get("status") == "active")
+
     def load_all_active(self, max_days: int = 7) -> Dict[str, list]:
-        return {
+        result = {
             sid: v["messages"]
             for sid, v in self.data.items()
             if v.get("status") == "active"
         }
+        set_active_sessions_count(len(result))
+        return result
 
     def load_all_active_with_users(self, max_days: int = 7) -> Dict[str, Dict[str, Any]]:
-        return {
+        result = {
             sid: {"messages": v["messages"], "user_id": v.get("user_id", "anonymous")}
             for sid, v in self.data.items()
             if v.get("status") == "active"
         }
+        set_active_sessions_count(len(result))
+        return result
 
     def save_session(self, session_id: str, messages: list,       user_id: str = "default") -> bool:
         self.data[session_id] = {
@@ -289,11 +337,13 @@ class MemoryBackend(SessionStorageBackend):
             "updated_at": utc_now(),
             "status": "active",
         }
+        set_active_sessions_count(self._active_count())
         return True
 
     def delete_session(self, session_id: str) -> bool:
         if session_id in self.data:
             self.data[session_id]["status"] = "deleted"
+        set_active_sessions_count(self._active_count())
         return True
 
     def archive_expired_sessions(self, days: int = 30) -> int:
@@ -303,6 +353,9 @@ class MemoryBackend(SessionStorageBackend):
             if v.get("status") == "active" and v.get("updated_at", utc_now()) < cutoff:
                 v["status"] = "archived"
                 count += 1
+        if count > 0:
+            session_archived.inc(count)
+        set_active_sessions_count(self._active_count())
         return count
 
     def cleanup_deleted_sessions(self, days: int = 90) -> int:
@@ -313,6 +366,7 @@ class MemoryBackend(SessionStorageBackend):
         ]
         for sid in to_delete:
             del self.data[sid]
+        set_active_sessions_count(self._active_count())
         return len(to_delete)
 
 

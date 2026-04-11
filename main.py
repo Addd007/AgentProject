@@ -21,8 +21,10 @@ from fastapi import Depends, FastAPI, HTTPException, Request, Response, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel, Field
+from prometheus_client import start_http_server
 
 from agent.react_agent import ReactAgent
+from config.database import ENABLE_METRICS, METRICS_PORT
 from tasks.celery_tasks import celery_app as task_celery_app
 from utils.auth_service import (
     AUTH_COOKIE_NAME,
@@ -32,6 +34,16 @@ from utils.auth_service import (
     AuthUser,
 )
 from utils.logger_handler import get_logger
+from utils.metrics import (
+    CONTENT_TYPE_LATEST,
+    record_model_response,
+    record_request_metrics,
+    registry as metrics_registry,
+    render_metrics,
+    session_created,
+    session_storage_errors,
+    set_active_sessions_count,
+)
 from utils.session_storage import get_storage_backend
 
 logger = get_logger(__name__)
@@ -68,6 +80,7 @@ _sessions: dict[str, list[dict]] = {}
 _session_owners: dict[str, str] = {}
 _storage_backend = None
 _auth_service = AuthService()
+_metrics_server_started = False
 
 _DEBUG_LOG_PATH = Path("/Users/zhuangbohan/资料/AIPython/AgentProject/.cursor/debug-7a89fb.log")
 
@@ -137,8 +150,13 @@ class AuthResponse(BaseModel):
     user: AuthUserResponse | None
 
 
+def _sync_active_session_metric() -> None:
+    if ENABLE_METRICS:
+        set_active_sessions_count(len(_sessions))
+
+
 def on_startup() -> None:
-    global _storage_backend, _sessions, _session_owners
+    global _storage_backend, _sessions, _session_owners, _metrics_server_started
     _debug_log("H1", "main.py:on_startup", "backend startup", {"ok": True})
 
     try:
@@ -152,6 +170,16 @@ def on_startup() -> None:
         _storage_backend = get_storage_backend(use_db=False)
         _sessions = {}
         _session_owners = {}
+
+    _sync_active_session_metric()
+
+    if ENABLE_METRICS and not _metrics_server_started:
+        try:
+            start_http_server(METRICS_PORT, addr="0.0.0.0", registry=metrics_registry)
+            _metrics_server_started = True
+            logger.info("Prometheus metrics server started on port %s", METRICS_PORT)
+        except OSError as exc:
+            logger.warning("Failed to start Prometheus metrics server on port %s: %s", METRICS_PORT, exc)
 
     celery_app = getattr(app, "celery_app", None)
     if celery_app is None:
@@ -278,7 +306,9 @@ def _require_session_access(session_id: str, user_id: str) -> None:
 
 def _persist_session(session_id: str, user_id: str) -> None:
     if _storage_backend:
-        _storage_backend.save_session(session_id, _sessions[session_id], user_id)
+        success = _storage_backend.save_session(session_id, _sessions[session_id], user_id)
+        if not success and ENABLE_METRICS:
+            session_storage_errors.labels(error_type="save_session").inc()
 
 
 def _run_chat_side_effects(
@@ -309,6 +339,8 @@ def _run_chat_side_effects(
         save_session_async.delay(session_id, _sessions[session_id], user_id)
     except Exception as exc:
         logger.warning("Failed to queue session save: %s", exc)
+        if ENABLE_METRICS:
+            session_storage_errors.labels(error_type="queue_session_save").inc()
         _persist_session(session_id, user_id)
 
 
@@ -320,13 +352,19 @@ def _chat_non_stream(req: ChatRequest, current_user: AuthUser) -> ChatResponse:
     if sid not in _sessions:
         _sessions[sid] = []
         _session_owners[sid] = current_user.user_id
+        if ENABLE_METRICS:
+            session_created.inc()
+        _sync_active_session_metric()
 
     _sessions[sid].append({"role": "user", "content": req.message})
     history = list(_sessions[sid])
 
     parts: list[str] = []
+    started_at = time.perf_counter()
     for chunk in agent.execute_stream(req.message, history, user_id=current_user.user_id):
         parts.append(chunk)
+    if ENABLE_METRICS:
+        record_model_response("react_agent", time.perf_counter() - started_at)
     full_answer = _sanitize_assistant_reply(req.message, "".join(parts).strip())
 
     _sessions[sid].append({"role": "assistant", "content": full_answer})
@@ -342,9 +380,34 @@ def _chat_non_stream(req: ChatRequest, current_user: AuthUser) -> ChatResponse:
     return ChatResponse(reply=full_answer, session_id=sid)
 
 
+@app.middleware("http")
+async def metrics_middleware(request: Request, call_next):
+    if not ENABLE_METRICS:
+        return await call_next(request)
+
+    started_at = time.perf_counter()
+    status_label = "500"
+    try:
+        response = await call_next(request)
+        status_label = str(response.status_code)
+        return response
+    except HTTPException as exc:
+        status_label = str(exc.status_code)
+        raise
+    finally:
+        record_request_metrics(request.url.path, status_label, time.perf_counter() - started_at)
+
+
 @app.get("/health")
 def health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/metrics", include_in_schema=False)
+def metrics() -> Response:
+    if not ENABLE_METRICS:
+        raise HTTPException(status_code=404, detail="metrics disabled")
+    return Response(content=render_metrics(), media_type=CONTENT_TYPE_LATEST)
 
 
 @app.post("/api/auth/register", response_model=AuthResponse)
@@ -409,6 +472,9 @@ async def chat_stream(
     if sid not in _sessions:
         _sessions[sid] = []
         _session_owners[sid] = current_user.user_id
+        if ENABLE_METRICS:
+            session_created.inc()
+        _sync_active_session_metric()
 
     _sessions[sid].append({"role": "user", "content": message})
     history = list(_sessions[sid])
@@ -418,6 +484,7 @@ async def chat_stream(
         error_occurred = False
         client_disconnected = False
         emitted_text = ""
+        started_at = time.perf_counter()
         try:
             for chunk in agent.execute_stream(message, history, user_id=current_user.user_id):
                 if await request.is_disconnected():
@@ -445,6 +512,9 @@ async def chat_stream(
                 {"error_type": type(exc).__name__, "error": str(exc)},
             )
             error_occurred = True
+        finally:
+            if ENABLE_METRICS:
+                record_model_response("react_agent", time.perf_counter() - started_at)
 
         full_answer = emitted_text or _sanitize_assistant_reply(message, "".join(buf).strip())
         if not full_answer and error_occurred:
@@ -486,8 +556,11 @@ def clear_session(session_id: str, current_user: AuthUser = Depends(get_current_
     if session_id in _sessions:
         del _sessions[session_id]
         _session_owners.pop(session_id, None)
+        _sync_active_session_metric()
         if _storage_backend:
-            _storage_backend.delete_session(session_id)
+            success = _storage_backend.delete_session(session_id)
+            if not success and ENABLE_METRICS:
+                session_storage_errors.labels(error_type="delete_session").inc()
         return {"ok": True, "session_id": session_id}
     raise HTTPException(status_code=404, detail="session not found")
 

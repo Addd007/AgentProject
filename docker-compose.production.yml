@@ -47,8 +47,11 @@ services:
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER: redis://redis:6379/0
       CELERY_BACKEND: redis://redis:6379/0
+      ENABLE_METRICS: ${ENABLE_METRICS:-true}
+      METRICS_PORT: ${METRICS_PORT:-8001}
     ports:
       - "8000:8000"
+      - "${METRICS_PORT:-8001}:${METRICS_PORT:-8001}"
     depends_on:
       postgres:
         condition: service_healthy
@@ -72,11 +75,15 @@ services:
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER: redis://redis:6379/0
       CELERY_BACKEND: redis://redis:6379/0
+      ENABLE_METRICS: ${ENABLE_METRICS:-true}
+      CELERY_METRICS_PORT: ${CELERY_METRICS_PORT:-8002}
     depends_on:
       - postgres
       - redis
     volumes:
       - ./:/app
+    ports:
+      - "${CELERY_METRICS_PORT:-8002}:${CELERY_METRICS_PORT:-8002}"
     command: celery -A tasks.celery_tasks worker -l info
     networks:
       - agent_network
@@ -93,6 +100,7 @@ services:
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER: redis://redis:6379/0
       CELERY_BACKEND: redis://redis:6379/0
+      ENABLE_METRICS: ${ENABLE_METRICS:-true}
     depends_on:
       - postgres
       - redis
@@ -102,9 +110,43 @@ services:
     networks:
       - agent_network
 
+  prometheus:
+    image: prom/prometheus:v2.54.1
+    container_name: agent_prometheus
+    depends_on:
+      - fastapi
+      - celery
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    ports:
+      - "9090:9090"
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+    networks:
+      - agent_network
+
+  grafana:
+    image: grafana/grafana:11.1.4
+    container_name: agent_grafana
+    depends_on:
+      - prometheus
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-admin}
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - agent_network
+
 volumes:
   postgres_data:
   redis_data:
+  grafana_data:
 
 
 networks:

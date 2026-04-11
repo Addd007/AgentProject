@@ -18,7 +18,6 @@ def log_prompt(prompt):
 class RagSummarizeService(object):
     def __init__(self):
         self.vector_store=VectorStoreService()
-        self.retriever=self.vector_store.get_retriever()
         self.prompt_text=load_rag_prompts()
         self.prompt_template=PromptTemplate.from_template(self.prompt_text)
         self.model=chat_model
@@ -30,7 +29,7 @@ class RagSummarizeService(object):
 
 
     def retriever_docs(self,query:str)->list[Document]:
-        return self.retriever.invoke(query)
+        return self.vector_store.hybrid_search(query)
 
     def rag_summarize(self,query:str)->str:
         context_docs=self.retriever_docs(query)

@@ -37,7 +37,7 @@ nano .env
 
 ```bash
 # 使用生产级 Docker Compose
-docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat
+docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat prometheus grafana
 
 # 验证所有服务启动成功
 docker compose -f docker-compose.production.yml ps
@@ -83,6 +83,14 @@ python -m celery -A tasks.celery_tasks worker -l info
 python -m celery -A tasks.celery_tasks beat -l info
 ```
 
+如需本机同时观测指标，建议附加以下环境变量：
+
+```bash
+export ENABLE_METRICS=true
+export METRICS_PORT=8001
+export CELERY_METRICS_PORT=8002
+```
+
 如果本机没有 Redis 服务：
 
 ```bash
@@ -124,9 +132,24 @@ docker compose -f docker-compose.production.yml up -d postgres redis
 ### 查看监控指标
 
 ```bash
-# Prometheus 端口：8001
+# FastAPI 指标
 curl http://localhost:8001/metrics
+
+# Celery Worker 指标
+curl http://localhost:8002/metrics
+
+# Prometheus UI
+open http://localhost:9090
+
+# Grafana UI
+open http://localhost:3000
 ```
+
+说明：
+
+- Grafana 默认账号密码：`admin/admin`
+- 预置数据源与仪表盘会在容器启动时自动导入
+- 预置面板覆盖 HTTP 请求、数据库查询、会话存储错误和 Celery 任务指标
 
 ### 手动备份
 

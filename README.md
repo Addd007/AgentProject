@@ -79,7 +79,7 @@ FastAPI Backend
 - 知识源位于 data 目录，支持 txt、pdf。
 - 通过 Chroma 持久化向量索引到 chroma_db。
 - 基于 md5.text 做增量去重，避免重复入库。
-- 检索后结合模板提示词进行总结回答。
+- 检索阶段采用“向量召回 + BM25 关键词召回 + 融合重排”策略，再结合模板提示词进行总结回答。
 
 ### 3.3 用户记忆能力
 
@@ -193,6 +193,7 @@ LOG_LEVEL=INFO
 
 - config/rag.yaml：模型名、向量化模型名
 - config/chroma.yaml：向量库目录、chunk 策略、知识库目录
+- config/chroma.yaml：还包含召回参数，例如 `vector_k`、`keyword_k`、`final_top_k` 以及融合权重
 - config/agent.yaml：外部数据路径
 - config/prompts.yaml：提示词文件路径
 - config/map.yaml：地图服务配置
@@ -425,11 +426,13 @@ docker compose up -d --build
 - FastAPI
 - Celery Worker
 - Celery Beat
+- Prometheus
+- Grafana
 
 启动命令：
 
 ```bash
-docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat
+docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat prometheus grafana
 ```
 
 查看状态：
@@ -443,6 +446,13 @@ docker compose -f docker-compose.production.yml ps
 ```bash
 docker compose -f docker-compose.production.yml up -d postgres redis
 ```
+
+监控相关默认地址：
+
+- Prometheus：http://127.0.0.1:9090
+- Grafana：http://127.0.0.1:3000
+- FastAPI 指标：http://127.0.0.1:8000/metrics
+- 独立 metrics 端口：http://127.0.0.1:8001/metrics
 
 ## 10. API 概览
 
@@ -528,7 +538,11 @@ bash scripts/backup.sh restore ./backups/your_backup.sql.gz
 
 - 日志默认写入 logs 目录。
 - 控制台输出 INFO 级别，文件保留 DEBUG 级别。
-- .env.example 中包含 ENABLE_METRICS 和 METRICS_PORT 配置项，可作为后续 Prometheus 暴露的基础配置。
+- 启用 `ENABLE_METRICS=true` 后，后端会暴露 Prometheus 指标。
+- 可通过 `http://127.0.0.1:8000/metrics` 或 `http://127.0.0.1:${METRICS_PORT:-8001}/metrics` 访问指标。
+- Celery Worker 默认也会暴露独立指标端口：`http://127.0.0.1:${CELERY_METRICS_PORT:-8002}/metrics`。
+- 生产编排已内置 Prometheus 与 Grafana，Grafana 默认账号密码为 `admin/admin`，首次登录后建议立即修改。
+- 预置 Grafana 面板位于 `monitoring/grafana/dashboards/agent-overview.json`，覆盖请求速率、接口 P95、数据库 P95、存储错误和 Celery 任务速率等指标。
 
 ## 15. 测试与验证建议
 

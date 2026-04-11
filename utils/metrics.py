@@ -2,7 +2,9 @@
 Prometheus 监控指标定义和收集
 """
 
-from prometheus_client import Counter, Histogram, Gauge, CollectorRegistry
+from functools import wraps
+
+from prometheus_client import CONTENT_TYPE_LATEST, Counter, Histogram, Gauge, CollectorRegistry, generate_latest
 import time
 
 # 创建注册表
@@ -94,23 +96,45 @@ celery_task_duration = Histogram(
 )
 
 
+def render_metrics() -> bytes:
+    """渲染 Prometheus 指标输出。"""
+    return generate_latest(registry)
+
+
+def set_active_sessions_count(count: int) -> None:
+    active_sessions.set(max(count, 0))
+
+
+def record_request_metrics(endpoint: str, status: str, duration: float) -> None:
+    request_count.labels(endpoint=endpoint, status=status).inc()
+    request_duration.labels(endpoint=endpoint).observe(duration)
+
+
+def record_model_response(model: str, duration: float) -> None:
+    model_response_time.labels(model=model).observe(duration)
+
+
+def record_celery_task(task_name: str, status: str, duration: float) -> None:
+    celery_task_count.labels(task_name=task_name, status=status).inc()
+    celery_task_duration.labels(task_name=task_name).observe(duration)
+
+
 def track_request(endpoint):
     """HTTP 请求计时装饰器"""
     def decorator(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             start = time.time()
             try:
                 result = func(*args, **kwargs)
                 status = "success"
-                request_count.labels(endpoint=endpoint, status=status).inc()
                 return result
-            except Exception as e:
+            except Exception:
                 status = "error"
-                request_count.labels(endpoint=endpoint, status=status).inc()
                 raise
             finally:
                 duration = time.time() - start
-                request_duration.labels(endpoint=endpoint).observe(duration)
+                record_request_metrics(endpoint=endpoint, status=status, duration=duration)
         return wrapper
     return decorator
 
@@ -118,6 +142,7 @@ def track_request(endpoint):
 def track_db_query(query_type):
     """数据库查询计时"""
     def decorator(func):
+        @wraps(func)
         def wrapper(*args, **kwargs):
             start = time.time()
             try:

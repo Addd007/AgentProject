@@ -2,12 +2,34 @@
 Celery 配置和异步任务定义
 """
 
+import sys
+import time
+
 from celery import Celery
 from celery.schedules import crontab
-from config.database import CELERY_BROKER, CELERY_BACKEND
+from prometheus_client import start_http_server
+
+from config.database import CELERY_BROKER, CELERY_BACKEND, CELERY_METRICS_PORT, ENABLE_METRICS
 from utils.logger_handler import get_logger
+from utils.metrics import record_celery_task, session_archived
 
 logger = get_logger(__name__)
+
+
+def _maybe_start_celery_metrics_server() -> None:
+    if not ENABLE_METRICS:
+        return
+    if "worker" not in sys.argv:
+        return
+
+    try:
+        start_http_server(CELERY_METRICS_PORT, addr="0.0.0.0")
+        logger.info("Celery metrics server started on port %s", CELERY_METRICS_PORT)
+    except OSError as exc:
+        logger.warning("Failed to start Celery metrics server on port %s: %s", CELERY_METRICS_PORT, exc)
+
+
+_maybe_start_celery_metrics_server()
 
 celery_app = Celery(
     __name__,
@@ -46,6 +68,7 @@ celery_app.conf.update(
 @celery_app.task(bind=True, max_retries=3)
 def save_session_async(self, session_id: str, messages: list, user_id: str = "default"):
     """异步保存会话到数据库"""
+    started_at = time.perf_counter()
     try:
         from utils.session_storage import get_storage_backend
         
@@ -54,6 +77,7 @@ def save_session_async(self, session_id: str, messages: list, user_id: str = "de
         
         if success:
             logger.info(f"Session {session_id} saved successfully")
+            record_celery_task("save_session_async", "success", time.perf_counter() - started_at)
             return {"status": "success", "session_id": session_id}
         else:
             raise Exception("Failed to save session")
@@ -61,15 +85,18 @@ def save_session_async(self, session_id: str, messages: list, user_id: str = "de
         logger.error(f"Failed to save session {session_id}: {exc}")
         retry_count = self.request.retries
         if retry_count < self.max_retries:
+            record_celery_task("save_session_async", "retry", time.perf_counter() - started_at)
             raise self.retry(exc=exc, countdown=2 ** retry_count)
         else:
             logger.error(f"Max retries exceeded for session {session_id}")
+            record_celery_task("save_session_async", "failed", time.perf_counter() - started_at)
             return {"status": "failed", "session_id": session_id, "error": str(exc)}
 
 
 @celery_app.task
 def archive_expired_sessions_task():
     """定时任务：归档过期会话"""
+    started_at = time.perf_counter()
     try:
         from config.database import SESSION_EXPIRE_DAYS
         from utils.session_storage import get_storage_backend
@@ -77,15 +104,20 @@ def archive_expired_sessions_task():
         backend = get_storage_backend(use_db=True)
         count = backend.archive_expired_sessions(SESSION_EXPIRE_DAYS)
         logger.info(f"Archived {count} expired sessions")
+        if count > 0:
+            session_archived.inc(count)
+        record_celery_task("archive_expired_sessions_task", "success", time.perf_counter() - started_at)
         return {"archived_count": count}
     except Exception as exc:
         logger.error(f"Failed to archive sessions: {exc}")
+        record_celery_task("archive_expired_sessions_task", "failed", time.perf_counter() - started_at)
         return {"error": str(exc)}
 
 
 @celery_app.task
 def cleanup_deleted_sessions_task():
     """定时任务：清理已删除的会话"""
+    started_at = time.perf_counter()
     try:
         from config.database import SESSION_ARCHIVE_DAYS
         from utils.session_storage import get_storage_backend
@@ -93,15 +125,18 @@ def cleanup_deleted_sessions_task():
         backend = get_storage_backend(use_db=True)
         count = backend.cleanup_deleted_sessions(SESSION_ARCHIVE_DAYS)
         logger.info(f"Deleted {count} deleted sessions")
+        record_celery_task("cleanup_deleted_sessions_task", "success", time.perf_counter() - started_at)
         return {"deleted_count": count}
     except Exception as exc:
         logger.error(f"Failed to cleanup deleted sessions: {exc}")
+        record_celery_task("cleanup_deleted_sessions_task", "failed", time.perf_counter() - started_at)
         return {"error": str(exc)}
 
 
 @celery_app.task
 def backup_sessions_task():
     """定时任务：备份会话数据库"""
+    started_at = time.perf_counter()
     try:
         import os
         import subprocess
@@ -129,7 +164,9 @@ def backup_sessions_task():
             )
         
         logger.info(f"Backup created at {backup_file}")
+        record_celery_task("backup_sessions_task", "success", time.perf_counter() - started_at)
         return {"backup_file": backup_file}
     except Exception as exc:
         logger.error(f"Failed to backup sessions: {exc}")
+        record_celery_task("backup_sessions_task", "failed", time.perf_counter() - started_at)
         return {"error": str(exc)}

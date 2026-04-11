@@ -27,3 +27,7 @@ SESSION_ARCHIVE_DAYS = int(os.getenv("SESSION_ARCHIVE_DAYS", "90"))
 
 BACKUP_DIR = os.getenv("BACKUP_DIR", "./backups")
 BACKUP_RETENTION_DAYS = int(os.getenv("BACKUP_RETENTION_DAYS", "30"))
+
+ENABLE_METRICS = os.getenv("ENABLE_METRICS", "true").lower() == "true"
+METRICS_PORT = int(os.getenv("METRICS_PORT", "8001"))
+CELERY_METRICS_PORT = int(os.getenv("CELERY_METRICS_PORT", "8002"))
