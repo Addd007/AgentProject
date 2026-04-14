@@ -58,6 +58,8 @@ services:
       args:
         VITE_API_BASE_URL: ""
     container_name: agent_frontend
+    environment:
+      UPSTREAM_API_HOST: backend:8000
     depends_on:
       - backend
     ports:
@@ -66,3 +68,5 @@ services:
 
 volumes:
   postgres_data:
+
+

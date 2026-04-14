@@ -1,5 +1,6 @@
-import { ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 const draft = ref('');
+const textareaRef = ref(null);
 const props = defineProps();
 const emit = defineEmits();
 function handleSubmit() {
@@ -9,17 +10,28 @@ function handleSubmit() {
     }
     emit('submit', message);
     draft.value = '';
+    nextTick(syncComposerHeight);
 }
-function handleKeydown(event) {
-    if (event.key !== 'Enter') {
+function syncComposerHeight() {
+    const textarea = textareaRef.value;
+    if (!textarea) {
         return;
     }
-    if (event.shiftKey) {
+    textarea.style.height = 'auto';
+    textarea.style.height = `${Math.min(textarea.scrollHeight, 180)}px`;
+    textarea.style.overflowY = textarea.scrollHeight > 180 ? 'auto' : 'hidden';
+}
+function handleKeydown(event) {
+    if (event.key !== 'Enter' || event.isComposing) {
+        return;
+    }
+    if (!event.metaKey && !event.ctrlKey) {
         return;
     }
     event.preventDefault();
     handleSubmit();
 }
+onMounted(syncComposerHeight);
 debugger; /* PartiallyEnd: #3632/scriptSetup.vue */
 const __VLS_ctx = {};
 let __VLS_components;
@@ -33,6 +45,8 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.label, __VLS_intrinsicElements
     for: "message",
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.textarea)({
+    ref: "textareaRef",
+    ...{ onInput: (__VLS_ctx.syncComposerHeight) },
     ...{ onKeydown: (__VLS_ctx.handleKeydown) },
     id: "message",
     value: (__VLS_ctx.draft),
@@ -45,8 +59,9 @@ __VLS_asFunctionalElement(__VLS_intrinsicElements.div, __VLS_intrinsicElements.d
     ...{ class: "composer-actions" },
 });
 __VLS_asFunctionalElement(__VLS_intrinsicElements.p, __VLS_intrinsicElements.p)({
-    ...{ class: "tiny-tip" },
+    ...{ class: "tiny-tip composer-tip" },
 });
+(`Cmd/Ctrl + Enter 发送，Enter 换行`);
 __VLS_asFunctionalElement(__VLS_intrinsicElements.button, __VLS_intrinsicElements.button)({
     ...{ onClick: (...[$event]) => {
             __VLS_ctx.loading ? __VLS_ctx.emit('stop') : undefined;
@@ -68,8 +83,10 @@ const __VLS_self = (await import('vue')).defineComponent({
     setup() {
         return {
             draft: draft,
+            textareaRef: textareaRef,
             emit: emit,
             handleSubmit: handleSubmit,
+            syncComposerHeight: syncComposerHeight,
             handleKeydown: handleKeydown,
         };
     },

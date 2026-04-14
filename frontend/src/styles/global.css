@@ -511,6 +511,8 @@ p {
     line-height: 1.5;
     color: var(--text);
     min-height: 48px;
+    max-height: 180px;
+    overflow-y: hidden;
 }
 
 .composer-input::placeholder {
@@ -522,6 +524,11 @@ p {
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+}
+
+.composer-tip {
+    font-size: 11px;
+    line-height: 1.3;
 }
 
 .topbar-badge,

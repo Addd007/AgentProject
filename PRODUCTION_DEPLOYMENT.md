@@ -36,21 +36,34 @@ nano .env
 ### 2. 启动所有服务
 
 ```bash
-# 使用生产级 Docker Compose
-docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat prometheus grafana
+# 推荐顺序 1：先启动基础依赖
+docker compose -f docker-compose.production.yml up -d postgres redis
 
-# 验证所有服务启动成功
+# 推荐顺序 2：启动后端并初始化数据库
+docker compose -f docker-compose.production.yml up -d fastapi
+docker compose -f docker-compose.production.yml exec fastapi python scripts/init_db.py
+
+# 推荐顺序 3：启动异步任务与前端
+docker compose -f docker-compose.production.yml up -d celery celery_beat frontend
+
+# 推荐顺序 4：启动监控组件
+docker compose -f docker-compose.production.yml up -d prometheus grafana
+
+# 验证服务状态
 docker compose -f docker-compose.production.yml ps
+```
+
+如果需要一条命令全量启动，也可使用：
+
+```bash
+docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat frontend prometheus grafana
 ```
 
 ### 3. 初始化数据库
 
 ```bash
-# 进入 FastAPI 容器
-docker compose -f docker-compose.production.yml exec fastapi bash
-
-# 运行初始化脚本
-python scripts/init_db.py
+# 如果在步骤 2 已执行，可跳过
+docker compose -f docker-compose.production.yml exec fastapi python scripts/init_db.py
 ```
 
 说明：
@@ -143,6 +156,16 @@ open http://localhost:9090
 
 # Grafana UI
 open http://localhost:3000
+```
+
+### 关键验活
+
+```bash
+# FastAPI 健康检查
+curl http://127.0.0.1:8000/health
+
+# Prometheus 抓取目标（应看到 fastapi:8001 与 celery:8002 为 up）
+curl http://127.0.0.1:9090/api/v1/targets
 ```
 
 说明：

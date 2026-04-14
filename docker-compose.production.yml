@@ -42,13 +42,16 @@ services:
     environment:
       DB_TYPE: postgresql
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-agent_db}
-      AUTH_SECRET: ${AUTH_SECRET:-change-this-auth-secret}
+      AUTH_SECRET: ${AUTH_SECRET}
       AUTH_COOKIE_SECURE: ${AUTH_COOKIE_SECURE:-true}
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER: redis://redis:6379/0
       CELERY_BACKEND: redis://redis:6379/0
       ENABLE_METRICS: ${ENABLE_METRICS:-true}
       METRICS_PORT: ${METRICS_PORT:-8001}
+      METRICS_AUTH_TOKEN: ${METRICS_AUTH_TOKEN:-}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
+      FRONTEND_ORIGINS: ${FRONTEND_ORIGINS:-http://localhost,http://127.0.0.1}
     ports:
       - "8000:8000"
       - "${METRICS_PORT:-8001}:${METRICS_PORT:-8001}"
@@ -71,12 +74,13 @@ services:
     environment:
       DB_TYPE: postgresql
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-agent_db}
-      AUTH_SECRET: ${AUTH_SECRET:-change-this-auth-secret}
+      AUTH_SECRET: ${AUTH_SECRET}
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER: redis://redis:6379/0
       CELERY_BACKEND: redis://redis:6379/0
       ENABLE_METRICS: ${ENABLE_METRICS:-true}
       CELERY_METRICS_PORT: ${CELERY_METRICS_PORT:-8002}
+      DASHSCOPE_API_KEY: ${DASHSCOPE_API_KEY:-}
     depends_on:
       - postgres
       - redis
@@ -96,7 +100,7 @@ services:
     environment:
       DB_TYPE: postgresql
       DATABASE_URL: postgresql://${DB_USER:-postgres}:${DB_PASSWORD:-password}@postgres:5432/${DB_NAME:-agent_db}
-      AUTH_SECRET: ${AUTH_SECRET:-change-this-auth-secret}
+      AUTH_SECRET: ${AUTH_SECRET}
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER: redis://redis:6379/0
       CELERY_BACKEND: redis://redis:6379/0
@@ -107,6 +111,22 @@ services:
     volumes:
       - ./:/app
     command: celery -A tasks.celery_tasks beat -l info
+    networks:
+      - agent_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: ""
+    container_name: agent_frontend
+    environment:
+      UPSTREAM_API_HOST: fastapi:8000
+    depends_on:
+      - fastapi
+    ports:
+      - "80:80"
     networks:
       - agent_network
 

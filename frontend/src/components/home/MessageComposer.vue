@@ -2,16 +2,18 @@
   <form class="composer" @submit.prevent="handleSubmit">
     <label class="composer-label" for="message">输入你的问题</label>
     <textarea
+      ref="textareaRef"
       id="message"
       v-model="draft"
       class="composer-input"
       placeholder="发消息给智能客服..."
       rows="2"
       :disabled="loading"
+      @input="syncComposerHeight"
       @keydown="handleKeydown"
     />
     <div class="composer-actions">
-      <p class="tiny-tip">Enter 发送，Shift + Enter 换行</p>
+      <p class="tiny-tip composer-tip">Cmd/Ctrl + Enter 发送，Enter 换行</p>
       <button
         class="send-button send-button--composer"
         :type="loading ? 'button' : 'submit'"
@@ -25,9 +27,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 
 const draft = ref('');
+const textareaRef = ref<HTMLTextAreaElement | null>(null);
 
 const props = defineProps<{
   loading: boolean;
@@ -45,18 +48,32 @@ function handleSubmit() {
   }
   emit('submit', message);
   draft.value = '';
+  nextTick(syncComposerHeight);
 }
 
-function handleKeydown(event: KeyboardEvent) {
-  if (event.key !== 'Enter') {
+function syncComposerHeight() {
+  const textarea = textareaRef.value;
+  if (!textarea) {
     return;
   }
 
-  if (event.shiftKey) {
+  textarea.style.height = 'auto';
+  textarea.style.height = `${Math.min(textarea.scrollHeight, 180)}px`;
+  textarea.style.overflowY = textarea.scrollHeight > 180 ? 'auto' : 'hidden';
+}
+
+function handleKeydown(event: KeyboardEvent) {
+  if (event.key !== 'Enter' || event.isComposing) {
+    return;
+  }
+
+  if (!event.metaKey && !event.ctrlKey) {
     return;
   }
 
   event.preventDefault();
   handleSubmit();
 }
+
+onMounted(syncComposerHeight);
 </script>

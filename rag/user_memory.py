@@ -77,5 +77,51 @@ class UserMemoryService:
             if memory_type and md.get("type") != memory_type:
                 continue
             records.append(MemoryRecord(content=d.page_content, metadata=md))
+
+        # 兜底：若语义检索命中为空，回退到按 user_id 抓取最近记忆，避免“记得我吗”类问题查不到。
+        if records:
+            return records
+
+        return self._retrieve_recent_by_user(user_id=user_id, k=k, memory_type=memory_type)
+
+    def _retrieve_recent_by_user(
+        self,
+        *,
+        user_id: str,
+        k: int,
+        memory_type: Optional[str] = None,
+    ) -> list[MemoryRecord]:
+        where: dict = {"user_id": user_id}
+        if memory_type:
+            where = {"$and": [{"user_id": user_id}, {"type": memory_type}]}
+
+        try:
+            raw = self.vector_store.get(
+                where=where,
+                include=["documents", "metadatas"],
+                limit=max(k, 12),
+            )
+        except Exception:
+            return []
+
+        docs = raw.get("documents") or []
+        mds = raw.get("metadatas") or []
+        if not docs:
+            return []
+
+        # Chroma 返回顺序通常为插入顺序，取末尾更接近最近写入。
+        pairs = list(zip(docs, mds))[-max(k, 12):]
+        pairs.reverse()
+
+        records: list[MemoryRecord] = []
+        for content, md in pairs:
+            metadata = md or {}
+            if metadata.get("user_id") != user_id:
+                continue
+            if memory_type and metadata.get("type") != memory_type:
+                continue
+            records.append(MemoryRecord(content=content, metadata=metadata))
+            if len(records) >= k:
+                break
         return records
 

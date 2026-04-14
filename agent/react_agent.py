@@ -56,6 +56,15 @@ class ReactAgent:
             k=10,
         )
 
+        # 对“你记得我吗/我之前说过什么”这类查询做语义兜底，提升召回稳定性。
+        memory_intent_keywords = ["记得", "之前", "说过", "聊过", "偏好", "习惯", "信息", "档案"]
+        if (not retrieved_memories) and any(k in (query or "") for k in memory_intent_keywords):
+            retrieved_memories = self.long_term_memory.retrieve(
+                user_id=user_id,
+                query="用户历史信息 偏好 个人档案 之前对话",
+                k=10,
+            )
+
         profile_memories = [m for m in retrieved_memories if m.metadata.get("type") == "profile"][:2]
         preference_memories = [m for m in retrieved_memories if m.metadata.get("type") == "preference"][:2]
         fact_memories = [m for m in retrieved_memories if m.metadata.get("type") == "fact"][:2]
@@ -173,7 +182,9 @@ class ReactAgent:
         for message in input_messages:
             role = message.get("role")
             content = message.get("content", "")
-            if role == "user":
+            if role == "system":
+                direct_messages.append(SystemMessage(content=content))
+            elif role == "user":
                 direct_messages.append(HumanMessage(content=content))
             elif role == "assistant":
                 direct_messages.append(AIMessage(content=content))
@@ -205,13 +216,13 @@ class ReactAgent:
                 yield static_reply
                 return
 
-            if self._should_use_direct_chat(query):
-                yield from self._stream_direct_reply(input_messages)
-                return
-
             memory_msg = self.build_memory_message(user_id=context_user_id, query=query)
             if memory_msg:
                 input_messages = [memory_msg] + input_messages
+
+            if self._should_use_direct_chat(query):
+                yield from self._stream_direct_reply(input_messages)
+                return
 
             input_dict = {"messages": input_messages}
 

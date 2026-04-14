@@ -1,9 +1,7 @@
 """
-FastAPI 入口：智能客服 Agent API。
 
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
-Streamlit 界面（可选）：streamlit run app.py
 """
 
 from __future__ import annotations
@@ -80,8 +78,20 @@ _agent: ReactAgent | None = None
 _sessions: dict[str, list[dict]] = {}
 _session_owners: dict[str, str] = {}
 _storage_backend = None
-_auth_service = AuthService()
+_auth_service: AuthService | None = None
 _metrics_server_started = False
+
+
+def _get_auth_service() -> AuthService:
+    """Lazily initialize AuthService with error handling."""
+    global _auth_service
+    if _auth_service is None:
+        try:
+            _auth_service = AuthService()
+        except Exception as exc:
+            logger.error("Failed to initialize AuthService: %s", exc)
+            raise
+    return _auth_service
 
 _DEBUG_LOG_PATH = Path("/Users/zhuangbohan/资料/AIPython/AgentProject/.cursor/debug-7a89fb.log")
 
@@ -290,7 +300,7 @@ def get_current_user(request: Request) -> AuthUser:
     if not token:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="请先登录")
 
-    user = _auth_service.verify_token(token)
+    user = _get_auth_service().verify_token(token)
     if not user:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="登录状态已失效，请重新登录")
     return user
@@ -301,7 +311,7 @@ def get_optional_current_user(request: Request) -> AuthUser | None:
     if not token:
         return None
 
-    return _auth_service.verify_token(token)
+    return _get_auth_service().verify_token(token)
 
 
 def _require_session_access(session_id: str, user_id: str) -> None:
@@ -431,22 +441,22 @@ def metrics(request: Request) -> Response:
 @app.post("/api/auth/register", response_model=AuthResponse)
 def register(payload: AuthRequest, response: Response) -> AuthResponse:
     try:
-        user = _auth_service.register_user(payload.username, payload.password)
+        user = _get_auth_service().register_user(payload.username, payload.password)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
-    token = _auth_service.create_token(user)
+    token = _get_auth_service().create_token(user)
     _set_auth_cookie(response, token)
     return _to_auth_response(user)
 
 
 @app.post("/api/auth/login", response_model=AuthResponse)
 def login(payload: AuthRequest, response: Response) -> AuthResponse:
-    user = _auth_service.authenticate_user(payload.username, payload.password)
+    user = _get_auth_service().authenticate_user(payload.username, payload.password)
     if not user:
         raise HTTPException(status_code=401, detail="用户名或密码错误")
 
-    token = _auth_service.create_token(user)
+    token = _get_auth_service().create_token(user)
     _set_auth_cookie(response, token)
     return _to_auth_response(user)
 

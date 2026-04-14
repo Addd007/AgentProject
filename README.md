@@ -444,13 +444,14 @@ docker compose up -d --build
 - FastAPI
 - Celery Worker
 - Celery Beat
+- Frontend
 - Prometheus
 - Grafana
 
 启动命令：
 
 ```bash
-docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat prometheus grafana
+docker compose -f docker-compose.production.yml up -d --build postgres redis fastapi celery celery_beat frontend prometheus grafana
 ```
 
 查看状态：
@@ -467,6 +468,7 @@ docker compose -f docker-compose.production.yml up -d postgres redis
 
 监控相关默认地址：
 
+- 前端：http://127.0.0.1
 - Prometheus：http://127.0.0.1:9090
 - Grafana：http://127.0.0.1:3000
 - FastAPI 指标：http://127.0.0.1:8000/metrics
