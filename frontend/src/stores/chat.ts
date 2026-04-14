@@ -13,7 +13,7 @@ export const useChatStore = defineStore('chat', () => {
   const activeSessionId = ref<string | null>(initialCache.activeSessionId);
   const isSending = ref(false);
   const isLoadingSessions = ref(false);
-  const activeSource = ref<EventSource | null>(null);
+  const activeController = ref<AbortController | null>(null);
   const streamingSessionId = ref<string | null>(null);
   const streamingAssistantContent = ref('');
   const stopRequested = ref(false);
@@ -138,9 +138,9 @@ export const useChatStore = defineStore('chat', () => {
     persist();
   }
 
-  function finalizeStreamingState(source?: EventSource) {
-    if (!source || activeSource.value === source) {
-      activeSource.value = null;
+  function finalizeStreamingState(controller?: AbortController) {
+    if (!controller || activeController.value === controller) {
+      activeController.value = null;
     }
     streamingSessionId.value = null;
     streamingAssistantContent.value = '';
@@ -167,8 +167,8 @@ export const useChatStore = defineStore('chat', () => {
       }
     }
 
-    if (activeSource.value && activeSource.value.readyState !== EventSource.CLOSED) {
-      activeSource.value.close();
+    if (activeController.value) {
+      activeController.value.abort();
     }
     finalizeStreamingState();
   }
@@ -189,17 +189,15 @@ export const useChatStore = defineStore('chat', () => {
     updateSessionSummary(tempSessionId, currentMessages);
     persist();
 
-    const url = new URL(API_ENDPOINTS.chatStream, window.location.origin);
-    url.searchParams.append('message', content);
-    if (activeSessionId.value && !activeSessionId.value.startsWith('local-')) {
-      url.searchParams.append('session_id', activeSessionId.value);
-    }
+    const sessionIdForRequest = activeSessionId.value && !activeSessionId.value.startsWith('local-')
+      ? activeSessionId.value
+      : null;
 
     let assistantContent = '';
     let finalSessionId = tempSessionId;
 
-    const source = new EventSource(url.toString(), { withCredentials: true });
-    activeSource.value = source;
+    const controller = new AbortController();
+    activeController.value = controller;
     streamingSessionId.value = tempSessionId;
     streamingAssistantContent.value = '';
     stopRequested.value = false;
@@ -216,72 +214,95 @@ export const useChatStore = defineStore('chat', () => {
       persist();
     };
 
-    const closeSource = () => {
-      if (source.readyState !== EventSource.CLOSED) {
-        source.close();
+    const finalizeSuccess = () => {
+      const sessionMessages = messagesBySession.value[tempSessionId] ?? [];
+      if (tempSessionId !== finalSessionId) {
+        delete messagesBySession.value[tempSessionId];
+        messagesBySession.value[finalSessionId] = sessionMessages;
+        sessions.value = sessions.value.filter((item) => item.session_id !== tempSessionId);
       }
+      activeSessionId.value = finalSessionId;
+      updateSessionSummary(finalSessionId, sessionMessages);
+      persist();
     };
 
-    return new Promise<void>((resolve) => {
-      source.onmessage = (event) => {
-        try {
-          const data = JSON.parse(event.data) as Record<string, unknown>;
-          if (typeof data.chunk === 'string') {
-            assistantContent += data.chunk;
-            updateAssistantMessage();
-          }
-          if (data.done) {
-            finalSessionId = typeof data.session_id === 'string' ? data.session_id : tempSessionId;
-            closeSource();
+    try {
+      const res = await fetch(API_ENDPOINTS.chatStream, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: content, session_id: sessionIdForRequest }),
+        signal: controller.signal,
+      });
 
-            const sessionMessages = messagesBySession.value[tempSessionId] ?? [];
-            if (tempSessionId !== finalSessionId) {
-              delete messagesBySession.value[tempSessionId];
-              messagesBySession.value[finalSessionId] = sessionMessages;
-              sessions.value = sessions.value.filter((item) => item.session_id !== tempSessionId);
-            }
-            activeSessionId.value = finalSessionId;
-            updateSessionSummary(finalSessionId, sessionMessages);
-            persist();
-            finalizeStreamingState(source);
-            resolve();
-          }
-        } catch (error) {
-          closeSource();
-          const messageText = error instanceof Error ? error.message : '流式响应解析失败';
-          const failedMsg: ChatMessage = { role: 'assistant', content: `请求失败：${messageText}` };
-          const sessionMessages = [...(messagesBySession.value[tempSessionId] ?? [])];
-          if (sessionMessages.length > 0) {
-            sessionMessages[sessionMessages.length - 1] = failedMsg;
-          } else {
-            sessionMessages.push(failedMsg);
-          }
-          messagesBySession.value[tempSessionId] = sessionMessages;
-          updateSessionSummary(tempSessionId, sessionMessages);
-          persist();
-          finalizeStreamingState(source);
-          resolve();
-        }
-      };
+      if (!res.ok || !res.body) {
+        const errorText = await res.text();
+        throw new Error(errorText || '流式连接失败');
+      }
 
-      source.onerror = () => {
-        if (stopRequested.value) {
-          finalizeStreamingState(source);
-          resolve();
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+
+      const processEvent = (eventText: string) => {
+        const dataLine = eventText
+          .split('\n')
+          .map((line) => line.trim())
+          .find((line) => line.startsWith('data:'));
+        if (!dataLine) {
           return;
         }
-        closeSource();
-        const failedMessages: ChatMessage[] = [...(messagesBySession.value[tempSessionId] ?? [])];
-        if (failedMessages.length > 0) {
-          failedMessages[failedMessages.length - 1] = { role: 'assistant', content: '请求失败：流式连接中断，请稍后重试。' };
+
+        const payload = JSON.parse(dataLine.slice(5).trim()) as Record<string, unknown>;
+        if (typeof payload.chunk === 'string') {
+          assistantContent += payload.chunk;
+          updateAssistantMessage();
         }
-        messagesBySession.value[tempSessionId] = failedMessages;
-        updateSessionSummary(tempSessionId, failedMessages);
-        persist();
-        finalizeStreamingState(source);
-        resolve();
+        if (payload.done) {
+          finalSessionId = typeof payload.session_id === 'string' ? payload.session_id : tempSessionId;
+          finalizeSuccess();
+        }
       };
-    });
+
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) {
+          break;
+        }
+
+        buffer += decoder.decode(value, { stream: true });
+        let sepIndex = buffer.indexOf('\n\n');
+        while (sepIndex >= 0) {
+          const rawEvent = buffer.slice(0, sepIndex).trim();
+          buffer = buffer.slice(sepIndex + 2);
+          if (rawEvent) {
+            processEvent(rawEvent);
+          }
+          sepIndex = buffer.indexOf('\n\n');
+        }
+      }
+
+      if (!stopRequested.value) {
+        finalizeSuccess();
+      }
+    } catch (error) {
+      if (stopRequested.value || (error instanceof DOMException && error.name === 'AbortError')) {
+        return;
+      }
+      const messageText = error instanceof Error ? error.message : '流式连接中断，请稍后重试。';
+      const failedMsg: ChatMessage = { role: 'assistant', content: `请求失败：${messageText}` };
+      const sessionMessages = [...(messagesBySession.value[tempSessionId] ?? [])];
+      if (sessionMessages.length > 0) {
+        sessionMessages[sessionMessages.length - 1] = failedMsg;
+      } else {
+        sessionMessages.push(failedMsg);
+      }
+      messagesBySession.value[tempSessionId] = sessionMessages;
+      updateSessionSummary(tempSessionId, sessionMessages);
+      persist();
+    } finally {
+      finalizeStreamingState(controller);
+    }
   }
 
   async function deleteSession(sessionId: string) {

@@ -9,6 +9,7 @@ Streamlit 界面（可选）：streamlit run app.py
 from __future__ import annotations
 
 import asyncio
+import hmac
 import json
 import os
 import time
@@ -24,7 +25,7 @@ from pydantic import BaseModel, Field
 from prometheus_client import start_http_server
 
 from agent.react_agent import ReactAgent
-from config.database import ENABLE_METRICS, METRICS_PORT
+from config.database import ENABLE_METRICS, METRICS_AUTH_TOKEN, METRICS_PORT
 from tasks.celery_tasks import celery_app as task_celery_app
 from utils.auth_service import (
     AUTH_COOKIE_NAME,
@@ -118,6 +119,11 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     reply: str
     session_id: str
+
+
+class StreamChatRequest(BaseModel):
+    message: str = Field(..., min_length=1, description="用户输入")
+    session_id: Optional[str] = Field(None, description="会话 ID，不传则新建会话")
 
 
 class SessionResponse(BaseModel):
@@ -404,9 +410,21 @@ def health() -> dict[str, str]:
 
 
 @app.get("/metrics", include_in_schema=False)
-def metrics() -> Response:
+def metrics(request: Request) -> Response:
     if not ENABLE_METRICS:
         raise HTTPException(status_code=404, detail="metrics disabled")
+
+    if METRICS_AUTH_TOKEN:
+        request_token = request.headers.get("x-metrics-token", "")
+        if not hmac.compare_digest(request_token, METRICS_AUTH_TOKEN):
+            raise HTTPException(status_code=403, detail="forbidden")
+    else:
+        client_host = (request.client.host if request.client else "") or ""
+        if client_host.startswith("::ffff:"):
+            client_host = client_host[7:]
+        if client_host not in {"127.0.0.1", "::1", "localhost"}:
+            raise HTTPException(status_code=403, detail="forbidden")
+
     return Response(content=render_metrics(), media_type=CONTENT_TYPE_LATEST)
 
 
@@ -451,13 +469,14 @@ def chat(req: ChatRequest, current_user: AuthUser = Depends(get_current_user)) -
     return _chat_non_stream(req, current_user)
 
 
-@app.get("/api/chat/stream")
+@app.post("/api/chat/stream")
 async def chat_stream(
+    payload: StreamChatRequest,
     request: Request,
-    message: str,
-    session_id: Optional[str] = None,
     current_user: AuthUser = Depends(get_current_user),
 ):
+    message = payload.message
+    session_id = payload.session_id
     _debug_log(
         "H2",
         "main.py:chat_stream",

@@ -18,8 +18,13 @@ Base = declarative_base()
 
 AUTH_COOKIE_NAME = "agentproject_auth"
 AUTH_TOKEN_TTL_SECONDS = int(os.getenv("AUTH_TOKEN_TTL_SECONDS", str(60 * 60 * 2)))# 默认 2 小时 
-AUTH_SECRET = os.getenv("AUTH_SECRET", "agentproject-dev-secret-change-me")
+AUTH_SECRET = os.getenv("AUTH_SECRET")
 AUTH_COOKIE_SECURE = os.getenv("AUTH_COOKIE_SECURE", "false").lower() == "true"
+
+if not AUTH_SECRET:
+    raise RuntimeError("AUTH_SECRET environment variable is required")
+if len(AUTH_SECRET) < 32:
+    raise RuntimeError("AUTH_SECRET must be at least 32 characters long")
 
 
 class UserRecord(Base):

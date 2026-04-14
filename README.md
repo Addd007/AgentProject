@@ -162,7 +162,20 @@ AgentProject/
 
 项目已提供 .env.example，可作为本地或部署环境变量模板。
 
-建议至少配置以下变量：
+以下变量为**必填项**，未设置时服务拒绝启动：
+
+| 变量 | 说明 |
+|---|---|
+| `DB_PASSWORD` 或 `DATABASE_URL` | 数据库连接凭据，二选一 |
+| `AUTH_SECRET` | 至少 32 位随机字符串，用于签发 Token |
+
+可通过以下命令生成 `AUTH_SECRET`：
+
+```bash
+python -c "import secrets; print(secrets.token_urlsafe(48))"
+```
+
+完整示例配置：
 
 ```env
 DB_HOST=localhost
@@ -172,7 +185,7 @@ DB_PASSWORD=your_secure_password
 DB_NAME=agent_db
 DATABASE_URL=postgresql://postgres:your_secure_password@localhost:5432/agent_db
 
-AUTH_SECRET=replace-with-a-long-random-secret
+AUTH_SECRET=replace-with-a-32-char-or-longer-random-secret
 AUTH_COOKIE_SECURE=false
 
 REDIS_URL=redis://localhost:6379/0
@@ -185,6 +198,11 @@ SESSION_EXPIRE_DAYS=30
 SESSION_ARCHIVE_DAYS=90
 BACKUP_DIR=./backups
 LOG_LEVEL=INFO
+
+# /metrics 端点访问控制（可选）
+# 设置后访问时需携带请求头 x-metrics-token: <token>
+# 未设置则仅允许回环地址（127.0.0.1/::1）访问
+METRICS_AUTH_TOKEN=
 ```
 
 ### 7.2 YAML 配置
@@ -470,7 +488,7 @@ docker compose -f docker-compose.production.yml up -d postgres redis
 ### 10.3 聊天接口
 
 - POST /api/chat：非流式问答
-- GET /api/chat/stream：流式问答，基于 text/event-stream
+- POST /api/chat/stream：流式问答，以 POST body 提交消息，响应格式为 text/event-stream
 
 ### 10.4 会话接口
 
@@ -539,7 +557,7 @@ bash scripts/backup.sh restore ./backups/your_backup.sql.gz
 - 日志默认写入 logs 目录。
 - 控制台输出 INFO 级别，文件保留 DEBUG 级别。
 - 启用 `ENABLE_METRICS=true` 后，后端会暴露 Prometheus 指标。
-- 可通过 `http://127.0.0.1:8000/metrics` 或 `http://127.0.0.1:${METRICS_PORT:-8001}/metrics` 访问指标。
+- 可通过 `http://127.0.0.1:8000/metrics` 或 `http://127.0.0.1:${METRICS_PORT:-8001}/metrics` 访问指标。访问方式取决于 `METRICS_AUTH_TOKEN`：未配置时仅限本机回环地址访问；已配置时需携带请求头 `x-metrics-token: <token>`。
 - Celery Worker 默认也会暴露独立指标端口：`http://127.0.0.1:${CELERY_METRICS_PORT:-8002}/metrics`。
 - 生产编排已内置 Prometheus 与 Grafana，Grafana 默认账号密码为 `admin/admin`，首次登录后建议立即修改。
 - 预置 Grafana 面板位于 `monitoring/grafana/dashboards/agent-overview.json`，覆盖请求速率、接口 P95、数据库 P95、存储错误和 Celery 任务速率等指标。
@@ -597,8 +615,8 @@ bash scripts/backup.sh restore ./backups/your_backup.sql.gz
 
 排查项：
 
-- 前端是否使用 SSE 正确消费 /api/chat/stream
-- 反向代理是否允许 text/event-stream
+- 前端是否以 POST 方式正确请求 /api/chat/stream（消息在请求体中，不在 URL 参数里）
+- 反向代理是否允许 text/event-stream（需禁用响应缓冲）
 - 浏览器与后端间是否存在跨域或 Cookie 问题
 
 ### 17.4 登录成功但接口仍返回 401

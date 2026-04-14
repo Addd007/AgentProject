@@ -146,7 +146,9 @@ def backup_sessions_task():
         db_host = os.getenv("DB_HOST", "localhost")
         db_user = os.getenv("DB_USER", "postgres")
         db_name = os.getenv("DB_NAME", "agent_db")
-        db_password = os.getenv("DB_PASSWORD", "password")
+        db_password = os.getenv("DB_PASSWORD")
+        if not db_password:
+            raise RuntimeError("Missing required environment variable: DB_PASSWORD")
         
         if not os.path.exists(BACKUP_DIR):
             os.makedirs(BACKUP_DIR)

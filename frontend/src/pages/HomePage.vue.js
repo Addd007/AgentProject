@@ -1,4 +1,3 @@
-/// <reference types="../../node_modules/.vue-global-types/vue_3.5_0_0_0.d.ts" />
 import { onMounted } from 'vue';
 import ChatWindow from '../components/home/ChatWindow.vue';
 import MessageComposer from '../components/home/MessageComposer.vue';
