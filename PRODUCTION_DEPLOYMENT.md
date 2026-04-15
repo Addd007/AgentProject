@@ -71,6 +71,13 @@ docker compose -f docker-compose.production.yml exec fastapi python scripts/init
 - `python scripts/init_db.py` 除创建表外，还会把已有 `sessions.session_id` 列自动扩容到 128 字符。
 - 如果只想在本机验证 Redis/Celery 链路，可先用 Docker 起 `postgres` 和 `redis`，再在 `.venv` 内运行 FastAPI、Worker、Beat。
 
+### 4. 访问地址
+
+前端: http://127.0.0.1
+后端: http://127.0.0.1:8000/health
+Prometheus: http://127.0.0.1:9090
+Grafana: http://127.0.0.1:3000
+
 ## 手动部署（物理服务器）
 
 ### 1. 前置依赖
@@ -126,6 +133,12 @@ docker compose -f docker-compose.production.yml up -d postgres redis
 - **存储位置**：Chroma 向量库
 - **类型**：`qa_summary`, `preference`, `fact`, `profile`
 - **检索**：语义相似度检索（向量近似搜索）
+
+如需从零初始化全部长期记忆，可执行：
+
+```bash
+python scripts/init_long_term_memory.py --yes
+```
 
 ### 定时任务
 
