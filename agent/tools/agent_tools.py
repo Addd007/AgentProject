@@ -236,12 +236,6 @@ def fill_context_for_report():
 
 
 
-
-
 if "__main__" == __name__:
     r=get_location()
     print(r)
-
-
-
-
