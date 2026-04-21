@@ -1,10 +1,13 @@
 import os
+import sys
 from contextvars import ContextVar, Token
 from datetime import datetime
 from typing import Optional
 
 import requests
 from langchain_core.tools import tool
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 
 from rag.rag_service import RagSummarizeService
 from utils.config_handler import agent_conf, map_conf
@@ -16,6 +19,35 @@ _rag: Optional[RagSummarizeService] = None
 external_data = {}
 _CURRENT_USER_ID: ContextVar[Optional[str]] = ContextVar("current_user_id", default=None)
 _DEFAULT_USER_ID = os.getenv("AGENT_DEFAULT_USER_ID", "1001")
+
+
+def _normalize_secret(value: object) -> str:
+    if value is None:
+        return ""
+    return str(value).strip()
+
+
+def _get_amap_key() -> str:
+    # Priority: env vars first, then config file (supports multiple key names/cases).
+    env_key = _normalize_secret(os.getenv("AMAP_KEY") or os.getenv("MAP_KEY"))
+    if env_key:
+        return env_key
+
+    if not isinstance(map_conf, dict):
+        return ""
+
+    for key in ("AMAP_KEY", "MAP_KEY", "amap_key", "map_key"):
+        value = _normalize_secret(map_conf.get(key))
+        if value:
+            return value
+
+    for key, value in map_conf.items():
+        if _normalize_secret(key).upper() in {"AMAP_KEY", "MAP_KEY"}:
+            normalized = _normalize_secret(value)
+            if normalized:
+                return normalized
+
+    return ""
 
 
 def _get_rag_service() -> RagSummarizeService:
@@ -42,26 +74,54 @@ def rag_summarize(query: str) -> str:
     res = _get_rag_service().rag_summarize(query)
     return res
 
-@tool(description="获取用户所在城市名称，返回纯字符串")
+# @tool(description="获取用户所在城市名称，返回纯字符串")
 def get_location() -> str:
     """
-    方式2：直接使用高德IP定位接口
+    直接使用高德IP定位接口
     自动获取请求端IP对应的城市，无需手动获取IP
     """
+    def _normalize_location_value(value: object) -> str:
+        if value is None:
+            return ""
+        text = str(value).strip()
+        if text in {"", "[]", "null", "None", "未知"}:
+            return ""
+        return text
+
     url = "https://restapi.amap.com/v3/ip"
+    amap_key = _get_amap_key()
+    if not amap_key:
+        logger.warning("未配置高德 MAP_KEY/AMAP_KEY，map_conf_keys=%s", list(map_conf.keys()) if isinstance(map_conf, dict) else type(map_conf).__name__)
+        return "定位失败: 未配置地图服务密钥"
+
     params = {
-        "key": map_conf["MAP_KEY"]
+        "key": amap_key,
+        "output": "JSON",
     }
 
     try:
         res = requests.get(url, params=params, timeout=5).json()
 
         if res.get("status") == "1":
-            province = res.get("province")
-            city = res.get("city")
-            return f"用户所在城市: {province}{city}"
+            province = _normalize_location_value(res.get("province"))
+            city = _normalize_location_value(res.get("city"))
+            district = _normalize_location_value(res.get("district"))
+
+            city_name = city or province
+            if city_name:
+                if district:
+                    return f"用户所在城市: {city_name} {district}"
+                return f"用户所在城市: {city_name}"
+
+            adcode = _normalize_location_value(res.get("adcode"))
+            logger.info("高德定位返回空城市信息，adcode=%s, raw=%s", adcode, res)
+            return "定位成功但未获取到具体城市，请手动提供城市名称（例如：北京）"
         else:
-            return f"定位失败: {res.get('info', '未知错误')}"
+            info = _normalize_location_value(res.get("info")) or "未知错误"
+            infocode = _normalize_location_value(res.get("infocode"))
+            if infocode:
+                return f"定位失败: {info} (code={infocode})"
+            return f"定位失败: {info}"
 
     except Exception as e:
         logger.warning(f"获取用户位置失败: {e}")
@@ -77,9 +137,14 @@ def get_weather(city: str) -> str:
     if not city:
         return "请提供城市名称"
 
+    amap_key = _get_amap_key()
+    if not amap_key:
+        logger.warning("未配置高德 MAP_KEY/AMAP_KEY，无法查询天气")
+        return "天气查询失败: 未配置地图服务密钥"
+
     url = "https://restapi.amap.com/v3/weather/weatherInfo"
     params = {
-        "key": map_conf["MAP_KEY"],
+        "key": amap_key,
         "city": city,
         "extensions": "base",  # base=实时天气, all=未来天气预报
         "output": "JSON"
@@ -176,8 +241,6 @@ def fill_context_for_report():
 if "__main__" == __name__:
     r=get_location()
     print(r)
-    res=get_weather("昆明")
-    print(res)
 
 
 
