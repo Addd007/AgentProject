@@ -74,7 +74,7 @@ def rag_summarize(query: str) -> str:
     res = _get_rag_service().rag_summarize(query)
     return res
 
-# @tool(description="获取用户所在城市名称，返回纯字符串")
+@tool(description="获取用户所在城市名称，返回纯字符串")
 def get_location() -> str:
     """
     直接使用高德IP定位接口
