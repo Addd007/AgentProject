@@ -1,5 +1,7 @@
 import os
 import sys
+import time
+import threading
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
 from langchain.agents import create_agent
@@ -16,6 +18,12 @@ from utils.prompt_loader import load_system_prompts
 from typing import Optional
 
 from rag.user_memory import UserMemoryService
+
+# ── 长期记忆检索结果缓存 ─────────────────────────────────────────────────────
+# key: user_id  value: {"msg": ..., "ts": float}
+_MEMORY_CACHE: dict[str, dict] = {}
+_MEMORY_CACHE_TTL = 30  # 秒，30s 内同一用户复用缓存，减少 TTFT
+_MEMORY_CACHE_LOCK = threading.Lock()
 
 
 logger = get_logger(__name__)
@@ -49,7 +57,8 @@ class ReactAgent:
             return str(current_user_id).strip()
         return str(get_user_id.invoke({})).strip()
 
-    def build_memory_message(self, *, user_id: str, query: str) -> Optional[dict]:
+    def _fetch_memory_msg(self, *, user_id: str, query: str) -> Optional[dict]:
+        """从向量库检索并构建记忆消息（无缓存，真正的 IO 操作）。"""
         retrieved_memories = self.long_term_memory.retrieve(
             user_id=user_id,
             query=query,
@@ -96,6 +105,38 @@ class ReactAgent:
             "content": "以下为用户长期记忆（仅供参考，可能存在过期信息）：\n" + "\n\n".join(sections),
         }
 
+
+    def build_memory_message(self, *, user_id: str, query: str) -> Optional[dict]:
+        """带 TTL 缓存的记忆消息构建，减少重复向量检索导致的 TTFT 延迟。"""
+        now = time.monotonic()
+        with _MEMORY_CACHE_LOCK:
+            cached = _MEMORY_CACHE.get(user_id)
+            if cached and (now - cached["ts"]) < _MEMORY_CACHE_TTL:
+                logger.debug("memory cache hit for user=%s", user_id)
+                return cached["msg"]
+
+        msg = self._fetch_memory_msg(user_id=user_id, query=query)
+
+        with _MEMORY_CACHE_LOCK:
+            _MEMORY_CACHE[user_id] = {"msg": msg, "ts": time.monotonic()}
+
+        return msg
+
+    def refresh_memory_cache(self, user_id: str) -> None:
+        """写入新记忆后异步刷新缓存，使下次请求直接命中最新数据，避免缓存失效导致 TTFT 劣化。"""
+        def _do_refresh():
+            try:
+                msg = self._fetch_memory_msg(user_id=user_id, query="")
+                with _MEMORY_CACHE_LOCK:
+                    _MEMORY_CACHE[user_id] = {"msg": msg, "ts": time.monotonic()}
+                logger.debug("memory cache refreshed for user=%s", user_id)
+            except Exception as e:
+                logger.warning("memory cache refresh failed for user=%s: %s", user_id, e)
+                # 刷新失败则清空缓存，下次请求重新检索
+                with _MEMORY_CACHE_LOCK:
+                    _MEMORY_CACHE.pop(user_id, None)
+
+        threading.Thread(target=_do_refresh, daemon=True).start()
     def _should_use_direct_chat(self, query: str) -> bool:
         normalized = (query or "").strip().lower()
         if not normalized:
@@ -333,6 +374,9 @@ class ReactAgent:
             except Exception as e:
                 logger.warning(f"Failed to save fact: {e}")
                 pass
+
+        # 写入记忆后，异步刷新缓存，下次请求直接命中最新数据
+        self.refresh_memory_cache(user_id)
 
 
 if __name__ == "__main__":
