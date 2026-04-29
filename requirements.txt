@@ -11,6 +11,9 @@ uvicorn[standard]==0.42.0
 # ---------- Web UI（app.py）----------
 streamlit==1.55.0
 
+# ---------- MCP 工具适配 ----------
+langchain-mcp-adapters>=0.1.0
+
 # ---------- LangChain / Agent / LangGraph ----------
 langchain==1.2.12
 langchain-core==1.2.19

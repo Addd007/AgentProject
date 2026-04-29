@@ -10,6 +10,7 @@ from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from langchain.agents.middleware import *
 from agent.tools.agent_tools import *
 from agent.tools.middlewares import *
+from agent.tools.mcp_tools import load_mcp_tools
 from model.factory import get_chat_model
 from utils.logger_handler import get_logger
 from utils.prompt_loader import load_system_prompts
@@ -35,6 +36,7 @@ class ReactAgent:
         self.max_messages = max_turns * 2
         self.system_prompt = load_system_prompts()
         chat_model = get_chat_model()
+        mcp_tools = load_mcp_tools()
         self.agent = create_agent(
             model=chat_model,
             system_prompt=self.system_prompt,
@@ -46,6 +48,7 @@ class ReactAgent:
                 fetch_external_data,
                 fill_context_for_report,
                 rag_summarize,
+                *mcp_tools,
             ],
             middleware=[monitor_tool, log_before_model, report_prompt_switch],
         )
@@ -177,6 +180,13 @@ class ReactAgent:
             "external",
             "fill_context_for_report",
             "fetch_external_data",
+            # 网络搜索相关
+            "搜索",
+            "查一下",
+            "网上",
+            "最新",
+            "新闻",
+            "search",
         ]
         if any(keyword in normalized for keyword in tool_keywords):
             return False
