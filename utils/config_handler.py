@@ -1,8 +1,8 @@
 
 #yaml 格式配置文件
 import yaml
-from utils.logger_handler import get_logger
-from utils.path_tool import get_abs_path
+from logger_handler import get_logger
+from path_tool import get_abs_path
 
 
 logger = get_logger(__name__)

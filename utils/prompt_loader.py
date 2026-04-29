@@ -1,6 +1,7 @@
-from utils.path_tool import get_abs_path
-from utils.config_handler import prompts_conf
-from utils.logger_handler import get_logger
+import os
+from path_tool import get_abs_path
+from config_handler import prompts_conf
+from logger_handler import get_logger
 
 
 logger = get_logger(__name__)
@@ -28,7 +29,7 @@ def load_rag_prompts():
     try:
         return open(rag_prompt_path, "r",encoding="utf-8").read()
     except Exception as e:
-        logger.error(f"[load_system_prompts],解析系统提示词错误，{str(e)}")
+        logger.error(f"[load_rag_prompts],解析RAG提示词错误，{str(e)}")
         raise e
 
 
@@ -42,7 +43,7 @@ def load_report_prompts():
     try:
         return open(report_prompt_path, "r",encoding="utf-8").read()
     except Exception as e:
-        logger.error(f"[load_system_prompts],解析系统提示词错误，{str(e)}")
+        logger.error(f"[load_report_prompts],解析报告提示词错误，{str(e)}")
         raise e
 
 if __name__ == "__main__":
